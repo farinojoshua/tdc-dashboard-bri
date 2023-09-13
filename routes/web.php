@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DeploymentController;
+use App\Http\Controllers\Admin\DeploymentModuleController;
+use App\Http\Controllers\Admin\DeploymentServerTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +26,11 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::resource('deployment-modules', DeploymentModuleController::class);
+        Route::resource('deployment-server-types', DeploymentServerTypeController::class);
+        Route::resource('deployments', DeploymentController::class);
+        Route::get('deployments/get-server-types-by-module', [DeploymentController::class, 'getServerTypesByModule'])->name('deployments.get-server-types-by-module');
+    });
 });
