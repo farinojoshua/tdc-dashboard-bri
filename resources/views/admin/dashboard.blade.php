@@ -18,7 +18,7 @@
   <div class="w-1/3 p-8 bg-white rounded-lg shadow-lg">
     <h5 class="mb-4 text-2xl" id="modalTitle">Event Info</h5>
     <div class="modal-body" id="modalBody">
-      <!-- Isi modal akan disisipkan di sini -->
+
     </div>
     <div class="mt-4 modal-footer">
       <button type="button" class="p-2 text-white bg-blue-500 rounded" id="modalCloseButton">Close</button>
