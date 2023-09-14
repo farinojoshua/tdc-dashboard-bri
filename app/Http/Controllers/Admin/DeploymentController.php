@@ -17,14 +17,14 @@ class DeploymentController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-        $query = Deployment::with(['module', 'serverType']);  // Gunakan query dari model Deployment
+        $query = Deployment::with(['module', 'serverType']);
 
         return DataTables::of($query)
             ->addColumn('module', function ($deployment) {
-                return $deployment->module->name; // Gantikan 'name' dengan kolom sesungguhnya di model Module
+                return $deployment->module->name;
             })
             ->addColumn('server_type', function ($deployment) {
-                return $deployment->serverType->name; // Gantikan 'name' dengan kolom sesungguhnya di model ServerType
+                return $deployment->serverType->name;
             })
             ->addColumn('action', function ($deployment) {
                 return '
@@ -61,6 +61,27 @@ class DeploymentController extends Controller
         $serverTypes = DeploymentServerType::where('module_id', $module_id)->get();
         return response()->json($serverTypes);
     }
+
+        public function getEvents()
+    {
+        $deployments = Deployment::all();
+        $events = [];
+
+        foreach ($deployments as $deployment) {
+            $events[] = [
+                'id' => $deployment->id,
+                'title' => $deployment->title,
+                'start' => $deployment->deploy_date,
+                'module' => $deployment->module->name,
+                'server_type' => $deployment->serverType->name,
+                'status_doc' => $deployment->document_status,
+                'status_cm' => $deployment->cm_status,
+            ];
+        }
+
+        return response()->json($events);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -70,7 +91,11 @@ class DeploymentController extends Controller
             'title' => 'required|string|max:255',
             'module_id' => 'required|exists:deployment_modules,id',
             'server_type_id' => 'required|exists:deployment_server_types,id',
-            // add validation for other fields
+            'deploy_date' => 'required|date',
+            'document_status' => 'required|in:done,not done,in progress',
+            'document_description' => 'required|string',
+            'cm_status' => 'required|in:draft,in progress,done',
+            'cm_description' => 'required|string',
         ]);
 
         Deployment::create($request->all());

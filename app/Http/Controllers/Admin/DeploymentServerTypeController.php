@@ -17,7 +17,7 @@ class DeploymentServerTypeController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-        $query = DeploymentServerType::with('module'); // eager-load module information
+        $query = DeploymentServerType::with('module');
 
         return DataTables::of($query)
             ->addColumn('action', function ($serverType) {
@@ -62,6 +62,10 @@ class DeploymentServerTypeController extends Controller
         'module_id' => 'required|exists:deployment_modules,id'
         ]);
 
+        if (DeploymentServerType::where('name', $request->name)->where('module_id', $request->module_id)->first()) {
+            return redirect()->back()->with('error', 'Server Type already exists in the same module.');
+        }
+
         DeploymentServerType::create($request->all());
 
         return redirect()->route('admin.deployment-server-types.index')->with('success', 'Server Type created successfully.');
@@ -97,6 +101,11 @@ class DeploymentServerTypeController extends Controller
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+         // if update name is not the same as the current name or the name is not unique
+        if (DeploymentServerType::where('name', $request->name)->where('module_id', $request->module_id)->where('id', '!=', $id)->first()) {
+            return redirect()->back()->with('error', 'Server Type already exists in the same module.');
         }
 
         $serverType = DeploymentServerType::findOrFail($id);

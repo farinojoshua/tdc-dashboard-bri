@@ -31,30 +31,9 @@
   <script src="https://cdn.datatables.net/select/1.2.1/js/dataTables.select.min.js"></script>
   <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
   <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-  {{-- Sweetalert if error exist --}}
-  @if (session()->has('error'))
-    <script>
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: '{{ session('error') }}',
-      })
-    </script>
-  @endif
 
-  {{-- Sweetalert if success exist --}}
-  @if (session()->has('success'))
-    <script>
-      Swal.fire({
-        icon: 'success',
-        title: 'Berhasil',
-        text: '{{ session('success') }}',
-      })
-    </script>
-  @endif
 
   <!-- Styles -->
   <style>
@@ -187,6 +166,28 @@
 
   {{ $script ?? '' }}
   {{ $modal ?? '' }}
+
+  {{-- Sweetalert if error exist --}}
+  @if (session()->has('error'))
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '{{ session('error') }}',
+      })
+    </script>
+  @endif
+
+  {{-- Sweetalert if success exist --}}
+  @if (session()->has('success'))
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: 'Berhasil',
+        text: '{{ session('success') }}',
+      })
+    </script>
+  @endif
 </body>
 
 </html>

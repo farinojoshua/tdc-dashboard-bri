@@ -55,7 +55,6 @@ class DeploymentModuleController extends Controller
             'name' => 'required'
         ]);
 
-        // could not create if the name already exists
         if (DeploymentModule::where('name', $request->name)->first()) {
             return redirect()->back()->with('error', 'Module already exists.');
         }
@@ -76,10 +75,11 @@ class DeploymentModuleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(DeploymentModule $module)
+    public function edit(String $id)
     {
-        return view('admin.deployment-modules.edit', compact('module'));
+        $deploymentModule = DeploymentModule::find($id);
 
+        return view('admin.deployment-modules.edit', compact('deploymentModule'));
     }
 
     /**
@@ -90,6 +90,11 @@ class DeploymentModuleController extends Controller
         $request->validate([
             'name' => 'required'
         ]);
+
+        // if update name is not the same as the current name or the name is not unique
+        if ($request->name !== $module->name && DeploymentModule::where('name', $request->name)->first()) {
+            return redirect()->back()->with('error', 'Module already exists.');
+        }
 
         $module->update($request->all());
 

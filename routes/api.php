@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('modules/{module_id}/server-types', [DeploymentController::class, 'getServerTypesByModule']);
+Route::get('deployments/events', [DeploymentController::class, 'getEvents']);

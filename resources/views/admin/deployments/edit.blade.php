@@ -91,9 +91,14 @@
         <textarea id="cm_description" name="cm_description" rows="4" class="w-full px-3 py-2 text-gray-700 border rounded-md">{{ old('cm_description', $deployment->cm_description) }}</textarea>
         </div>
 
-        <button type="submit" class="px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700">
-          Update Deployment
-        </button>
+        <div class="flex flex-wrap mb-6 -mx-3">
+            <div class="w-full px-3 text-right">
+              <button type="submit"
+                      class="px-4 py-2 font-bold text-white bg-green-500 rounded shadow-lg hover:bg-green-700">
+                Update Deployment
+              </button>
+            </div>
+          </div>
       </form>
     </div>
   </div>
@@ -123,13 +128,12 @@
             .then(response => response.json())
             .then(data => {
                 var serverTypeSelect = document.getElementById('server_type_id');
-                serverTypeSelect.innerHTML = ''; // Clear the select box
+                serverTypeSelect.innerHTML = '';
 
                 data.forEach(function(serverType) {
                     var option = new Option(serverType.name, serverType.id);
 
-                    // Jika id ini sama dengan yang sebelumnya dipilih, tandai sebagai selected
-                    if (serverType.id === selectedServerType) {
+                    if (serverType.id.toString() === selectedServerType.toString()) {
                         option.selected = true;
                     }
 
@@ -138,6 +142,7 @@
             })
             .catch(error => console.error('Error:', error));
         }
+
 
         </script>
     </x-slot>

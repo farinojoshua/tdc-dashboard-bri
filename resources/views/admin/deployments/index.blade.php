@@ -2,11 +2,11 @@
   <x-slot name="title">Admin - Deployments</x-slot>
   <x-slot name="header">
     <a href="{{ route('admin.deployments.index') }}"
-           class="px-4 py-2 font-bold text-white bg-green-500 rounded shadow-lg hover:bg-green-700 mr-4">
+           class="px-4 py-2 mr-4 font-bold text-white bg-green-500 rounded shadow-lg hover:bg-green-700">
           Deployments
     </a>
     <a href="{{ route('admin.deployment-modules.index') }}"
-           class="px-4 py-2 font-bold text-white bg-green-500 rounded shadow-lg hover:bg-green-700 mr-4">
+           class="px-4 py-2 mr-4 font-bold text-white bg-green-500 rounded shadow-lg hover:bg-green-700">
           Modules
     </a>
     <a href="{{ route('admin.deployment-server-types.index') }}"
@@ -43,6 +43,7 @@
         ],
       });
     </script>
+
   </x-slot>
 
   <div class="py-12">
