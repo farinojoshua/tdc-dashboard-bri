@@ -103,7 +103,6 @@ class DeploymentServerTypeController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-         // if update name is not the same as the current name or the name is not unique
         if (DeploymentServerType::where('name', $request->name)->where('module_id', $request->module_id)->where('id', '!=', $id)->first()) {
             return redirect()->back()->with('error', 'Server Type already exists in the same module.');
         }

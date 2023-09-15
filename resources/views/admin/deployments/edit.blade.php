@@ -2,104 +2,109 @@
   <x-slot name="header">
     <h2 class="text-xl font-semibold leading-tight text-gray-800">
       <a href="#!" onclick="window.history.go(-1); return false;">
-        ←
+        ← Back
       </a>
-      {!! __('Edit Deployment') !!}
     </h2>
   </x-slot>
 
-  <div class="py-12">
+  <div class="py-12 font-poppins">
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <form action="{{ route('admin.deployments.update', $deployment->id) }}" method="POST">
-        @csrf
-        @method('PUT')
+    <div class="p-6 bg-white rounded-xl">
+        <h1 class="mb-10 text-2xl font-medium">Edit Data Deployment</h1>
+        <form action="{{ route('admin.deployments.update', $deployment->id) }}" method="POST">
+          @csrf
+          @method('PUT')
 
-        <!-- Title -->
-        <div class="mb-4">
-        <label for="title" class="block mb-2 text-sm font-bold text-gray-600">Title:</label>
-        <input type="text" id="title" name="title" class="w-full px-3 py-2 text-gray-700 border rounded-md"
-                value="{{ old('title', $deployment->title) }}" required>
-        </div>
+          <div class="grid grid-cols-2 gap-16">
+              <div>
+                  <!-- Title -->
+                  <div class="mb-4">
+                      <label for="title" class="block mb-2 text-sm font-bold text-gray-600">Title:</label>
+                      <input type="text" id="title" name="title" class="w-full px-3 py-2 text-gray-700 border rounded-md"
+                              value="{{ old('title', $deployment->title) }}" required>
+                  </div>
 
-        <!-- Module ID -->
-        <div class="mb-4">
-        <label for="module_id" class="block mb-2 text-sm font-bold text-gray-600">Module:</label>
-        <select id="module_id" name="module_id" class="w-full px-3 py-2 text-gray-700 border rounded-md" required>
-            @foreach($modules as $module)
-            <option value="{{ $module->id }}" {{ (old('module_id', $deployment->module_id) == $module->id ? 'selected' : '') }}>
-                {{ $module->name }}
-            </option>
-            @endforeach
-        </select>
-        </div>
+                  <!-- Module ID -->
+                  <div class="mb-4">
+                      <label for="module_id" class="block mb-2 text-sm font-bold text-gray-600">Module:</label>
+                      <select id="module_id" name="module_id" class="w-full px-3 py-2 text-gray-700 border rounded-md" required>
+                          @foreach($modules as $module)
+                          <option value="{{ $module->id }}" {{ (old('module_id', $deployment->module_id) == $module->id ? 'selected' : '') }}>
+                              {{ $module->name }}
+                          </option>
+                          @endforeach
+                      </select>
+                  </div>
 
-        <!-- Server Type ID -->
-        <div class="mb-4">
-        <label for="server_type_id" class="block mb-2 text-sm font-bold text-gray-600">Server Type:</label>
-        <select id="server_type_id" name="server_type_id" class="w-full px-3 py-2 text-gray-700 border rounded-md" required>
-        </select>
-        </div>
+                  <!-- Server Type ID -->
+                  <div class="mb-4">
+                      <label for="server_type_id" class="block mb-2 text-sm font-bold text-gray-600">Server Type:</label>
+                      <select id="server_type_id" name="server_type_id" class="w-full px-3 py-2 text-gray-700 border rounded-md" required>
+                      </select>
+                  </div>
 
-        <!-- Deploy Date -->
-        <div class="mb-4">
-        <label for="deploy_date" class="block mb-2 text-sm font-bold text-gray-600">Deploy Date:</label>
-        <input type="date" id="deploy_date" name="deploy_date" class="w-full px-3 py-2 text-gray-700 border rounded-md"
-                value="{{ old('deploy_date', $deployment->deploy_date) }}" required>
-        </div>
+                  <!-- Deploy Date -->
+                  <div class="mb-4">
+                      <label for="deploy_date" class="block mb-2 text-sm font-bold text-gray-600">Deploy Date:</label>
+                      <input type="date" id="deploy_date" name="deploy_date" class="w-full px-3 py-2 text-gray-700 border rounded-md"
+                              value="{{ old('deploy_date', $deployment->deploy_date) }}" required>
+                  </div>
+              </div>
 
-        <!-- Document Status -->
-        <div class="mb-4">
-        <label for="document_status" class="block mb-2 text-sm font-bold text-gray-600">Document Status:</label>
-        <select id="document_status" name="document_status" class="w-full px-3 py-2 text-gray-700 border rounded-md" required>
-            <option value="not done" {{ (old('document_status', $deployment->document_status) == 'not done' ? 'selected' : '') }}>
-                Not Done
-            </option>
-            <option value="in progress" {{ (old('document_status', $deployment->document_status) == 'in progress' ? 'selected' : '') }}>
-                In Progress
-            </option>
-            <option value="done" {{ (old('document_status', $deployment->document_status) == 'done' ? 'selected' : '') }}>
-            Done
-            </option>
-        </select>
-        </div>
+              <div>
+                  <!-- Document Status -->
+                  <div class="mb-4">
+                      <label for="document_status" class="block mb-2 text-sm font-bold text-gray-600">Document Status:</label>
+                      <select id="document_status" name="document_status" class="w-full px-3 py-2 text-gray-700 border rounded-md" required>
+                          <option value="not done" {{ (old('document_status', $deployment->document_status) == 'not done' ? 'selected' : '') }}>
+                              Not Done
+                          </option>
+                          <option value="in progress" {{ (old('document_status', $deployment->document_status) == 'in progress' ? 'selected' : '') }}>
+                              In Progress
+                          </option>
+                          <option value="done" {{ (old('document_status', $deployment->document_status) == 'done' ? 'selected' : '') }}>
+                          Done
+                          </option>
+                      </select>
+                  </div>
 
-        <!-- Document Description -->
-        <div class="mb-4">
-        <label for="document_description" class="block mb-2 text-sm font-bold text-gray-600">Document Description:</label>
-        <textarea id="document_description" name="document_description" rows="4" class="w-full px-3 py-2 text-gray-700 border rounded-md">{{ old('document_description', $deployment->document_description) }}</textarea>
-        </div>
+                  <!-- Document Description -->
+                  <div class="mb-4">
+                      <label for="document_description" class="block mb-2 text-sm font-bold text-gray-600">Document Description:</label>
+                      <textarea id="document_description" name="document_description" rows="4" class="w-full px-3 py-2 text-gray-700 border rounded-md">{{ old('document_description', $deployment->document_description) }}</textarea>
+                  </div>
 
-        <!-- CM Status -->
-        <div class="mb-4">
-        <label for="cm_status" class="block mb-2 text-sm font-bold text-gray-600">CM Status:</label>
-        <select id="cm_status" name="cm_status" class="w-full px-3 py-2 text-gray-700 border rounded-md" required>
-            <option value="draft" {{ (old('cm_status', $deployment->cm_status) == 'draft' ? 'selected' : '') }}>
-            Draft
-            </option>
-            <option value="in progress" {{ (old('cm_status', $deployment->cm_status) == 'in progress' ? 'selected' : '') }}>
-            In Progress
-            </option>
-            <option value="done" {{ (old('cm_status', $deployment->cm_status) == 'done' ? 'selected' : '') }}>
-            Done
-            </option>
-        </select>
-        </div>
+                  <!-- CM Status -->
+                  <div class="mb-4">
+                      <label for="cm_status" class="block mb-2 text-sm font-bold text-gray-600">CM Status:</label>
+                      <select id="cm_status" name="cm_status" class="w-full px-3 py-2 text-gray-700 border rounded-md" required>
+                          <option value="draft" {{ (old('cm_status', $deployment->cm_status) == 'draft' ? 'selected' : '') }}>
+                          Draft
+                          </option>
+                          <option value="in progress" {{ (old('cm_status', $deployment->cm_status) == 'in progress' ? 'selected' : '') }}>
+                          In Progress
+                          </option>
+                          <option value="done" {{ (old('cm_status', $deployment->cm_status) == 'done' ? 'selected' : '') }}>
+                          Done
+                          </option>
+                      </select>
+                  </div>
 
-        <!-- CM Description -->
-        <div class="mb-4">
-        <label for="cm_description" class="block mb-2 text-sm font-bold text-gray-600">CM Description:</label>
-        <textarea id="cm_description" name="cm_description" rows="4" class="w-full px-3 py-2 text-gray-700 border rounded-md">{{ old('cm_description', $deployment->cm_description) }}</textarea>
-        </div>
-
-        <div class="flex flex-wrap mb-6 -mx-3">
-            <div class="w-full px-3 text-right">
-              <button type="submit"
-                      class="px-4 py-2 font-bold text-white bg-green-500 rounded shadow-lg hover:bg-green-700">
-                Update Deployment
-              </button>
-            </div>
+                  <!-- CM Description -->
+                  <div class="mb-4">
+                      <label for="cm_description" class="block mb-2 text-sm font-bold text-gray-600">CM Description:</label>
+                      <textarea id="cm_description" name="cm_description" rows="4" class="w-full px-3 py-2 text-gray-700 border rounded-md">{{ old('cm_description', $deployment->cm_description) }}</textarea>
+                  </div>
+              </div>
           </div>
-      </form>
+
+
+
+            <button type="submit" class="px-6 py-2 font-bold text-white rounded-full bg-primary">
+                Submit Data
+            </button>
+        </form>
+    </div>
     </div>
   </div>
 

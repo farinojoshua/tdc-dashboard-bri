@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Deployment;
-use Illuminate\Http\Request;
 use App\Models\DeploymentModule;
-use App\Http\Controllers\Controller;
 use App\Models\DeploymentServerType;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 
 class DeploymentController extends Controller
@@ -51,8 +51,11 @@ class DeploymentController extends Controller
      */
     public function create()
     {
+        // get all modules and server types
         $modules = DeploymentModule::all();
         $serverTypes = DeploymentServerType::all();
+
+        // return view with modules and server types
         return view('admin.deployments.create', compact('modules', 'serverTypes'));
     }
 
@@ -62,7 +65,7 @@ class DeploymentController extends Controller
         return response()->json($serverTypes);
     }
 
-        public function getEvents()
+    public function getEvents()
     {
         $deployments = Deployment::all();
         $events = [];
@@ -87,6 +90,7 @@ class DeploymentController extends Controller
      */
     public function store(Request $request)
     {
+        // do validation
         $request->validate([
             'title' => 'required|string|max:255',
             'module_id' => 'required|exists:deployment_modules,id',
@@ -98,8 +102,10 @@ class DeploymentController extends Controller
             'cm_description' => 'required|string',
         ]);
 
+        // save to database
         Deployment::create($request->all());
 
+        // redirect to index page
         return redirect()->route('admin.deployments.index');
     }
 

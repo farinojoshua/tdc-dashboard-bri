@@ -3,15 +3,15 @@
   <x-slot name="header">
     <h2 class="text-xl font-semibold leading-tight text-gray-800">
       <a href="#!" onclick="window.history.go(-1); return false;">
-        ←
+        ← Back
       </a>
-      {!! __('Deployment Server Type &raquo; Buat') !!}
     </h2>
   </x-slot>
 
-  <div class="py-12">
+  <div class="py-12 font-poppins">
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <div>
+      <div class="p-6 bg-white rounded-lg">
+        <h1 class="mb-10 text-2xl font-medium">Add Server Type</h1>
         @if ($errors->any())
           <div class="mb-5" role="alert">
             <div class="px-4 py-2 font-bold text-white bg-red-500 rounded-t">
@@ -59,7 +59,7 @@
           <div class="flex flex-wrap mb-6 -mx-3">
             <div class="w-full px-3 text-right">
               <button type="submit"
-                      class="px-4 py-2 font-bold text-white bg-green-500 rounded shadow-lg hover:bg-green-700">
+                      class="px-4 py-2 font-bold text-white rounded shadow-lg bg-primary">
                 Simpan Server Type
               </button>
             </div>

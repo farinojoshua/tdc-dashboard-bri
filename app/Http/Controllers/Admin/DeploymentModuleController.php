@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\DeploymentModule;
-use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Yajra\DataTables\Facades\DataTables;
 
 class DeploymentModuleController extends Controller
 {
@@ -85,15 +86,23 @@ class DeploymentModuleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, DeploymentModule $module)
+    public function update(Request $request, string $id)
     {
         $request->validate([
             'name' => 'required'
         ]);
 
-        // if update name is not the same as the current name or the name is not unique
-        if ($request->name !== $module->name && DeploymentModule::where('name', $request->name)->first()) {
-            return redirect()->back()->with('error', 'Module already exists.');
+        $module = DeploymentModule::find($id);
+
+        if (!$module) {
+            return redirect()->back()->with('error', 'Module not found.');
+        }
+
+        // if modul name is changed, check if the new name already exists
+        if ($module->name != $request->name) {
+            if (DeploymentModule::where('name', $request->name)->first()) {
+                return redirect()->back()->with('error', 'Module already exists.');
+            }
         }
 
         $module->update($request->all());

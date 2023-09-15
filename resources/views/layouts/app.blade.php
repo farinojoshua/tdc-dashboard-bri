@@ -32,6 +32,7 @@
   <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
   <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 
