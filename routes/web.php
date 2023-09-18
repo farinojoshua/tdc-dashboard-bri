@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DeploymentController;
 use App\Http\Controllers\Admin\DeploymentModuleController;
 use App\Http\Controllers\Admin\DeploymentServerTypeController;
+use App\Http\Controllers\Front\DeploymentController as FrontDeploymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +22,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/deployments', function () {
-    return view('front.deployments');
-});
+Route::get('/deployments', [FrontDeploymentController::class, 'index'])->name('deployments.index');
+Route::get('/deployments/calendar', [FrontDeploymentController::class, 'calendar'])->name('deployments.calendar');
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
 Route::middleware([
     'auth:sanctum',
@@ -31,7 +32,6 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('deployment-modules', DeploymentModuleController::class);
         Route::resource('deployment-server-types', DeploymentServerTypeController::class);
         Route::resource('deployments', DeploymentController::class);

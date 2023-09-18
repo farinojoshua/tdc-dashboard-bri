@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DeploymentController;
+use App\Http\Controllers\Front\DeploymentController as FrontDeploymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('modules/{module_id}/server-types', [DeploymentController::class, 'getServerTypesByModule']);
 Route::get('deployments/events', [DeploymentController::class, 'getEvents']);
+Route::get('deployments/chart-data', [FrontDeploymentController::class, 'getChartData']);

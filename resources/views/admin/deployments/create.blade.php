@@ -20,13 +20,13 @@
                     <!-- Title -->
                     <div class="mb-4">
                         <label for="title" class="block mb-2 text-sm font-bold text-gray-600">Title:</label>
-                        <input type="text" id="title" name="title" class="w-full px-3 py-2 text-gray-700 border rounded-md" value="{{ old('title') }}" required>
+                        <input type="text" id="title" name="title" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" value="{{ old('title') }}" required>
                     </div>
 
                     <!-- Module ID -->
                     <div class="mb-4">
                         <label for="module_id" class="block mb-2 text-sm font-bold text-gray-600">Module:</label>
-                        <select id="module_id" name="module_id" class="w-full px-3 py-2 text-gray-700 border rounded-md" required>
+                        <select id="module_id" name="module_id" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
                         <option value="">-- Pilih Module --</option>
                         @foreach($modules as $module)
                             <option value="{{ $module->id }}">{{ $module->name }}</option>
@@ -37,14 +37,14 @@
                     <!-- Server Type ID -->
                     <div class="mb-4">
                         <label for="server_type_id" class="block mb-2 text-sm font-bold text-gray-600">Server Type:</label>
-                        <select id="server_type_id" name="server_type_id" class="w-full px-3 py-2 text-gray-700 border rounded-md" required>
+                        <select id="server_type_id" name="server_type_id" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
                         </select>
                     </div>
 
                     <!-- Deploy Date -->
                     <div class="mb-4">
                         <label for="deploy_date" class="block mb-2 text-sm font-bold text-gray-600">Deploy Date:</label>
-                        <input type="date" id="deploy_date" name="deploy_date" class="w-full px-3 py-2 text-gray-700 border rounded-md" value="{{ old('deploy_date') }}" required>
+                        <input type="date" id="deploy_date" name="deploy_date" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" value="{{ old('deploy_date') }}" required>
                     </div>
                   </div>
 
@@ -52,7 +52,7 @@
                     <!-- Document Status -->
                     <div class="mb-4">
                         <label for="document_status" class="block mb-2 text-sm font-bold text-gray-600">Document Status:</label>
-                        <select id="document_status" name="document_status" class="w-full px-3 py-2 text-gray-700 border rounded-md" required>
+                        <select id="document_status" name="document_status" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
                             <option value="not done">Not Done</option>
                             <option value="in progress">In Progress</option>
                             <option value="done">Done</option>
@@ -62,13 +62,13 @@
                     <!-- Document Description -->
                     <div class="mb-4">
                         <label for="document_description" class="block mb-2 text-sm font-bold text-gray-600">Document Description:</label>
-                        <textarea id="document_description" name="document_description" rows="4" class="w-full px-3 py-2 text-gray-700 border rounded-md"></textarea>
+                        <textarea id="document_description" name="document_description" rows="4" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required></textarea>
                     </div>
 
                     <!-- CM Status -->
                     <div class="mb-4">
                         <label for="cm_status" class="block mb-2 text-sm font-bold text-gray-600">CM Status:</label>
-                        <select id="cm_status" name="cm_status" class="w-full px-3 py-2 text-gray-700 border rounded-md" required>
+                        <select id="cm_status" name="cm_status" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
                         <option value="draft">Draft</option>
                         <option value="in progress">In Progress</option>
                         <option value="done">Done</option>
@@ -78,7 +78,7 @@
                     <!-- CM Description -->
                     <div class="mb-4">
                         <label for="cm_description" class="block mb-2 text-sm font-bold text-gray-600">CM Description:</label>
-                        <textarea id="cm_description" name="cm_description" rows="4" class="w-full px-3 py-2 text-gray-700 border rounded-md"></textarea>
+                        <textarea id="cm_description" name="cm_description" rows="4" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required></textarea>
                     </div>
                   </div>
               </div>

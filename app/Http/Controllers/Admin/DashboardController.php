@@ -10,22 +10,40 @@ use App\Models\DeploymentServerType;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $chartData = $this->getChartData();
+        $month = $request->input('month');
+        $year = $request->input('year');
+
+        $chartData = $this->getChartData($month, $year);
+
+        if ($request->ajax()) {
+            return response()->json($chartData);
+        }
+
         return view('admin.dashboard', compact('chartData'));
     }
 
-    private function getChartData()
+    private function getChartData($month = null, $year = null)
     {
+        $query = Deployment::query();
+
+        if ($month) {
+            $query->whereMonth('created_at', $month);
+        }
+
+        if ($year) {
+            $query->whereYear('created_at', $year);
+        }
+
         $modules = DeploymentModule::all();
         $chartData = [];
 
         foreach ($modules as $module) {
-            $deployments = Deployment::where('module_id', $module->id)
-                                    ->with('serverType')
-                                    ->get()
-                                    ->groupBy('server_type_id');
+            $deployments = $query->where('module_id', $module->id)
+                                 ->with('serverType')
+                                 ->get()
+                                 ->groupBy('server_type_id');
 
             $data = [];
             foreach ($deployments as $serverTypeId => $items) {

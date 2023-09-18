@@ -78,7 +78,9 @@ class DeploymentController extends Controller
                 'module' => $deployment->module->name,
                 'server_type' => $deployment->serverType->name,
                 'status_doc' => $deployment->document_status,
+                'document_description' => $deployment->document_description,
                 'status_cm' => $deployment->cm_status,
+                'cm_description' => $deployment->cm_description,
             ];
         }
 

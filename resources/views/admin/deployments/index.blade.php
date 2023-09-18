@@ -31,6 +31,7 @@
 
   <x-slot name="script">
     <script>
+      var counter = 1;  // inisialisasi counter
       // AJAX DataTable
       var datatable = $('#dataTable').DataTable({
         processing: true,
@@ -42,6 +43,15 @@
         },
         language: {
           url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/id.json'
+        },
+        columnDefs: [{
+            "targets": 0,  // kolom ke-0 adalah kolom ID
+            "data": null,
+            "defaultContent": ""
+        }],
+        createdRow: function (row, data, index) {
+            $('td:eq(0)', row).html(counter);  // Menetapkan counter ke kolom pertama
+            counter++;  // Menambah counter
         },
         columns: [
           { data: 'id', name: 'id' },
@@ -73,7 +83,7 @@
           <table id="dataTable">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
                     <th>Title</th>
                     <th>Module</th>
                     <th>Server Type</th>
