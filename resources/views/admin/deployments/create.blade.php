@@ -70,8 +70,10 @@
                         <label for="cm_status" class="block mb-2 text-sm font-bold text-gray-600">CM Status:</label>
                         <select id="cm_status" name="cm_status" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
                         <option value="draft">Draft</option>
-                        <option value="in progress">In Progress</option>
-                        <option value="done">Done</option>
+                        <option value="reviewer">Reviewer</option>
+                        <option value="checker">Checker</option>
+                        <option value="signer">Signer</option>
+                        <option value="done deploy">Done Deploy</option>
                         </select>
                     </div>
 

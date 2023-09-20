@@ -3,32 +3,63 @@
 @section('content')
     <div class="p-8 mx-auto max-w-7xl">
 
-        <select id="moduleSelect">
-        @foreach($modules as $module)
-            <option value="{{ $module->id }}">{{ $module->name }}</option>
-        @endforeach
+        <!-- Module Select -->
+
+
+        <div class="flex justify-between p-6 mb-4 bg-gray-100 rounded shadow calendar-filter">
+            <div>
+                <!-- Left-side Filter Form -->
+                 <select id="moduleSelect" class="p-2 mx-2 border rounded w-28">
+            @foreach($modules as $module)
+                <option value="{{ $module->id }}">{{ $module->name }}</option>
+            @endforeach
         </select>
 
-        {{-- year select --}}
-        <select id="yearSelect">
+        <!-- Year Select -->
+        <select id="yearSelect" class="p-2 mx-2 border rounded w-28">
             <option value="2023">2023</option>
             <option value="2024">2024</option>
             <option value="2025">2025</option>
             <option value="2026">2026</option>
         </select>
+            </div>
+
+                <!-- Right-side Dropdown -->
+               <div class="relative">
+                    <button class="block px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200 dropdown-btn">
+                        Chart
+                    </button>
+                    <div class="absolute right-0 z-10 hidden w-48 py-2 mt-2 bg-white border border-gray-300 rounded shadow dropdown-menu">
+                        <a href="{{ route('deployments.index') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Chart</a>
+                        <a href="{{ route('deployments.calendar') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Calendar</a>
+                    </div>
+                </div>
+            </div>
+
 
         {{-- chart --}}
 
 
 
-        <canvas id="myChart" width="400" height="200"></canvas>
+        <canvas id="myChart" width="400" height="200" class="mt-6"></canvas>
     </div>
 
 @endsection
 
 {{-- add script --}}
 @section('script')
+
     <script src="{{ mix('js/app.js') }}"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdownBtn = document.querySelector('.dropdown-btn');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+
+        dropdownBtn.addEventListener('click', function () {
+            dropdownMenu.classList.toggle('hidden');
+        });
+    });
+    </script>
     <script>
     var myChart;
 
@@ -76,6 +107,15 @@
         stackCounter++;
     }
 
+    let max_value = 0;
+    for (let serverType in datasets) {
+        let serverTypeMax = Math.max(...datasets[serverType]);
+        max_value = Math.max(max_value, serverTypeMax);
+    }
+
+    // Jika max_value kurang dari 10, tetapkan ke 10
+    max_value = Math.max(max_value, 10);
+
     myChart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -85,7 +125,12 @@
         options: {
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    min: 0,
+                    max: max_value,
+                    ticks: {
+                        stepSize: 1
+                    }
                 }
             }
         }

@@ -24,14 +24,14 @@ Route::get('/', function () {
 
 Route::get('/deployments', [FrontDeploymentController::class, 'index'])->name('deployments.index');
 Route::get('/deployments/calendar', [FrontDeploymentController::class, 'calendar'])->name('deployments.calendar');
-Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-])->group(function () {
-    Route::prefix('admin')->name('admin.')->group(function () {
+    ])->group(function () {
+        Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::resource('deployment-modules', DeploymentModuleController::class);
         Route::resource('deployment-server-types', DeploymentServerTypeController::class);
         Route::resource('deployments', DeploymentController::class);

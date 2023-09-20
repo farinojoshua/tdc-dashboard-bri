@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('deploy_date');
             $table->enum('document_status', ['done', 'not done', 'in progress']);
             $table->text('document_description');
-            $table->enum('cm_status', ['draft', 'in progress', 'done']);
+            $table->enum('cm_status', ['draft', 'reviewer', 'checker', 'signer', 'done deploy']);
             $table->text('cm_description');
 
             $table->foreign('module_id')->references('id')->on('deployment_modules')->onDelete('cascade');

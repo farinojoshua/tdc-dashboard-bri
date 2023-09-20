@@ -4,6 +4,49 @@
     <div class="py-12">
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="p-4 overflow-hidden bg-white shadow-xl sm:rounded-lg">
+            <div class="flex justify-between p-6 mb-4 bg-gray-100 rounded shadow calendar-filter">
+                <!-- Left-side Filter Form -->
+                <form id="calendarFilterForm" class="flex flex-wrap items-center">
+                    <label for="month" class="mr-2 font-bold">Month:</label>
+                <select id="month" name="month" class="w-48 p-2 mr-4 border rounded">
+                    {{-- month option from January to December--}}
+                   <option value="0">Januari</option>
+                    <option value="1">Februari</option>
+                    <option value="2">Maret</option>
+                    <option value="3">April</option>
+                    <option value="4">Mei</option>
+                    <option value="5">Juni</option>
+                    <option value="6">Juli</option>
+                    <option value="7">Agustus</option>
+                    <option value="8">September</option>
+                    <option value="9">Oktober</option>
+                    <option value="10">November</option>
+                    <option value="11">Desember</option>
+                </select>
+
+                <label for="year" class="mr-2 font-bold">Year:</label>
+                <select id="year" name="year" class="w-48 p-2 mr-4 border rounded">
+                    @for($i = 2023; $i <= 2030; $i++)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+
+                <button type="submit" class="px-6 py-2 text-white bg-blue-500 rounded hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                    Go
+                </button>
+                </form>
+
+                <!-- Right-side Dropdown -->
+               <div class="relative">
+                    <button class="block px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200 dropdown-btn">
+                        Calendar
+                    </button>
+                    <div class="absolute right-0 z-10 hidden w-48 py-2 mt-2 bg-white border border-gray-300 rounded shadow dropdown-menu">
+                        <a href="{{ route('deployments.calendar') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Calendar</a>
+                        <a href="{{ route('deployments.index') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Chart</a>
+                    </div>
+                </div>
+            </div>
             <div id="calendar"></div>
             <div id="calendarLegend" class="mt-10"></div>
         </div>
@@ -22,5 +65,17 @@
         </div>
     </div>
 </div>
+
+<!-- Add this script at the end of your HTML content -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdownBtn = document.querySelector('.dropdown-btn');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+
+        dropdownBtn.addEventListener('click', function () {
+            dropdownMenu.classList.toggle('hidden');
+        });
+    });
+</script>
 
 @endsection

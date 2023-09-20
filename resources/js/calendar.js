@@ -38,8 +38,14 @@ document.addEventListener("DOMContentLoaded", function () {
          eventContent: function (arg) {
              let arrayOfDomNodes = [];
 
+             let truncatedTitle = arg.event.title.substring(0, 20);
+
              let title = document.createElement("div");
-             title.innerHTML = `<strong>${arg.event.title}</strong>`;
+             title.innerHTML = `<strong>${truncatedTitle}</strong>`;
+             if (arg.event.title.length > 20) {
+                 title.innerHTML += "..."; // Tambahkan tanda ellipsis jika judul dipotong
+             }
+
              title.style.fontSize = "1.2em"; // Membesarkan teks
              title.style.whiteSpace = "normal"; // Membuat teks berjajar rata
              title.style.overflowWrap = "break-word"; // Memaksa teks untuk pindah baris
@@ -82,7 +88,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     <p><strong>Deskripsi Dokumen:</strong> ${info.event.extendedProps.document_description}</p>
                     <p><strong>Status CM:</strong> ${info.event.extendedProps.status_cm}</p>
                     <p><strong>Deskripsi CM:</strong> ${info.event.extendedProps.cm_description}</p>
-
                     `;
 
              document.getElementById("modalBody").innerHTML = modalBody;
@@ -98,6 +103,30 @@ document.addEventListener("DOMContentLoaded", function () {
                      modal.classList.add("hidden");
                  });
          },
+         dayCellDidMount: function (info) {
+             // Mengambil index hari (0 = Minggu, 1 = Senin, ..., 6 = Sabtu)
+             const dayIndex = new Date(info.date).getDay();
+
+             // Jika hari adalah Sabtu atau Minggu, ubah warna latar belakangnya menjadi merah
+             if (dayIndex === 0 || dayIndex === 6) {
+                 info.el.style.backgroundColor = "rgba(255, 0, 0, 0.2)"; // Anda bisa mengganti warna merah sesuai keinginan
+             }
+         },
      });
+     document
+         .getElementById("calendarFilterForm")
+         .addEventListener("submit", function (e) {
+             e.preventDefault(); // Prevent the default form submission
+
+             const month = parseInt(document.getElementById("month").value, 10);
+             const year = parseInt(document.getElementById("year").value, 10);
+
+             // Format the date in ISO8601
+             const isoDate = `${year}-${String(month + 1).padStart(2, "0")}-01`;
+             console.log(isoDate);
+
+             // Navigate to the specific month and year
+             calendar.gotoDate(isoDate);
+         });
     calendar.render();
 });
