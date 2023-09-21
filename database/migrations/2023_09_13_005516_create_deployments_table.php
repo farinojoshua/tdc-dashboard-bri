@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('deployments', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title', 200);
             $table->unsignedBigInteger('module_id');
             $table->unsignedBigInteger('server_type_id');
             $table->date('deploy_date');

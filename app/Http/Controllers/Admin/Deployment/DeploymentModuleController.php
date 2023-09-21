@@ -60,7 +60,7 @@ class DeploymentModuleController extends Controller
     {
         // validate request
         $request->validate([
-            'name' => 'required'
+            'name' => 'required|max:15'
         ]);
 
         // check if module name already exists
@@ -107,7 +107,7 @@ class DeploymentModuleController extends Controller
     {
         // validate request
         $request->validate([
-            'name' => 'required'
+            'name' => 'required|max:15'
         ]);
 
         // find module by id

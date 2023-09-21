@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('deployment_server_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 10);
             $table->unsignedBigInteger('module_id');
 
             $table->foreign('module_id')->references('id')->on('deployment_modules')->onDelete('cascade');

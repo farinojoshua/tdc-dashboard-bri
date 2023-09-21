@@ -72,7 +72,7 @@ class DeploymentController extends Controller
     {
         // validate request
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:200',
             'module_id' => 'required|exists:deployment_modules,id',
             'server_type_id' => 'required|exists:deployment_server_types,id',
             'deploy_date' => 'required|date',
@@ -157,19 +157,21 @@ class DeploymentController extends Controller
     {
         // validate request
         $request->validate([
-            'title' => 'required',
-            'module_id' => 'required',
-            'server_type_id' => 'required',
-            'deploy_date' => 'required',
-            'document_status' => 'required',
-            'document_description' => 'required',
-            'cm_status' => 'required',
-            'cm_description' => 'required',
+            'title' => 'required|string|max:200',
+            'module_id' => 'required|exists:deployment_modules,id',
+            'server_type_id' => 'required|exists:deployment_server_types,id',
+            'deploy_date' => 'required|date',
+            'document_status' => 'required|in:done,not done,in progress',
+            'document_description' => 'required|string',
+            'cm_status' => 'required|in:draft,reviewer,checker,signer,done deploy',
+            'cm_description' => 'required|string',
         ]);
 
-        // check if deployment title already exists
-        if (Deployment::where('title', $request->title)->where('id', '!=', $deployment->id)->first()) {
-            return redirect()->back()->with('error', 'Deployment already exists.');
+        // check if deployment title change and already exists but if not change, it's okay
+        if ($deployment->title != $request->title) {
+            if (Deployment::where('title', $request->title)->first()) {
+                return redirect()->back()->with('error', 'Deployment already exists.');
+            }
         }
 
         // update deployment

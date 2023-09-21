@@ -81,11 +81,17 @@
                           <option value="draft" {{ (old('cm_status', $deployment->cm_status) == 'draft' ? 'selected' : '') }}>
                           Draft
                           </option>
-                          <option value="in progress" {{ (old('cm_status', $deployment->cm_status) == 'in progress' ? 'selected' : '') }}>
-                          In Progress
+                          <option value="reviewer" {{ (old('cm_status', $deployment->cm_status) == 'reviewer' ? 'selected' : '') }}>
+                          Reviewer
                           </option>
-                          <option value="done" {{ (old('cm_status', $deployment->cm_status) == 'done' ? 'selected' : '') }}>
-                          Done
+                          <option value="checker" {{ (old('cm_status', $deployment->cm_status) == 'checker' ? 'selected' : '') }}>
+                          Checker
+                          </option>
+                          <option value="signer" {{ (old('cm_status', $deployment->cm_status) == 'signer' ? 'selected' : '') }}>
+                          Signer
+                          </option>
+                          <option value="done deploy" {{ (old('cm_status', $deployment->cm_status) == 'done deploy' ? 'selected' : '') }}>
+                          Done Deploy
                           </option>
                       </select>
                   </div>

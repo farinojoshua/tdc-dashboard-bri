@@ -67,7 +67,7 @@ class DeploymentServerTypeController extends Controller
     {
         // validate request
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|max:10',
             'module_id' => 'required|exists:deployment_modules,id'
         ]);
 
@@ -112,7 +112,7 @@ class DeploymentServerTypeController extends Controller
     {
         // validate request
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|max:10',
             'module_id' => 'required|exists:deployment_modules,id'
         ]);
 
