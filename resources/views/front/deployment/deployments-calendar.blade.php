@@ -1,5 +1,9 @@
 @extends('layouts.front')
 
+@section('style')
+    @vite(['resources/js/calendar.js'])'
+@endsection
+
 @section('content')
     <div class="py-12">
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -38,7 +42,7 @@
                 </form>
 
                 <!-- Right-side Dropdown -->
-               <<div class="relative">
+               <div class="relative">
                     <button class="inline-flex px-4 py-2 text-white rounded bg-dark-blue focus:outline-none focus:ring-2 focus:ring-gray-200 dropdown-btn">
                         Calendar
                         <svg class="w-5 h-5 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

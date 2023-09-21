@@ -1,27 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Front;
+namespace App\Http\Controllers\Front\Deployment;
 
-use App\Models\Deployment;
 use Illuminate\Http\Request;
-use App\Models\DeploymentModule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\DeploymentServerType;
+use App\Models\Deployment\DeploymentModule;
 
 class DeploymentController extends Controller
 {
     public function index()
     {
         $modules = DeploymentModule::all();
-        return view('front.deployments', compact('modules'));
+        return view('front.deployment.deployments', compact('modules'));
     }
 
     // for deployment calendar view
     public function calendar()
     {
         // return calendar view
-        return view('front.deployments-calendar');
+        return view('front.deployment.deployments-calendar');
     }
 
     // for deployment chart view

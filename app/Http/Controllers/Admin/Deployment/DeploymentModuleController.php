@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Deployment;
 
 use Illuminate\Http\Request;
-use App\Models\DeploymentModule;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
+use App\Models\Deployment\DeploymentModule;
 
 class DeploymentModuleController extends Controller
 {
@@ -42,7 +41,7 @@ class DeploymentModuleController extends Controller
         }
 
         // return index view
-        return view('admin.deployment-modules.index');
+        return view('admin.deployment.deployment-modules.index');
     }
 
     /**
@@ -51,7 +50,7 @@ class DeploymentModuleController extends Controller
     public function create()
     {
         // return create view
-        return view('admin.deployment-modules.create');
+        return view('admin.deployment.deployment-modules.create');
     }
 
     /**
@@ -98,7 +97,7 @@ class DeploymentModuleController extends Controller
         }
 
         // return edit view with module data
-        return view('admin.deployment-modules.edit', compact('deploymentModule'));
+        return view('admin.deployment.deployment-modules.edit', compact('deploymentModule'));
     }
 
     /**

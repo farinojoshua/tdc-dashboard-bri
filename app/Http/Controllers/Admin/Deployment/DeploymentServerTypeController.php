@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Deployment;
 
 use Illuminate\Http\Request;
-use App\Models\DeploymentModule;
 use App\Http\Controllers\Controller;
-use App\Models\DeploymentServerType;
 use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Deployment\DeploymentModule;
+use App\Models\Deployment\DeploymentServerType;
 
 class DeploymentServerTypeController extends Controller
 {
@@ -46,7 +45,7 @@ class DeploymentServerTypeController extends Controller
         }
 
         // return index view
-        return view('admin.deployment-server-types.index');
+        return view('admin.deployment.deployment-server-types.index');
     }
 
     /**
@@ -58,7 +57,7 @@ class DeploymentServerTypeController extends Controller
         $modules = DeploymentModule::all();
 
         // return create view
-        return view('admin.deployment-server-types.create', compact('modules'));
+        return view('admin.deployment.deployment-server-types.create', compact('modules'));
     }
 
     /**
@@ -103,7 +102,7 @@ class DeploymentServerTypeController extends Controller
         $modules = DeploymentModule::all();
 
         // return edit view with server type and modules data
-        return view('admin.deployment-server-types.edit', compact('serverType', 'modules'));
+        return view('admin.deployment.deployment-server-types.edit', compact('serverType', 'modules'));
     }
 
     /**

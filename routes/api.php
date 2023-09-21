@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Admin\DeploymentController;
-use App\Http\Controllers\Front\DeploymentController as FrontDeploymentController;
+use App\Http\Controllers\Admin\Deployment\DeploymentController;
+use App\Http\Controllers\Front\Deployment\DeploymentController as FrontDeploymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Deployment;
 
-use App\Models\Deployment;
-use App\Models\DeploymentModule;
-use App\Models\DeploymentServerType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Deployment\Deployment;
 use Yajra\DataTables\Facades\DataTables;
+use App\Models\Deployment\DeploymentModule;
+use App\Models\Deployment\DeploymentServerType;
 
 class DeploymentController extends Controller
 {
@@ -49,7 +49,7 @@ class DeploymentController extends Controller
         }
 
         // return index view
-        return view('admin.deployments.index');
+        return view('admin.deployment.deployments.index');
     }
 
     /**
@@ -62,7 +62,7 @@ class DeploymentController extends Controller
         $serverTypes = DeploymentServerType::all();
 
         // return view with modules and server types
-        return view('admin.deployments.create', compact('modules', 'serverTypes'));
+        return view('admin.deployment.deployments.create', compact('modules', 'serverTypes'));
     }
 
     /**
@@ -150,7 +150,7 @@ class DeploymentController extends Controller
         $serverTypes = DeploymentServerType::all();
 
         // return view with modules, server types, and deployment data
-        return view('admin.deployments.edit', compact('deployment', 'modules', 'serverTypes'));
+        return view('admin.deployment.deployments.edit', compact('deployment', 'modules', 'serverTypes'));
     }
 
     public function update(Request $request, Deployment $deployment)
@@ -166,6 +166,11 @@ class DeploymentController extends Controller
             'cm_status' => 'required',
             'cm_description' => 'required',
         ]);
+
+        // check if deployment title already exists
+        if (Deployment::where('title', $request->title)->where('id', '!=', $deployment->id)->first()) {
+            return redirect()->back()->with('error', 'Deployment already exists.');
+        }
 
         // update deployment
         $deployment->update($request->all());
