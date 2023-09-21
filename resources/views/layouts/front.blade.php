@@ -8,6 +8,7 @@
     <!-- Libraries -->
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.7/dist/flowbite.min.css" />
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/calendar.js'])
@@ -33,12 +34,6 @@
                 <a href="#" class="inline-flex justify-center w-full text-xl font-bold text-dark-blue">
                     Deployment
                 </a>
-                <div class="absolute right-0 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
-                    <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                        <a href="{{ route('deployments.calendar') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem">Calendar</a>
-                        <a href="{{ route('deployments.index') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem">Chart</a>
-                    </div>
-                </div>
             </div>
             <a href="" class="text-xl font-bold text-dark-blue">Background Jobs</a>
         </div>
@@ -53,23 +48,6 @@
 
     {{-- add script yield --}}
     @yield('script')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        const dropdown = document.querySelector('.relative.inline-block');
-        const dropdownMenu = dropdown.querySelector('.origin-top-right');
-
-        dropdownMenu.style.display = 'none';
-
-        dropdown.addEventListener('click', function() {
-            if (dropdownMenu.style.display === 'none') {
-                dropdownMenu.style.display = 'block';
-            } else {
-                dropdownMenu.style.display = 'none';
-            }
-        });
-    });
-
-    </script>
 
 </body>
 </html>

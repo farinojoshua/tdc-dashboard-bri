@@ -101,7 +101,7 @@
 
 
             <button type="submit" class="px-6 py-2 font-bold text-white rounded-full bg-primary">
-                Submit Data
+                Update Deployment
             </button>
         </form>
     </div>
@@ -110,24 +110,26 @@
 
     <x-slot name="script">
         <script>
-            // Make sure the DOM is fully loaded
+            // for server type select
             document.addEventListener('DOMContentLoaded', function() {
             var previouslySelectedModuleId = "{{ old('module_id', $deployment->module_id) }}";
             var previouslySelectedServerTypeId = "{{ old('server_type_id', $deployment->server_type_id) }}";
 
+            // take element select box modul
             var moduleSelect = document.getElementById('module_id');
 
-            // Cek apakah ada modul yang sebelumnya dipilih
+            // check what is the value of previouslySelectedModuleId
             if(previouslySelectedModuleId) {
                 moduleSelect.value = previouslySelectedModuleId; // Set value select box modul
-                fetchServerTypes(previouslySelectedModuleId, previouslySelectedServerTypeId); // Fungsi untuk fetch data
+                fetchServerTypes(previouslySelectedModuleId, previouslySelectedServerTypeId); // fetch data server type
             }
 
             moduleSelect.addEventListener('change', function() {
-                fetchServerTypes(this.value); // Fungsi untuk fetch data
+                fetchServerTypes(this.value); // fetch data server type
             });
         });
 
+        // fetch data server type
         function fetchServerTypes(selectedModule, selectedServerType = null) {
             fetch(`/api/modules/${selectedModule}/server-types`)
             .then(response => response.json())
@@ -135,20 +137,21 @@
                 var serverTypeSelect = document.getElementById('server_type_id');
                 serverTypeSelect.innerHTML = '';
 
+                // create default option
                 data.forEach(function(serverType) {
                     var option = new Option(serverType.name, serverType.id);
 
+                    // check if server type id is selected
                     if (serverType.id.toString() === selectedServerType.toString()) {
-                        option.selected = true;
+                        option.selected = true; // set selected
                     }
 
+                    // append option to select box
                     serverTypeSelect.appendChild(option);
                 });
             })
             .catch(error => console.error('Error:', error));
         }
-
-
         </script>
     </x-slot>
 </x-app-layout>

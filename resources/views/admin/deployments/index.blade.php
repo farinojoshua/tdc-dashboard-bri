@@ -51,11 +51,30 @@
         { data: 'deploy_date', name: 'deploy_date' },
         { data: 'document_status', name: 'document_status' },
         { data: 'cm_status', name: 'cm_status' },
-        { data: 'action', name: 'action', orderable: false, searchable: false}
+        { data: 'action', name: 'action', orderable: false, searchable: false, width: '15%'}
         ],
       });
 
+        // sweet alert delete
+    $('body').on('click', '.btn-delete', function (e) {
+        e.preventDefault();
 
+        var form = $(this).parents('form');
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
     </script>
 
   </x-slot>
@@ -80,7 +99,7 @@
                         <th>Deploy Date</th>
                         <th>Document Status</th>
                         <th>CM Status</th>
-                        <th>Aksi</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                 <tbody></tbody>

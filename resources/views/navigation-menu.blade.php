@@ -15,7 +15,7 @@
                     <x-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('admin.deployments.index') }}" :active="request()->routeIs('admin.deployments.index')">
+                    <x-nav-link href="{{ route('admin.deployments.index') }}" :active="request()->routeIs('admin.deployments.*') || request()->routeIs('admin.deployment-modules.*') || request()->routeIs('admin.deployment-server-types.*')">
                         {{ __('Deployment') }}
                     </x-nav-link>
                 </div>

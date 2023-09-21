@@ -86,7 +86,7 @@
               </div>
 
               <button type="submit" class="px-24 py-2 font-bold text-white rounded-full bg-primary">
-                Submit Data
+                Add Deployment
               </button>
 
             </form>
@@ -96,7 +96,7 @@
 
     <x-slot name="script">
         <script>
-            // Make sure the DOM is fully loaded
+            // for server type select
             document.addEventListener('DOMContentLoaded', function() {
                 // Attach the event listener
                 document.getElementById('module_id').addEventListener('change', function() {
@@ -107,7 +107,6 @@
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
-                            // Other headers here
                         },
                     })
                     .then(response => {

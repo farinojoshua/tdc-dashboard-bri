@@ -33,7 +33,7 @@
           <div class="flex flex-wrap px-3 mt-4 mb-6 -mx-3">
             <div class="w-full">
               <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="module_name">
-                Nama Module*
+                Module Name*
               </label>
               <input value="{{ old('name') }}" name="name"
                      class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white"
@@ -48,7 +48,7 @@
             <div class="w-full px-3 text-right">
               <button type="submit"
                       class="px-4 py-2 font-bold text-white rounded shadow-lg bg-primary">
-                Simpan Module
+                Add Module
               </button>
             </div>
           </div>

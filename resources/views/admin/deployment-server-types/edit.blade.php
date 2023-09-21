@@ -40,7 +40,6 @@
               <input value="{{ old('name', $serverType->name) }}" name="name"
                      class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
                      id="server_type_name" type="text" placeholder="Nama Server Type" required>
-              <!-- Note: old('name', $serverType->name) akan menggunakan data lama jika ada, jika tidak akan menggunakan $serverType->name dari database -->
 
               <label class="block mt-4 mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="module_id">
                 Modul Terkait*
@@ -52,7 +51,6 @@
                   </option>
                 @endforeach
               </select>
-              <!-- Note: old('module_id', $serverType->module_id) akan menggunakan data lama jika ada, jika tidak akan menggunakan $serverType->module_id dari database -->
 
               <div class="mt-2 text-sm text-gray-500">
                 Nama server type dan modul terkait. Wajib diisi.

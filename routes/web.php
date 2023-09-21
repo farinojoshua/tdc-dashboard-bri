@@ -31,7 +31,7 @@ Route::middleware([
     'verified',
     ])->group(function () {
         Route::prefix('admin')->name('admin.')->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('deployment-modules', DeploymentModuleController::class);
         Route::resource('deployment-server-types', DeploymentServerTypeController::class);
         Route::resource('deployments', DeploymentController::class);

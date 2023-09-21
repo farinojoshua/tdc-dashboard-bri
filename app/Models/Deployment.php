@@ -20,6 +20,7 @@ class Deployment extends Model
         'cm_description',
     ];
 
+    // Relationships
     public function module()
     {
         return $this->belongsTo(DeploymentModule::class);

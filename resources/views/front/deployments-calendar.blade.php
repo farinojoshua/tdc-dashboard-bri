@@ -4,7 +4,7 @@
     <div class="py-12">
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="p-4 overflow-hidden bg-white shadow-xl sm:rounded-lg">
-            <div class="flex justify-between p-6 mb-4 bg-gray-100 rounded shadow calendar-filter">
+            <div class="flex justify-between p-6 mb-4 bg-white rounded shadow calendar-filter">
                 <!-- Left-side Filter Form -->
                 <form id="calendarFilterForm" class="flex flex-wrap items-center">
                     <label for="month" class="mr-2 font-bold">Month:</label>
@@ -24,6 +24,7 @@
                     <option value="11">Desember</option>
                 </select>
 
+                {{-- Select Year --}}
                 <label for="year" class="mr-2 font-bold">Year:</label>
                 <select id="year" name="year" class="w-48 p-2 mr-4 border rounded">
                     @for($i = 2023; $i <= 2030; $i++)
@@ -31,19 +32,22 @@
                     @endfor
                 </select>
 
-                <button type="submit" class="px-6 py-2 text-white bg-blue-500 rounded hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200">
-                    Go
+                <button type="submit" class="px-6 py-2 text-white rounded bg-dark-blue focus:outline-none focus:ring-2 focus:ring-blue-200">
+                    Filter
                 </button>
                 </form>
 
                 <!-- Right-side Dropdown -->
-               <div class="relative">
-                    <button class="block px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200 dropdown-btn">
+               <<div class="relative">
+                    <button class="inline-flex px-4 py-2 text-white rounded bg-dark-blue focus:outline-none focus:ring-2 focus:ring-gray-200 dropdown-btn">
                         Calendar
+                        <svg class="w-5 h-5 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M5.293 9.293a1 1 0 011.414 0L10 12.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
                     </button>
                     <div class="absolute right-0 z-10 hidden w-48 py-2 mt-2 bg-white border border-gray-300 rounded shadow dropdown-menu">
-                        <a href="{{ route('deployments.calendar') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Calendar</a>
                         <a href="{{ route('deployments.index') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Chart</a>
+                        <a href="{{ route('deployments.calendar') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Calendar</a>
                     </div>
                 </div>
             </div>
@@ -54,20 +58,20 @@
 </div>
 
 <!-- Modal -->
-<div id="eventInfoModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
-    <div class="w-1/3 p-8 bg-white rounded-lg shadow-lg">
+<div id="eventInfoModal" class="fixed inset-0 z-50 items-center justify-center hidden">
+    <div class="relative w-1/3 p-8 bg-white rounded-lg shadow-lg"> <!-- Added "relative" class -->
         <h5 class="mb-4 text-2xl" id="modalTitle">Event Info</h5>
+        <button type="button" class="absolute p-2 text-4xl text-gray-800 rounded top-2 right-4" id="modalCloseButton">X</button> <!-- Moved the button and added "absolute top-2 right-2" classes -->
         <div class="modal-body" id="modalBody">
-
-        </div>
-        <div class="mt-4 modal-footer">
-            <button type="button" class="p-2 text-white bg-green-500 rounded" id="modalCloseButton">Close</button>
         </div>
     </div>
 </div>
 
-<!-- Add this script at the end of your HTML content -->
-<script>
+@endsection
+
+@section('script')
+  <script>
+    // Get the modal calendar
     document.addEventListener("DOMContentLoaded", function () {
         const dropdownBtn = document.querySelector('.dropdown-btn');
         const dropdownMenu = document.querySelector('.dropdown-menu');
@@ -76,6 +80,5 @@
             dropdownMenu.classList.toggle('hidden');
         });
     });
-</script>
-
+    </script>
 @endsection

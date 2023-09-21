@@ -14,6 +14,7 @@ class DeploymentServerType extends Model
         'module_id',
     ];
 
+    // Relationships
     public function module()
     {
         return $this->belongsTo(DeploymentModule::class);

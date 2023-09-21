@@ -34,7 +34,7 @@
             <div class="flex flex-wrap px-3 mt-4 mb-6 -mx-3">
                 <div class="w-full">
                 <label class="block mt-4 mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="module_id">
-                  Modul Terkait*
+                    Module*
                 </label>
                 <select name="module_id" id="module_id" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
                   <option value="">-- Pilih Module --</option>
@@ -44,7 +44,7 @@
                 </select>
 
                 <label class="block mt-4 mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="server_type_name">
-                    Nama Server Type*
+                    Server Type Name*
                 </label>
                 <input value="{{ old('name') }}" name="name"
                 class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
@@ -60,7 +60,7 @@
             <div class="w-full px-3 text-right">
               <button type="submit"
                       class="px-4 py-2 font-bold text-white rounded shadow-lg bg-primary">
-                Simpan Server Type
+                Add Server Type
               </button>
             </div>
           </div>

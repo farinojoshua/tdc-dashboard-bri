@@ -13,6 +13,7 @@ class DeploymentModule extends Model
         'name',
     ];
 
+    // Relationships
     public function deployments()
     {
         return $this->hasMany(Deployment::class);
