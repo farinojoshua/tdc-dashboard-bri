@@ -17,9 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('module_id');
             $table->unsignedBigInteger('server_type_id');
             $table->date('deploy_date');
-            $table->enum('document_status', ['done', 'not done', 'in progress']);
+            $table->enum('document_status', ['Done', 'Not Done', 'In Progress']);
             $table->text('document_description');
-            $table->enum('cm_status', ['draft', 'reviewer', 'checker', 'signer', 'done deploy']);
+            $table->enum('cm_status', ['Draft', 'Reviewer', 'Checker', 'Signer', 'Done deploy']);
             $table->text('cm_description');
 
             $table->foreign('module_id')->references('id')->on('deployment_modules')->onDelete('cascade');

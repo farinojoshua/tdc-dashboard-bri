@@ -76,9 +76,9 @@ class DeploymentController extends Controller
             'module_id' => 'required|exists:deployment_modules,id',
             'server_type_id' => 'required|exists:deployment_server_types,id',
             'deploy_date' => 'required|date',
-            'document_status' => 'required|in:done,not done,in progress',
+            'document_status' => 'required|in:Done,Not Done,In Progress',
             'document_description' => 'required|string',
-            'cm_status' => 'required|in:draft,reviewer,checker,signer,done deploy',
+            'cm_status' => 'required|in:Draft,Reviewer,Checker,Signer,Done Deploy',
             'cm_description' => 'required|string',
         ]);
 
@@ -161,9 +161,9 @@ class DeploymentController extends Controller
             'module_id' => 'required|exists:deployment_modules,id',
             'server_type_id' => 'required|exists:deployment_server_types,id',
             'deploy_date' => 'required|date',
-            'document_status' => 'required|in:done,not done,in progress',
+            'document_status' => 'required|in:Done,Not Done,In Progress',
             'document_description' => 'required|string',
-            'cm_status' => 'required|in:draft,reviewer,checker,signer,done deploy',
+            'cm_status' => 'required|in:Draft,Reviewer,Checker,Signer,Done Deploy',
             'cm_description' => 'required|string',
         ]);
 

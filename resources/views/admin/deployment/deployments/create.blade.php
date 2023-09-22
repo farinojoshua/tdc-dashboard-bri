@@ -53,9 +53,9 @@
                     <div class="mb-4">
                         <label for="document_status" class="block mb-2 text-sm font-bold text-gray-600">Document Status:</label>
                         <select id="document_status" name="document_status" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
-                            <option value="not done">Not Done</option>
-                            <option value="in progress">In Progress</option>
-                            <option value="done">Done</option>
+                            <option value="Not Done">Not Done</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Done">Done</option>
                         </select>
                     </div>
 
@@ -69,11 +69,11 @@
                     <div class="mb-4">
                         <label for="cm_status" class="block mb-2 text-sm font-bold text-gray-600">CM Status:</label>
                         <select id="cm_status" name="cm_status" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
-                        <option value="draft">Draft</option>
-                        <option value="reviewer">Reviewer</option>
-                        <option value="checker">Checker</option>
-                        <option value="signer">Signer</option>
-                        <option value="done deploy">Done Deploy</option>
+                        <option value="Draft">Draft</option>
+                        <option value="Reviewer">Reviewer</option>
+                        <option value="Checker">Checker</option>
+                        <option value="Signer">Signer</option>
+                        <option value="Done Deploy">Done Deploy</option>
                         </select>
                     </div>
 
