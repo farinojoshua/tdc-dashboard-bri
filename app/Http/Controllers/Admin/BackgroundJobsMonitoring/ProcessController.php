@@ -110,6 +110,11 @@ class ProcessController extends Controller
         // find process by id
         $process = Process::findOrFail($id);
 
+        // if process already exists in the same type
+        if (Process::where('name', $request->name)->where('type', $request->type)->where('id', '!=', $process->id)->first()) {
+            return redirect()->back()->with('error', 'Process already exists in the same type.');
+        }
+
         // update process
         $process->update([
             'name' => $request->name,

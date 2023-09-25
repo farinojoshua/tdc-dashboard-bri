@@ -1,13 +1,14 @@
 <?php
 
+use Laravel\Jetstream\Rules\Role;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Deployment\DeploymentController;
 use App\Http\Controllers\Admin\Deployment\DeploymentModuleController;
 use App\Http\Controllers\Admin\Deployment\DeploymentServerTypeController;
 use App\Http\Controllers\Admin\BackgroundJobsMonitoring\ProcessController;
+use App\Http\Controllers\Admin\BackgroundJobsMonitoring\BackgroundJobController;
 use App\Http\Controllers\Front\Deployment\DeploymentController as FrontDeploymentController;
-use Laravel\Jetstream\Rules\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,7 @@ Route::middleware([
         });
         Route::prefix('background-jobs-monitoring')->name('background-jobs-monitoring.')->group(function () {
             Route::resource('processes', ProcessController::class);
+            Route::resource('jobs', BackgroundJobController::class);
         });
     });
 });

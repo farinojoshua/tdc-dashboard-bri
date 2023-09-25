@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BackgroundJobsMonitoring\BackgroundJobController;
 use App\Http\Controllers\Admin\Deployment\DeploymentController;
 use App\Http\Controllers\Front\Deployment\DeploymentController as FrontDeploymentController;
 use Illuminate\Http\Request;
@@ -20,6 +21,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// deployments
 Route::get('modules/{module_id}/server-types', [DeploymentController::class, 'getServerTypesByModule']);
 Route::get('deployments/events', [DeploymentController::class, 'getEvents']);
 Route::get('deployments/chart-data', [FrontDeploymentController::class, 'getChartData']);
+
+// background jobs monitoring
+Route::get('/get-processes-by-type', [BackgroundJobController::class, 'getProcessesByType']);
