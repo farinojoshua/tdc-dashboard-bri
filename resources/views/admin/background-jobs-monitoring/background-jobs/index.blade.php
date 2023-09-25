@@ -64,16 +64,20 @@
                     data: 'duration',
                     name: 'duration',
                     render: function(data, type, row) {
-                    let minutes = Math.floor(data / 60);
-                    let seconds = data % 60;
-                    let formattedDuration = '';
+                        let hours = Math.floor(data / 3600);
+                        let minutes = Math.floor((data % 3600) / 60);
+                        let seconds = data % 60;
 
-                    if(minutes > 0) formattedDuration += `${minutes}m `;
-                    if(seconds > 0 || minutes === 0) formattedDuration += `${seconds}s`;
+                        let formattedDuration = '';
 
-                    return formattedDuration;
+                        if(hours > 0) formattedDuration += `${hours}h `;
+                        if(minutes > 0 || (hours > 0 && seconds === 0)) formattedDuration += `${minutes}m `;
+                        if(seconds > 0 || (minutes === 0 && hours === 0)) formattedDuration += `${seconds}s`;
+
+                        return formattedDuration;
                     }
                 },
+
                 {
                     data: 'execution_date',
                     name: 'execution_date',
