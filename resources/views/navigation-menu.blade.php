@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('admin.deployments.deployment.index') }}" :active="request()->routeIs('admin.deployments.*')">
-                        {{ __('Deployment') }}
+                        {{ __('Deployments') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('admin.background-jobs-monitoring.processes.index') }}" :active="request()->routeIs('admin.background-jobs-monitoring.*')">
                         {{ __('Background Jobs') }}
