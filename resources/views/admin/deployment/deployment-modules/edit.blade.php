@@ -29,7 +29,7 @@
               </div>
             </div>
           @endif
-          <form class="w-full" action="{{ route('admin.deployment-modules.update', $deploymentModule->id) }}" method="post"
+          <form class="w-full" action="{{ route('admin.deployments.modules.update', $deploymentModule->id) }}" method="post"
                 enctype="multipart/form-data">
             @csrf
             @method('put')

@@ -11,7 +11,7 @@
   <div class="py-12 font-poppins">
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
       <div class="p-6 bg-white rounded-lg">
-        <h1 class="mb-10 text-2xl font-medium">Add Module</h1>
+        <h1 class="mb-10 text-2xl font-medium">Add Process</h1>
         @if ($errors->any())
           <div class="mb-5" role="alert">
             <div class="px-4 py-2 font-bold text-white bg-red-500 rounded-t">
@@ -28,18 +28,36 @@
             </div>
           </div>
         @endif
-        <form class="w-full" action="{{ route('admin.deployments.modules.store') }}" method="post" enctype="multipart/form-data">
+        <form class="w-full" action="{{ route('admin.background-jobs-monitoring.processes.store') }}" method="post" enctype="multipart/form-data">
           @csrf
+
+        <div class="flex flex-wrap px-3 mt-4 mb-6 -mx-3">
+            <div class="w-full">
+                <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="process_type">
+                    Process Type*
+                </label>
+                <select name="type"
+                        class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white"
+                        id="process_type" required>
+                    <option value="" disabled selected>Select Process Type</option>
+                    <option value="Product">Product</option>
+                    <option value="Non-Product">Non-Product</option>
+                </select>
+                <div class="mt-2 text-sm text-gray-500">
+                    Select the type of process. Mandatory.
+                </div>
+            </div>
+        </div>
           <div class="flex flex-wrap px-3 mt-4 mb-6 -mx-3">
             <div class="w-full">
-              <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="module_name">
-                Module Name*
+              <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="process_name">
+                Process Name*
               </label>
               <input value="{{ old('name') }}" name="name"
                      class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white"
-                     id="module_name" type="text" placeholder="Nama Module" required>
+                     id="process_name" type="text" placeholder="Nama Proses" required>
               <div class="mt-2 text-sm text-gray-500">
-                Nama modul deployment. Contoh: Module 1, Module 2, dsb. Wajib diisi. Maksimal 255 karakter.
+                Nama Proses Background. Contoh: Process 1, Process 2, dsb. Wajib diisi. Maksimal 255 karakter.
               </div>
             </div>
           </div>
@@ -48,7 +66,7 @@
             <div class="w-full px-3 text-right">
               <button type="submit"
                       class="px-4 py-2 font-bold text-white rounded shadow-lg bg-primary">
-                Add Module
+                Add Process
               </button>
             </div>
           </div>

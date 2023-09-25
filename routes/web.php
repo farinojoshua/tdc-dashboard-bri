@@ -5,7 +5,9 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Deployment\DeploymentController;
 use App\Http\Controllers\Admin\Deployment\DeploymentModuleController;
 use App\Http\Controllers\Admin\Deployment\DeploymentServerTypeController;
+use App\Http\Controllers\Admin\BackgroundJobsMonitoring\ProcessController;
 use App\Http\Controllers\Front\Deployment\DeploymentController as FrontDeploymentController;
+use Laravel\Jetstream\Rules\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +34,13 @@ Route::middleware([
     ])->group(function () {
         Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-        Route::resource('deployment-modules', DeploymentModuleController::class);
-        Route::resource('deployment-server-types', DeploymentServerTypeController::class);
-        Route::resource('deployments', DeploymentController::class);
+        Route::prefix('deployments')->name('deployments.')->group(function () {
+            Route::resource('server-types', DeploymentServerTypeController::class);
+            Route::resource('modules', DeploymentModuleController::class);
+            Route::resource('deployment', DeploymentController::class);
+        });
+        Route::prefix('background-jobs-monitoring')->name('background-jobs-monitoring.')->group(function () {
+            Route::resource('processes', ProcessController::class);
+        });
     });
 });

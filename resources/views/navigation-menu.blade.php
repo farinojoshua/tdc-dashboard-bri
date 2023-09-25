@@ -15,8 +15,11 @@
                     <x-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('admin.deployments.index') }}" :active="request()->routeIs('admin.deployments.*') || request()->routeIs('admin.deployment-modules.*') || request()->routeIs('admin.deployment-server-types.*')">
+                    <x-nav-link href="{{ route('admin.deployments.deployment.index') }}" :active="request()->routeIs('admin.deployments.*')">
                         {{ __('Deployment') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('admin.background-jobs-monitoring.processes.index') }}" :active="request()->routeIs('admin.background-jobs-monitoring.*')">
+                        {{ __('Background Jobs') }}
                     </x-nav-link>
                 </div>
             </div>

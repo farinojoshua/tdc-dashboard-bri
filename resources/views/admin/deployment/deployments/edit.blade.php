@@ -11,7 +11,7 @@
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
     <div class="p-6 bg-white rounded-xl">
         <h1 class="mb-10 text-2xl font-medium">Edit Data Deployment</h1>
-        <form action="{{ route('admin.deployments.update', $deployment->id) }}" method="POST">
+        <form action="{{ route('admin.deployments.deployment.update', $deployment->id) }}" method="POST">
           @csrf
           @method('PUT')
 
@@ -142,23 +142,17 @@
             .then(data => {
                 var serverTypeSelect = document.getElementById('server_type_id');
                 serverTypeSelect.innerHTML = '';
-
-                // create default option
                 data.forEach(function(serverType) {
                     var option = new Option(serverType.name, serverType.id);
-
-                    // check if server type id is selected
-                    if (serverType.id.toString() === selectedServerType.toString()) {
-                        option.selected = true; // set selected
+                    if (selectedServerType && serverType.id.toString() === selectedServerType.toString()) {
+                        option.selected = true;
                     }
-
-                    // append option to select box
                     serverTypeSelect.appendChild(option);
                 });
             })
             .catch(error => console.error('Error:', error));
         }
-        </script>
+                </script>
     </x-slot>
 </x-app-layout>
 

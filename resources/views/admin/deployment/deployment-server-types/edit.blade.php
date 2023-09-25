@@ -29,7 +29,7 @@
           </div>
         @endif
 
-        <form class="w-full" action="{{ route('admin.deployment-server-types.update', $serverType->id) }}" method="post" enctype="multipart/form-data">
+        <form class="w-full" action="{{ route('admin.deployments.server-types.update', $serverType->id) }}" method="post" enctype="multipart/form-data">
           @csrf
           @method('put')
           <div class="flex flex-wrap px-3 mt-4 mb-6 -mx-3">

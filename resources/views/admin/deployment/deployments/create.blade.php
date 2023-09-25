@@ -12,7 +12,7 @@
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="p-6 bg-white rounded-xl">
             <h1 class="mb-10 text-2xl font-medium">Add Data Deployment</h1>
-            <form action="{{ route('admin.deployments.store') }}" method="POST">
+            <form action="{{ route('admin.deployments.deployment.store') }}" method="POST">
               @csrf
 
               <div class="grid grid-cols-2 gap-16">
