@@ -74,6 +74,22 @@
                         </div>
                     </div>
 
+                     <!-- Data Amount to S4GL -->
+                    <div class="mb-4">
+                        <label for="data_amount_to_S4GL" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Data Amount to S4GL*</label>
+                        <input value="{{ old('data_amount_to_S4GL', $job->data_amount_to_S4GL) }}" name="data_amount_to_S4GL"
+                          class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white"
+                          id="data_amount_to_S4GL" type="number" placeholder="Data Amount to S4GL" required>
+                        <div class="mt-2 text-sm text-gray-500">
+                            The amount of data to S4GL. Mandatory. Numeric.
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- Kolom Kedua -->
+                <div>
                     <!-- Duration -->
                     <div class="mb-4">
                         <label for="duration" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Duration*</label>
@@ -82,20 +98,6 @@
                           id="duration" type="number" placeholder="Duration" required>
                         <div class="mt-2 text-sm text-gray-500">
                             The duration of the background job in seconds. Mandatory. Integer.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Kolom Kedua -->
-                <div>
-                    <!-- Data Amount to S4GL -->
-                    <div class="mb-4">
-                        <label for="data_amount_to_S4GL" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Data Amount to S4GL*</label>
-                        <input value="{{ old('data_amount_to_S4GL', $job->data_amount_to_S4GL) }}" name="data_amount_to_S4GL"
-                          class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white"
-                          id="data_amount_to_S4GL" type="number" placeholder="Data Amount to S4GL" required>
-                        <div class="mt-2 text-sm text-gray-500">
-                            The amount of data to S4GL. Mandatory. Numeric.
                         </div>
                     </div>
 

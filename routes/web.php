@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Deployment\DeploymentServerTypeController;
 use App\Http\Controllers\Admin\BackgroundJobsMonitoring\ProcessController;
 use App\Http\Controllers\Admin\BackgroundJobsMonitoring\BackgroundJobController;
 use App\Http\Controllers\Front\Deployment\DeploymentController as FrontDeploymentController;
+use App\Http\Controllers\Front\BackgroundJobsMonitoring\BackgroundJobController as FrontBackgroundJobController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,7 @@ Route::get('/', function () {
 
 Route::get('/deployments', [FrontDeploymentController::class, 'index'])->name('deployments.index');
 Route::get('/deployments/calendar', [FrontDeploymentController::class, 'calendar'])->name('deployments.calendar');
+Route::get('/background-jobs-monitoring', [FrontBackgroundJobController::class, 'index'])->name('background-jobs-monitoring.index');
 
 Route::middleware([
     'auth:sanctum',

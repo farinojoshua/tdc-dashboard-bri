@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BackgroundJobsMonitoring\BackgroundJobController;
 use App\Http\Controllers\Admin\Deployment\DeploymentController;
 use App\Http\Controllers\Front\Deployment\DeploymentController as FrontDeploymentController;
+use App\Http\Controllers\Front\BackgroundJobsMonitoring\BackgroundJobController as FrontBackgroundJobController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +29,4 @@ Route::get('deployments/chart-data', [FrontDeploymentController::class, 'getChar
 
 // background jobs monitoring
 Route::get('/get-processes-by-type', [BackgroundJobController::class, 'getProcessesByType']);
+Route::get('/get-background-jobs', [FrontBackgroundJobController::class, 'getBackgroundJobs']);
