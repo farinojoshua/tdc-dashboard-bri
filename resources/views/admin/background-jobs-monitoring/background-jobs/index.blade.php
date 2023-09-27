@@ -90,6 +90,8 @@
                     width: '15%'
                 },
             ],
+            // order by execution_date first
+            order: [[7, 'desc']],
 
         });
 

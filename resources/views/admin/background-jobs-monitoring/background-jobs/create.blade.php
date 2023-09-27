@@ -68,24 +68,25 @@
                         </div>
                     </div>
 
-                    <!-- Duration -->
-                    <div class="mb-4">
-                        <label for="duration" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Duration*</label>
-                        <input type="number" id="duration" name="duration" value="{{ old('duration') }}" placeholder="Duration" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
-                        <div class="mt-2 text-sm text-gray-500">
-                            The duration of the background job in seconds. Mandatory. Integer.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Kolom Kedua -->
-                <div>
                     <!-- Data Amount to S4GL -->
                     <div class="mb-4">
                         <label for="data_amount_to_S4GL" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Data Amount to S4GL*</label>
                         <input type="number" id="data_amount_to_S4GL" name="data_amount_to_S4GL" value="{{ old('data_amount_to_S4GL') }}" placeholder="Data Amount to S4GL" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
                         <div class="mt-2 text-sm text-gray-500">
                             The amount of data to S4GL. Mandatory. Numeric.
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Kolom Kedua -->
+                <div>
+                    <!-- Duration -->
+                    <div class="mb-4">
+                        <label for="duration" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Duration*</label>
+                        <input type="number" id="duration" name="duration" value="{{ old('duration') }}" placeholder="Duration" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
+                        <div class="mt-2 text-sm text-gray-500">
+                            The duration of the background job in seconds. Mandatory. Integer.
                         </div>
                     </div>
 
@@ -107,7 +108,7 @@
                     <!-- Execution Date -->
                     <div class="mb-4">
                         <label for="execution_date" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Execution Date*</label>
-                        <input type="date" id="execution_date" name="execution_date" value="{{ old('execution_date') }}" placeholder="YYYY-MM-DD" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
+                        <input type="date" id="execution_date" name="execution_date" value="{{ old('execution_date', date('Y-m-d')) }}" placeholder="YYYY-MM-DD" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
                         <div class="mt-2 text-sm text-gray-500">
                             The date when the background job will be executed. Mandatory.
                         </div>
