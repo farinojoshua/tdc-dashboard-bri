@@ -16,10 +16,11 @@
         <select id="year-selector" class="px-8 py-2 ml-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
             <option value="2023">2023</option>
             <option value="2024">2024</option>
+            <option value="2025">2025</option>
         </select>
 
         <!-- Button untuk apply filter -->
-        <button id="apply-filter-button" class="px-6 py-2 ml-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Apply Filter</button>
+        <button id="apply-filter-button" class="px-6 py-2 ml-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Filter</button>
 
         <div id="heatmap-container-type1"></div>
         <div class="p-4">
@@ -86,13 +87,13 @@
         fetch(`/api/get-background-jobs?month=${month}&year=${year}`)
             .then(response => response.json())
             .then(data => {
-                initializeChart('heatmap-container-type1', data.type1.processes || {}, dates, data.type1.allProcesses || []);
-                initializeChart('heatmap-container-type2', data.type2.processes || {}, dates, data.type2.allProcesses || []);
+                initializeChart('heatmap-container-type1', data.type1.processes || {}, dates, 'Product');
+                initializeChart('heatmap-container-type2', data.type2.processes || {}, dates, 'Non-Product');
             })
             .catch(error => console.error('Error fetching heatmap data:', error));
     }
 
-    function initializeChart(containerId, data, dates) {
+    function initializeChart(containerId, data, dates, title) {
         let mappedData = Object.entries(data).flatMap(([date, processes]) =>
             Object.entries(processes).map(([process, status]) => ({
                 date: date,
@@ -130,7 +131,7 @@
                 plotBorderWidth: 1
             },
             title: {
-                text: 'Heatmap Background Job'
+                text: title
             },
             xAxis: {
                 categories: dates.map(date => date.split('-')[2]), // Hanya tampilkan tanggal (DD)
