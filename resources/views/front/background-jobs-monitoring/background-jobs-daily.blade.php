@@ -1,8 +1,18 @@
-    @extends('layouts.front')
+@extends('layouts.front')
 
-    @section('content')
+@section('title')
+    <title>Background Jobs - Daily Monitoring</title>
+@endsection
 
-    <div class="mt-10">
+@section('style')
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+@endsection
+
+@section('content')
+
+<div class="mt-10">
         <!-- Dropdown untuk Bulan -->
         <select id="month-selector" class="px-8 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
             @foreach(range(1, 12) as $month)
@@ -22,53 +32,85 @@
         <!-- Button untuk apply filter -->
         <button id="apply-filter-button" class="px-6 py-2 ml-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Filter</button>
 
-        <div id="heatmap-container-type1"></div>
-        <div class="p-4">
-            <div class="flex items-center mb-2">
-                <span class="w-5 h-5 mr-2" style="background-color: #2FB489"></span> Normal Run
+        <!-- Container untuk heatmap -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div id="heatmap-container-type1"></div>
+                    <div class="p-4">
+                        <div class="flex items-center mb-2">
+                            <span class="w-5 h-5 mr-2" style="background-color: #2FB489"></span> Normal Run
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <span class="w-5 h-5 mr-2" style="background-color: #9BD95A"></span> Rerun Background Job
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <span class="w-5 h-5 mr-2" style="background-color: #FFBB46"></span> Manual Run Background Job
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <span class="w-5 h-5 mr-2" style="background-color: #FE504F"></span> Pending
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div id="heatmap-container-type2"></div>
+                    <div class="p-4">
+                        <div class="flex items-center mb-2">
+                            <span class="w-5 h-5 mr-2" style="background-color: #2FB489"></span> Normal Run
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <span class="w-5 h-5 mr-2" style="background-color: #9BD95A"></span> Rerun Background Job
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <span class="w-5 h-5 mr-2" style="background-color: #FFBB46"></span> Manual Run Background Job
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <span class="w-5 h-5 mr-2" style="background-color: #FE504F"></span> Pending
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="flex items-center mb-2">
-                <span class="w-5 h-5 mr-2" style="background-color: #9BD95A"></span> Rerun Background Job
-            </div>
-            <div class="flex items-center mb-2">
-                <span class="w-5 h-5 mr-2" style="background-color: #FFBB46"></span> Manual Run Background Job
-            </div>
-            <div class="flex items-center mb-2">
-                <span class="w-5 h-5 mr-2" style="background-color: #FE504F"></span> Pending
-            </div>
-        </div>
 
-        <div id="heatmap-container-type2"></div>
-        <div class="p-4">
-            <div class="flex items-center mb-2">
-                <span class="w-5 h-5 mr-2" style="background-color: #2FB489"></span> Normal Run
-            </div>
-            <div class="flex items-center mb-2">
-                <span class="w-5 h-5 mr-2" style="background-color: #9BD95A"></span> Rerun Background Job
-            </div>
-            <div class="flex items-center mb-2">
-                <span class="w-5 h-5 mr-2" style="background-color: #FFBB46"></span> Manual Run Background Job
-            </div>
-            <div class="flex items-center mb-2">
-                <span class="w-5 h-5 mr-2" style="background-color: #FE504F"></span> Pending
-            </div>
+            <!-- Jika Anda ingin navigasi panah -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
         </div>
-    </div>
+</div>
+@endsection
 
-        <script src="https://code.highcharts.com/highcharts.js"></script>
-        <script src="https://code.highcharts.com/modules/heatmap.js"></script>
-        <script src="https://code.highcharts.com/modules/exporting.js"></script>
-        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+@section('script')
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function () {
+        // Inisialisasi Swiper
+        var swiper = new Swiper('.swiper-container', {
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            slidesPerView: 1, // hanya tampilkan satu slide pada satu waktu
+            spaceBetween: 0
+        });
+
         applyFilter();
 
         document.getElementById('apply-filter-button').addEventListener('click', function () {
             applyFilter();
         });
     });
-
     function applyFilter() {
         const monthSelector = document.getElementById('month-selector');
         const yearSelector = document.getElementById('year-selector');
@@ -84,7 +126,7 @@
     }
 
     function fetchData(month, year, dates) {
-        fetch(`/api/get-background-jobs?month=${month}&year=${year}`)
+        fetch(`/api/get-background-jobs-daily?month=${month}&year=${year}`)
             .then(response => response.json())
             .then(data => {
                 initializeChart('heatmap-container-type1', data.type1.processes || {}, dates, 'Product');
@@ -188,7 +230,5 @@
     }
 
     </script>
-
-
-    @endsection
+@endsection
 

@@ -1,5 +1,9 @@
 @extends('layouts.front')
 
+@section('title')
+    <title>Deployment Calendar</title>
+@endsection
+
 @section('style')
     @vite(['resources/js/calendar.js'])'
 @endsection

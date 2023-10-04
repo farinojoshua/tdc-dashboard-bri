@@ -26,9 +26,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/deployments', [FrontDeploymentController::class, 'index'])->name('deployments.index');
+Route::get('/deployments/chart', [FrontDeploymentController::class, 'index'])->name('deployments.index');
 Route::get('/deployments/calendar', [FrontDeploymentController::class, 'calendar'])->name('deployments.calendar');
-Route::get('/background-jobs-monitoring', [FrontBackgroundJobController::class, 'index'])->name('background-jobs-monitoring.index');
+Route::get('/background-jobs-monitoring/daily', [FrontBackgroundJobController::class, 'index'])->name('background-jobs-monitoring.index');
+Route::get('/background-jobs-monitoring/chart', [FrontBackgroundJobController::class, 'lineChart'])->name('background-jobs-monitoring.chart');
 
 Route::middleware([
     'auth:sanctum',

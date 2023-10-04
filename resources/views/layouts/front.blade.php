@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Deployment</title>
+    @yield('title')
 
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
@@ -22,31 +22,39 @@
 </head>
 <body>
     {{-- create navbar --}}
-<div> <!-- Ini adalah kontainer untuk navbar dan list -->
-    <nav class="flex justify-between p-6 bg-white font-poppins">
-        <div>
-            <a href="" class="text-3xl font-semibold">
-                <span class="text-blue-600">TDC</span>Dashboard.
-            </a>
-        </div>
-        <div class="relative flex gap-5">
-            <a href="" class="text-xl font-bold text-dark-blue">Usman</a>
-            <a href="" class="text-xl font-bold text-dark-blue">Brisol</a>
-            <div class="relative inline-block text-left">
-                <a href="#" class="inline-flex justify-center w-full text-xl font-bold text-dark-blue">
-                    Deployment
+    <div>
+        <nav class="flex justify-between p-6 transition-transform duration-300 ease-out transform -translate-y-full bg-white shadow-lg font-poppins" id="navbar">
+            <div>
+                <a href="" class="text-3xl font-semibold">
+                    <span class="text-blue-600">TDC</span>Dashboard.
                 </a>
             </div>
-            <a href="" class="text-xl font-bold text-dark-blue">Background Jobs</a>
-        </div>
-    </nav>
-    <div class="h-2 bg-gray-200"></div>
-</div>
+            <div class="relative flex gap-5">
+                <a href="" class="text-xl font-bold text-dark-blue">Usman</a>
+                <a href="" class="text-xl font-bold text-dark-blue">Brisol</a>
+                <div class="relative inline-block text-left">
+                    <a href="#" class="inline-flex justify-center w-full text-xl font-bold text-dark-blue">
+                        Deployment
+                    </a>
+                </div>
+                <a href="" class="text-xl font-bold text-dark-blue">Background Jobs</a>
+            </div>
+        </nav>
+    </div>
 
 
     <div class="container mx-auto font-poppins">
          @yield('content')
     </div>
+
+    <script>
+        // make the navbar active when mouse hover to top of the page
+        window.addEventListener('scroll', function() {
+            var navbar = document.getElementById('navbar');
+            navbar.classList.toggle('sticky', window.scrollY > 0);
+        })
+    </script>
+
 
     {{-- add script yield --}}
     @yield('script')

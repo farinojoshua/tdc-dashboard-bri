@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 use App\Models\BackgroundJobsMonitoring\Process;
 use App\Models\BackgroundJobsMonitoring\BackgroundJob;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class BackgroundJobController extends Controller
 {

@@ -29,4 +29,5 @@ Route::get('deployments/chart-data', [FrontDeploymentController::class, 'getChar
 
 // background jobs monitoring
 Route::get('/get-processes-by-type', [BackgroundJobController::class, 'getProcessesByType']);
-Route::get('/get-background-jobs', [FrontBackgroundJobController::class, 'getBackgroundJobs']);
+Route::get('/background-jobs/chart-data', [FrontBackgroundJobController::class, 'getChartData']);
+Route::get('/get-background-jobs-daily', [FrontBackgroundJobController::class, 'getBackgroundJobs']);

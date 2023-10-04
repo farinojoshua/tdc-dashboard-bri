@@ -12,7 +12,7 @@ class DeploymentController extends Controller
     public function index()
     {
         $modules = DeploymentModule::all();
-        return view('front.deployment.deployments', compact('modules'));
+        return view('front.deployment.deployments-chart', compact('modules'));
     }
 
     // for deployment calendar view

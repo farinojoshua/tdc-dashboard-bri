@@ -27,7 +27,7 @@
                     <div class="mb-4">
                         <label for="module_id" class="block mb-2 text-sm font-bold text-gray-600">Module:</label>
                         <select id="module_id" name="module_id" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
-                        <option value="">-- Pilih Module --</option>
+                        <option value="" disabled selected>-- Pilih Module --</option>
                         @foreach($modules as $module)
                             <option value="{{ $module->id }}">{{ $module->name }}</option>
                         @endforeach
@@ -38,6 +38,7 @@
                     <div class="mb-4">
                         <label for="server_type_id" class="block mb-2 text-sm font-bold text-gray-600">Server Type:</label>
                         <select id="server_type_id" name="server_type_id" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
+                        <option value="" disabled selected>-- Pilih Server Type (Pilih Module Terlebih Dahulu)--</option>
                         </select>
                     </div>
 
@@ -53,6 +54,7 @@
                     <div class="mb-4">
                         <label for="document_status" class="block mb-2 text-sm font-bold text-gray-600">Document Status:</label>
                         <select id="document_status" name="document_status" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
+                            <option value="" selected disabled>-- Pilih Status Dokumen --</option>
                             <option value="Not Done">Not Done</option>
                             <option value="In Progress">In Progress</option>
                             <option value="Done">Done</option>
@@ -69,6 +71,7 @@
                     <div class="mb-4">
                         <label for="cm_status" class="block mb-2 text-sm font-bold text-gray-600">CM Status:</label>
                         <select id="cm_status" name="cm_status" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
+                        <option value="" selected disabled>-- Pilih Status CM --</option>
                         <option value="Draft">Draft</option>
                         <option value="Reviewer">Reviewer</option>
                         <option value="Checker">Checker</option>

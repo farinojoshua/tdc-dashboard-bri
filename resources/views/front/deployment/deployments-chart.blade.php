@@ -29,8 +29,8 @@
                         </svg>
                     </button>
                     <div class="absolute right-0 z-10 hidden w-48 py-2 mt-2 bg-white border border-gray-300 rounded shadow dropdown-menu">
-                        <a href="{{ route('deployments.index') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Chart</a>
-                        <a href="{{ route('deployments.calendar') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Calendar</a>
+                        {{-- <a href="{{ route('deployments.index') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Chart</a>
+                        <a href="{{ route('deployments.calendar') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Calendar</a> --}}
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
     function fetchData() {
         var selectedModule = document.getElementById('moduleSelect').value;
         var selectedYear = document.getElementById('yearSelect').value;
-        fetch(`api/deployments/chart-data?module_id=${selectedModule}&year=${selectedYear}`)
+        fetch(`/api/deployments/chart-data?module_id=${selectedModule}&year=${selectedYear}`)
             .then(response => response.json())
             .then(data => {
                 if (myChart) {

@@ -51,10 +51,16 @@
                 {
                     data: 'data_amount_to_IEM',
                     name: 'data_amount_to_IEM',
+                    render: function(data, type, row) {
+                        return data.toLocaleString();
+                    }
                 },
                 {
                     data: 'data_amount_to_S4GL',
                     name: 'data_amount_to_S4GL',
+                    render: function(data, type, row) {
+                        return data.toLocaleString();
+                    }
                 },
                 {
                     data: 'status',
