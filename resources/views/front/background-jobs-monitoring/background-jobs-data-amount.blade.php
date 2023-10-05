@@ -12,7 +12,7 @@
 
 @section('script')
     <script>
-        fetch('/api/background-jobs/chart-data')
+        fetch('/api/background-jobs/get-data-amount')
         .then(response => response.json())
         .then(data => {
             var ctx = document.getElementById('myChart').getContext('2d');

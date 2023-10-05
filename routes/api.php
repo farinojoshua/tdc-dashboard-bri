@@ -23,11 +23,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // deployments
-Route::get('modules/{module_id}/server-types', [DeploymentController::class, 'getServerTypesByModule']);
-Route::get('deployments/events', [DeploymentController::class, 'getEvents']);
-Route::get('deployments/chart-data', [FrontDeploymentController::class, 'getChartData']);
+Route::get('/modules/{module_id}/server-types', [DeploymentController::class, 'getServerTypesByModule']);
+Route::get('/deployments/events', [DeploymentController::class, 'getEvents']);
+Route::get('/deployments/chart-data', [FrontDeploymentController::class, 'getChartData']);
 
 // background jobs monitoring
 Route::get('/get-processes-by-type', [BackgroundJobController::class, 'getProcessesByType']);
-Route::get('/background-jobs/chart-data', [FrontBackgroundJobController::class, 'getChartData']);
+Route::get('/background-jobs/get-data-amount', [FrontBackgroundJobController::class, 'getChartDataAmount']);
 Route::get('/get-background-jobs-daily', [FrontBackgroundJobController::class, 'getBackgroundJobs']);

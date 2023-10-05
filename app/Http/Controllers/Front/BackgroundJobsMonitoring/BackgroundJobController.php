@@ -11,7 +11,7 @@ use App\Models\BackgroundJobsMonitoring\BackgroundJob;
 
 class BackgroundJobController extends Controller
 {
-    public function index()
+    public function daily()
     {
         return view('front.background-jobs-monitoring.background-jobs-daily');
     }
@@ -71,7 +71,7 @@ class BackgroundJobController extends Controller
         ]);
     }
 
-    public function getChartData()
+    public function getChartDataAmount()
     {
         $startDate = Carbon::now()->startOfYear();
         $endDate = Carbon::now()->endOfYear();
@@ -100,8 +100,8 @@ class BackgroundJobController extends Controller
         ]);
     }
 
-    public function lineChart()
+    public function dataAmount()
     {
-        return view('front.background-jobs-monitoring.background-jobs-chart');
+        return view('front.background-jobs-monitoring.background-jobs-data-amount');
     }
 }
