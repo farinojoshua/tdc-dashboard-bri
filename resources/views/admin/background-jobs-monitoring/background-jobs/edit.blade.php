@@ -63,14 +63,14 @@
                         </div>
                     </div>
 
-                    <!-- Data Amount to IEM -->
+                    <!-- Data Amount to EIM -->
                     <div class="mb-4">
-                        <label for="data_amount_to_IEM" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Data Amount to IEM*</label>
-                        <input value="{{ old('data_amount_to_IEM', $job->data_amount_to_IEM) }}" name="data_amount_to_IEM"
+                        <label for="data_amount_to_EIM" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Data Amount to EIM*</label>
+                        <input value="{{ old('data_amount_to_EIM', $job->data_amount_to_EIM) }}" name="data_amount_to_EIM"
                           class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white"
-                          id="data_amount_to_IEM" type="number" placeholder="Data Amount to IEM" required>
+                          id="data_amount_to_EIM" type="number" placeholder="Data Amount to EIM" required>
                         <div class="mt-2 text-sm text-gray-500">
-                            The amount of data to IEM. Mandatory. Numeric.
+                            The amount of data to EIM. Mandatory. Numeric.
                         </div>
                     </div>
 
@@ -92,10 +92,19 @@
                 <div>
                     <!-- Duration -->
                     <div class="mb-4">
-                        <label for="duration" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Duration*</label>
-                        <input value="{{ old('duration', $job->duration) }}" name="duration"
+                        <label for="duration_to_EIM" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Duration To EIM*</label>
+                        <input value="{{ old('duration_to_EIM', $job->duration_to_EIM) }}" name="duration_to_EIM"
                           class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white"
-                          id="duration" type="number" placeholder="Duration" required>
+                          id="duration_to_EIM" type="number" placeholder="Duration_to_EIM" required>
+                        <div class="mt-2 text-sm text-gray-500">
+                            The duration of the background job in seconds. Mandatory. Integer.
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="duration_to_S4GL" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Duration To S4GL*</label>
+                        <input value="{{ old('duration_to_S4GL', $job->duration_to_S4GL) }}" name="duration_to_S4GL"
+                          class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white"
+                          id="duration_to_S4GL" type="number" placeholder="Duration_to_S4GL" required>
                         <div class="mt-2 text-sm text-gray-500">
                             The duration of the background job in seconds. Mandatory. Integer.
                         </div>

@@ -12,7 +12,7 @@
 
 @section('content')
 
-<div class="mt-10">
+<div class="p-10 mx-auto my-10 rounded-lg shadow-lg">
         <!-- Dropdown untuk Bulan -->
         <select id="month-selector" class="px-8 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
             @foreach(range(1, 12) as $month)
@@ -30,13 +30,9 @@
         </select>
 
         <!-- Button untuk apply filter -->
-        <button id="apply-filter-button" class="px-6 py-2 ml-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Filter</button>
+        <button id="apply-filter-button" class="px-6 py-2 ml-2 text-white rounded-md bg-primary focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Filter</button>
 
-        <!-- Container untuk heatmap -->
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div id="heatmap-container-type1"></div>
+                <div id="heatmap-container-type1"></div>
                     <div class="p-4">
                         <div class="flex items-center mb-2">
                             <span class="w-5 h-5 mr-2" style="background-color: #2FB489"></span> Normal Run
@@ -51,9 +47,7 @@
                             <span class="w-5 h-5 mr-2" style="background-color: #FE504F"></span> Pending
                         </div>
                     </div>
-                </div>
-                <div class="swiper-slide">
-                    <div id="heatmap-container-type2"></div>
+                <div id="heatmap-container-type2"></div>
                     <div class="p-4">
                         <div class="flex items-center mb-2">
                             <span class="w-5 h-5 mr-2" style="background-color: #2FB489"></span> Normal Run
@@ -68,14 +62,6 @@
                             <span class="w-5 h-5 mr-2" style="background-color: #FE504F"></span> Pending
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- Jika Anda ingin navigasi panah -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-pagination"></div>
-        </div>
 </div>
 @endsection
 
@@ -87,23 +73,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-        // Inisialisasi Swiper
-        var swiper = new Swiper('.swiper-container', {
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            slidesPerView: 1, // hanya tampilkan satu slide pada satu waktu
-            spaceBetween: 0
-        });
 
         applyFilter();
 

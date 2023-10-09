@@ -64,10 +64,11 @@ class BackgroundJobController extends Controller
         $request->validate([
             'type' => 'required|string',
             'process_id' => 'required|exists:bjm_processes,id',
-            'data_amount_to_IEM' => 'required|numeric',
+            'data_amount_to_EIM' => 'required|numeric',
             'data_amount_to_S4GL' => 'required|numeric',
             'status' => 'required|in:Normal Run,Rerun Background Job,Manual Run Background Job,Pending',
-            'duration' => 'required|integer',
+            'duration_to_EIM' => 'required|integer',
+            'duration_to_S4GL' => 'required|integer',
             'execution_date' => 'required|date',
         ]);
 
@@ -80,10 +81,11 @@ class BackgroundJobController extends Controller
         BackgroundJob::create([
             'type' => $request->type,
             'process_id' => $request->process_id,
-            'data_amount_to_IEM' => $request->data_amount_to_IEM,
+            'data_amount_to_EIM' => $request->data_amount_to_EIM,
             'data_amount_to_S4GL' => $request->data_amount_to_S4GL,
             'status' => $request->status,
-            'duration' => $request->duration,
+            'duration_to_EIM' => $request->duration_to_EIM,
+            'duration_to_S4GL' => $request->duration_to_S4GL,
             'execution_date' => $request->execution_date,
         ]);
 
@@ -130,10 +132,11 @@ class BackgroundJobController extends Controller
         $request->validate([
             'type' => 'required|string',
             'process_id' => 'required|exists:bjm_processes,id',
-            'data_amount_to_IEM' => 'required|numeric',
+            'data_amount_to_EIM' => 'required|numeric',
             'data_amount_to_S4GL' => 'required|numeric',
             'status' => 'required|in:Normal Run,Rerun Background Job,Manual Run Background Job,Pending',
-            'duration' => 'required|integer',
+            'duration_to_EIM' => 'required|integer',
+            'duration_to_S4GL' => 'required|integer',
             'execution_date' => 'required|date',
         ]);
 
@@ -144,10 +147,11 @@ class BackgroundJobController extends Controller
         $job->update([
             'type' => $request->type,
             'process_id' => $request->process_id,
-            'data_amount_to_IEM' => $request->data_amount_to_IEM,
+            'data_amount_to_EIM' => $request->data_amount_to_EIM,
             'data_amount_to_S4GL' => $request->data_amount_to_S4GL,
             'status' => $request->status,
-            'duration' => $request->duration,
+            'duration_to_EIM' => $request->duration_to_EIM,
+            'duration_to_S4GL' => $request->duration_to_S4GL,
             'execution_date' => $request->execution_date,
         ]);
 

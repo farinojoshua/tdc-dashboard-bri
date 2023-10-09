@@ -5,7 +5,7 @@
 @endsection
 
 @section('style')
-    @vite(['resources/js/calendar.js'])'
+    @vite(['resources/js/calendar.js'])
 @endsection
 
 @section('content')

@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->enum('type', ['Product', 'Non-Product']);
             $table->foreignId('process_id')->constrained('bjm_processes');
-            $table->integer('data_amount_to_IEM');
+            $table->integer('data_amount_to_EIM');
             $table->integer('data_amount_to_S4GL');
             $table->enum('status', ['Normal Run', 'Rerun Background Job', 'Manual Run Background Job', 'Pending']);
-            $table->integer('duration');
+            $table->integer('duration_to_EIM');
+            $table->integer('duration_to_S4GL');
             $table->date('execution_date');
             $table->timestamps();
         });

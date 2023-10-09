@@ -29,7 +29,8 @@ Route::get('/', function () {
 Route::get('/deployments/chart', [FrontDeploymentController::class, 'index'])->name('deployments.index');
 Route::get('/deployments/calendar', [FrontDeploymentController::class, 'calendar'])->name('deployments.calendar');
 Route::get('/background-jobs-monitoring/daily', [FrontBackgroundJobController::class, 'daily'])->name('background-jobs-monitoring.daily');
-Route::get('/background-jobs-monitoring/data-amount', [FrontBackgroundJobController::class, 'dataAmount'])->name('background-jobs-monitoring.data-amount');
+Route::get('/background-jobs-monitoring/data-amount', [FrontBackgroundJobController::class, 'showDataAmountCharts'])->name('background-jobs-monitoring.data-amount');
+Route::get('/background-jobs-monitoring/duration', [FrontBackgroundJobController::class, 'showDurationCharts'])->name('background-jobs-monitoring.duration');
 
 Route::middleware([
     'auth:sanctum',

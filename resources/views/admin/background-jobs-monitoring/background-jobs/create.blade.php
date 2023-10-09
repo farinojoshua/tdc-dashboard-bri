@@ -59,12 +59,12 @@
                         </div>
                     </div>
 
-                    <!-- Data Amount to IEM -->
+                    <!-- Data Amount to EIM -->
                     <div class="mb-4">
-                        <label for="data_amount_to_IEM" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Data Amount to IEM*</label>
-                        <input type="number" id="data_amount_to_IEM" name="data_amount_to_IEM" value="{{ old('data_amount_to_IEM') }}" placeholder="Data Amount to IEM" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
+                        <label for="data_amount_to_EIM" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Data Amount to EIM*</label>
+                        <input type="number" id="data_amount_to_EIM" name="data_amount_to_EIM" value="{{ old('data_amount_to_EIM') }}" placeholder="Data Amount to EIM" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
                         <div class="mt-2 text-sm text-gray-500">
-                            The amount of data to IEM. Mandatory. Numeric.
+                            The amount of data to EIM. Mandatory. Numeric.
                         </div>
                     </div>
 
@@ -83,8 +83,15 @@
                 <div>
                     <!-- Duration -->
                     <div class="mb-4">
-                        <label for="duration" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Duration*</label>
-                        <input type="number" id="duration" name="duration" value="{{ old('duration') }}" placeholder="Duration" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
+                        <label for="duration_to_EIM" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Duration*</label>
+                        <input type="number" id="duration_to_EIM" name="duration_to_EIM" value="{{ old('duration_to_EIM') }}" placeholder="Duration To EIM" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
+                        <div class="mt-2 text-sm text-gray-500">
+                            The duration of the background job in seconds. Mandatory. Integer.
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="duration_to_S4GL" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Duration*</label>
+                        <input type="number" id="duration_to_S4GL" name="duration_to_S4GL" value="{{ old('duration_to_S4GL') }}" placeholder="Duration To S4GL" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
                         <div class="mt-2 text-sm text-gray-500">
                             The duration of the background job in seconds. Mandatory. Integer.
                         </div>

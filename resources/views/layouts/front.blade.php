@@ -19,42 +19,76 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<style>
+    #navbar {
+        transform: translateY(-100%);
+        transition: transform 0.8s ease-in-out;
+    }
+
+    #navbar:hover,
+    #navbar.show {
+        transform: translateY(0);
+    }
+
+    .navbar-link {
+        margin: 0 15px;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .navbar-link:hover {
+        color: #007BFF;
+    }
+
+    #navbar.sticky {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+</style>
+
 </head>
 <body>
     {{-- create navbar --}}
     <div>
-        <nav class="flex justify-between p-6 transition-transform duration-300 ease-out transform -translate-y-full bg-white shadow-lg font-poppins" id="navbar">
+        <nav class="flex justify-between p-6 bg-white shadow-lg font-poppins" id="navbar">
             <div>
                 <a href="" class="text-3xl font-semibold">
                     <span class="text-blue-600">TDC</span>Dashboard.
                 </a>
             </div>
             <div class="relative flex gap-5">
-                <a href="" class="text-xl font-bold text-dark-blue">Usman</a>
-                <a href="" class="text-xl font-bold text-dark-blue">Brisol</a>
+                <a href="" class="text-xl font-bold navbar-link text-dark-blue">Usman</a>
+                <a href="" class="text-xl font-bold navbar-link text-dark-blue">Brisol</a>
                 <div class="relative inline-block text-left">
-                    <a href="#" class="inline-flex justify-center w-full text-xl font-bold text-dark-blue">
+                    <a href="#" class="inline-flex justify-center w-full text-xl font-bold navbar-link text-dark-blue">
                         Deployment
                     </a>
                 </div>
-                <a href="" class="text-xl font-bold text-dark-blue">Background Jobs</a>
+                <a href="" class="text-xl font-bold navbar-link text-dark-blue">Background Jobs</a>
             </div>
         </nav>
     </div>
 
 
-    <div class="container mx-auto font-poppins">
+    <div class="px-10 mx-auto font-poppins">
          @yield('content')
     </div>
 
-    <script>
-        // make the navbar active when mouse hover to top of the page
-        window.addEventListener('scroll', function() {
-            var navbar = document.getElementById('navbar');
-            navbar.classList.toggle('sticky', window.scrollY > 0);
-        })
-    </script>
+<script>
+    window.addEventListener('mousemove', function(event) {
+        let navbar = document.getElementById('navbar');
 
+        // Jika kursor bergerak ke atas
+        if (event.clientY <= 50) {
+            navbar.classList.add('show');
+        } else {
+            navbar.classList.remove('show');
+        }
+
+    });
+</script>
 
     {{-- add script yield --}}
     @yield('script')

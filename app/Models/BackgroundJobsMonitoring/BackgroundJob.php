@@ -14,10 +14,11 @@ class BackgroundJob extends Model
     protected $fillable = [
         'type',
         'process_id',
-        'data_amount_to_IEM',
+        'data_amount_to_EIM',
         'data_amount_to_S4GL',
         'status',
-        'duration',
+        'duration_to_EIM',
+        'duration_to_S4GL',
         'execution_date',
     ];
 

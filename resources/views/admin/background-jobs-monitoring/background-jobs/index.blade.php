@@ -49,8 +49,8 @@
                     name: 'process.name',
                 },
                 {
-                    data: 'data_amount_to_IEM',
-                    name: 'data_amount_to_IEM',
+                    data: 'data_amount_to_EIM',
+                    name: 'data_amount_to_EIM',
                     render: function(data, type, row) {
                         return data.toLocaleString();
                     }
@@ -67,8 +67,8 @@
                     name: 'status',
                 },
                 {
-                    data: 'duration',
-                    name: 'duration',
+                    data: 'duration_to_EIM',
+                    name: 'duration_to_EIM',
                     render: function(data, type, row) {
                         let hours = Math.floor(data / 3600);
                         let minutes = Math.floor((data % 3600) / 60);
@@ -83,7 +83,23 @@
                         return formattedDuration;
                     }
                 },
+                {
+                    data: 'duration_to_S4GL',
+                    name: 'duration_to_S4GL',
+                    render: function(data, type, row) {
+                        let hours = Math.floor(data / 3600);
+                        let minutes = Math.floor((data % 3600) / 60);
+                        let seconds = data % 60;
 
+                        let formattedDuration = '';
+
+                        if(hours > 0) formattedDuration += `${hours}h `;
+                        if(minutes > 0 || (hours > 0 && seconds === 0)) formattedDuration += `${minutes}m `;
+                        if(seconds > 0 || (minutes === 0 && hours === 0)) formattedDuration += `${seconds}s`;
+
+                        return formattedDuration;
+                    }
+                },
                 {
                     data: 'execution_date',
                     name: 'execution_date',
@@ -139,10 +155,11 @@
                     <th>ID</th>
                     <th>Type</th>
                     <th>Process</th>
-                    <th>Data Amount to IEM</th>
+                    <th>Data Amount to EIM</th>
                     <th>Data Amount to S4GL</th>
                     <th>Status</th>
-                    <th>Duration</th>
+                    <th>Duration To EIM</th>
+                    <th>Duration To S4GL</th>
                     <th>Execution Date</th>
                     <th>Action</th>
                 </tr>

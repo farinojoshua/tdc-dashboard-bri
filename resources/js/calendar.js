@@ -3,7 +3,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 
 let moduleColors = {}; // save the module colors in this object
 
-// generate random color if the module is not fam or IEM or BGP or Consol or S/4GL or PaPM or FPSL or Other
+// generate random color if the module is not fam or EIM or BGP or Consol or S/4GL or PaPM or FPSL or Other
 function generateRandomColor() {
     const letters = "0123456789ABCDEF"; // Hexadecimal letters
     let color = "#";
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const moduleColorsMap = {
                 "FAM": "#0D1282",
-                "IEM": "#713ABE",
+                "EIM": "#713ABE",
                 "BGP": "#3085C3",
                 "Consol": "#088395",
                 "S/4GL": "#FF6969",
