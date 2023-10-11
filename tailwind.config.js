@@ -18,7 +18,7 @@ export default {
                 poppins: ["Poppins", ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                primary: "#203148",
+                "darker-blue": "#203148",
                 "dark-blue": "#152C5B",
             },
         },

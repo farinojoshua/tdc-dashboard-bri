@@ -4,12 +4,6 @@
     <title>Background Jobs - Daily Monitoring</title>
 @endsection
 
-@section('style')
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-@endsection
-
 @section('content')
 
 <div class="p-10 mx-auto my-10 rounded-lg shadow-lg">
@@ -30,7 +24,7 @@
         </select>
 
         <!-- Button untuk apply filter -->
-        <button id="apply-filter-button" class="px-6 py-2 ml-2 text-white rounded-md bg-primary focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Filter</button>
+        <button id="apply-filter-button" class="px-6 py-2 ml-2 text-white rounded-md bg-darker-blue focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Filter</button>
 
                 <div id="heatmap-container-type1"></div>
                     <div class="p-4">
@@ -124,15 +118,25 @@
             'Pending': 3
         };
 
+
         let seriesData = [];
-        for(const [date, processes] of Object.entries(data)) {
-            for(const [process, status] of Object.entries(processes)) {
-                let y = categories.indexOf(process);
-                let x = dates.indexOf(date); // Mengakses tanggal langsung dari array dates
-                let value = statusMap.hasOwnProperty(status) ? statusMap[status] : -1;
-                seriesData.push({ x, y, value });
-            }
-        }
+
+        // Make sure every date and every process always appear in seriesData with a null value if no data for them
+        dates.forEach(date => {
+            categories.forEach(process => {
+                const foundData = mappedData.find(d => d.date === date && d.process === process);
+                if (foundData) {
+                    let y = categories.indexOf(process);
+                    let x = dates.indexOf(date);
+                    let value = statusMap.hasOwnProperty(foundData.status) ? statusMap[foundData.status] : null;
+                    seriesData.push({ x, y, value });
+                } else {
+                    let y = categories.indexOf(process);
+                    let x = dates.indexOf(date);
+                    seriesData.push({ x, y, value: null });
+                }
+            });
+        });
 
         Highcharts.chart(containerId, {
             chart: {

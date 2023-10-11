@@ -65,7 +65,7 @@
           <div class="flex flex-wrap mb-6 -mx-3">
             <div class="w-full px-3 text-right">
               <button type="submit"
-                      class="px-4 py-2 font-bold text-white rounded shadow-lg bg-primary">
+                      class="px-4 py-2 font-bold text-white rounded shadow-lg bg-darker-blue">
                 Add Process
               </button>
             </div>

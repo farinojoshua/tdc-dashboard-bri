@@ -3,7 +3,7 @@
   <x-slot name="header">
    <div x-data="{ open: false }" class="relative inline-block text-left font-poppins">
         <div>
-            <button @click="open = !open" type="button" class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white rounded-md bg-primary focus:outline-none focus:ring focus:ring-slate-400" id="menu-button" aria-expanded="true" aria-haspopup="true">
+            <button @click="open = !open" type="button" class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white rounded-md bg-darker-blue focus:outline-none focus:ring focus:ring-slate-400" id="menu-button" aria-expanded="true" aria-haspopup="true">
             {{-- show menu apa sekarang --}}
             Processes
             <svg class="w-5 h-5 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -93,7 +93,7 @@
         <div class="px-4 py-5 bg-white sm:p-6">
             <div class="mb-10">
               <a href="{{ route('admin.background-jobs-monitoring.processes.create') }}"
-                 class="px-4 py-2 font-bold text-white rounded shadow-lg bg-primary font-poppins">
+                 class="px-4 py-2 font-bold text-white rounded shadow-lg bg-darker-blue font-poppins">
                 + Add  Process
               </a>
             </div>

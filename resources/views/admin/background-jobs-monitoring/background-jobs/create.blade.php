@@ -83,14 +83,14 @@
                 <div>
                     <!-- Duration -->
                     <div class="mb-4">
-                        <label for="duration_to_EIM" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Duration*</label>
+                        <label for="duration_to_EIM" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Duration to EIM</label>
                         <input type="number" id="duration_to_EIM" name="duration_to_EIM" value="{{ old('duration_to_EIM') }}" placeholder="Duration To EIM" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
                         <div class="mt-2 text-sm text-gray-500">
                             The duration of the background job in seconds. Mandatory. Integer.
                         </div>
                     </div>
                     <div class="mb-4">
-                        <label for="duration_to_S4GL" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Duration*</label>
+                        <label for="duration_to_S4GL" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Duration to S4GL</label>
                         <input type="number" id="duration_to_S4GL" name="duration_to_S4GL" value="{{ old('duration_to_S4GL') }}" placeholder="Duration To S4GL" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
                         <div class="mt-2 text-sm text-gray-500">
                             The duration of the background job in seconds. Mandatory. Integer.
@@ -114,7 +114,7 @@
 
                     <!-- Execution Date -->
                     <div class="mb-4">
-                        <label for="execution_date" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Execution Date*</label>
+                        <label for="execution_date" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Monitoring Date*</label>
                         <input type="date" id="execution_date" name="execution_date" value="{{ old('execution_date', date('Y-m-d')) }}" placeholder="YYYY-MM-DD" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
                         <div class="mt-2 text-sm text-gray-500">
                             The date when the background job will be executed. Mandatory.
@@ -125,7 +125,7 @@
 
             <!-- Button Submit -->
             <div class="text-right">
-                <button type="submit" class="px-4 py-2 font-bold text-white rounded-full bg-primary">Add Background Job</button>
+                <button type="submit" class="px-4 py-2 font-bold text-white rounded-full bg-darker-blue">Add Background Job</button>
             </div>
         </form>
 

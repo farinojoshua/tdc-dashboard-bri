@@ -106,7 +106,7 @@
 
 
 
-            <button type="submit" class="px-6 py-2 font-bold text-white rounded-full bg-primary">
+            <button type="submit" class="px-6 py-2 font-bold text-white rounded-full bg-darker-blue">
                 Update Deployment
             </button>
         </form>

@@ -23,6 +23,7 @@
     #navbar {
         transform: translateY(-100%);
         transition: transform 0.8s ease-in-out;
+        border-bottom: 8px solid #DDE5E9;
     }
 
     #navbar:hover,
@@ -37,7 +38,8 @@
     }
 
     .navbar-link:hover {
-        color: #007BFF;
+        color: #2B4CDE;
+;
     }
 
     #navbar.sticky {
@@ -52,7 +54,7 @@
 <body>
     {{-- create navbar --}}
     <div>
-        <nav class="flex justify-between p-6 bg-white shadow-lg font-poppins" id="navbar">
+        <nav class="flex justify-between p-6 bg-white font-poppins" id="navbar">
             <div>
                 <a href="" class="text-3xl font-semibold">
                     <span class="text-blue-600">TDC</span>Dashboard.

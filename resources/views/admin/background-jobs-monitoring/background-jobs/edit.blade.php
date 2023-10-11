@@ -129,7 +129,7 @@
 
                     <!-- Execution Date -->
                     <div class="mb-4">
-                        <label for="execution_date" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Execution Date*</label>
+                        <label for="execution_date" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Monitoring Date*</label>
                         <input value="{{ old('execution_date', $job->execution_date) }}" name="execution_date"
                           class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white"
                           id="execution_date" type="date" placeholder="Execution Date" required>
@@ -142,7 +142,7 @@
 
             <!-- Button Submit -->
             <div class="text-right">
-                <button type="submit" class="px-4 py-2 font-bold text-white rounded-full bg-primary">Add Background Job</button>
+                <button type="submit" class="px-4 py-2 font-bold text-white rounded-full bg-darker-blue">Add Background Job</button>
             </div>
         </form>
       </div>

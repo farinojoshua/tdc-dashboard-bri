@@ -88,7 +88,7 @@
                   </div>
               </div>
 
-              <button type="submit" class="px-24 py-2 font-bold text-white rounded-full bg-primary">
+              <button type="submit" class="px-24 py-2 font-bold text-white rounded-full bg-darker-blue">
                 Add Deployment
               </button>
 
