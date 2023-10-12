@@ -12,16 +12,13 @@ use App\Models\Deployment\DeploymentServerType;
 class DeploymentController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * List of all deployments. if request is ajax, return datatables.
      */
     public function index()
     {
-        // check if request is ajax
         if (request()->ajax()) {
-            // query all deployments
             $query = Deployment::with(['module', 'serverType']);
 
-            // return datatables
             return DataTables::of($query)
                 ->addColumn('module', function ($deployment) {
                     return $deployment->module->name;
@@ -48,29 +45,25 @@ class DeploymentController extends Controller
                 ->make();
         }
 
-        // return index view
         return view('admin.deployment.deployments.index');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form to create a new deployment.
      */
     public function create()
     {
-        // get all modules and server types
         $modules = DeploymentModule::all();
         $serverTypes = DeploymentServerType::all();
 
-        // return view with modules and server types
         return view('admin.deployment.deployments.create', compact('modules', 'serverTypes'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new deployment.
      */
     public function store(Request $request)
     {
-        // validate request
         $request->validate([
             'title' => 'required|string|max:200',
             'module_id' => 'required|exists:deployment_modules,id',
@@ -82,80 +75,29 @@ class DeploymentController extends Controller
             'cm_description' => 'required|string',
         ]);
 
-        // check if deployment title already exists
         if (Deployment::where('title', $request->title)->first()) {
             return redirect()->back()->with('error', 'Deployment already exists.');
         }
 
-        // create new deployment
         Deployment::create($request->all());
 
-        // redirect to index page
         return redirect()->route('admin.deployments.deployment.index')->with('success', 'Success Create Deployment');
     }
 
-    // for admin to get server types by module id
-    public function getServerTypesByModule($module_id)
-    {
-        // get server types by module id
-        $serverTypes = DeploymentServerType::where('module_id', $module_id)->get();
-
-        // return json response
-        return response()->json($serverTypes);
-    }
-
-    // for calendar to get events
-    public function getEvents()
-    {
-        // get all deployments
-        $deployments = Deployment::all();
-        // create events array
-        $events = [];
-
-        // loop through deployments
-        foreach ($deployments as $deployment) {
-            $events[] = [
-                'id' => $deployment->id,
-                'title' => $deployment->title,
-                'start' => $deployment->deploy_date,
-                'module' => $deployment->module->name,
-                'server_type' => $deployment->serverType->name,
-                'status_doc' => $deployment->document_status,
-                'document_description' => $deployment->document_description,
-                'status_cm' => $deployment->cm_status,
-                'cm_description' => $deployment->cm_description,
-            ];
-        }
-
-        // return json response
-        return response()->json($events);
-    }
-
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
+     * Show the form to edit a deployment.
      */
 
     public function edit(Deployment $deployment)
     {
-        // get all modules and server types
         $modules = DeploymentModule::all();
         $serverTypes = DeploymentServerType::all();
 
-        // return view with modules, server types, and deployment data
         return view('admin.deployment.deployments.edit', compact('deployment', 'modules', 'serverTypes'));
     }
 
     public function update(Request $request, Deployment $deployment)
     {
-        // validate request
         $request->validate([
             'title' => 'required|string|max:200',
             'module_id' => 'required|exists:deployment_modules,id',
@@ -167,32 +109,36 @@ class DeploymentController extends Controller
             'cm_description' => 'required|string',
         ]);
 
-        // check if deployment title change and already exists but if not change, it's okay
         if ($deployment->title != $request->title) {
             if (Deployment::where('title', $request->title)->first()) {
                 return redirect()->back()->with('error', 'Deployment already exists.');
             }
         }
 
-        // update deployment
         $deployment->update($request->all());
 
-        // redirect to index page
         return redirect()->route('admin.deployments.deployment.index')->with('success', 'Deployment updated successfully.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete a deployment.
      */
     public function destroy($id)
     {
-        // find deployment by id
         $deployment = Deployment::findOrFail($id);
-
-        // delete deployment
         $deployment->delete();
 
-        // redirect to index page
         return redirect()->route('admin.deployments.deployment.index')->with('success', 'Deployment deleted successfully.');
     }
+
+    /**
+     * Get server types by module id.
+     */
+    public function getServerTypesByModule($module_id)
+    {
+        $serverTypes = DeploymentServerType::where('module_id', $module_id)->get();
+
+        return response()->json($serverTypes);
+    }
+
 }

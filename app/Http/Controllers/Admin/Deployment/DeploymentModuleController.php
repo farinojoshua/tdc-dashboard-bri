@@ -10,16 +10,13 @@ use App\Models\Deployment\DeploymentModule;
 class DeploymentModuleController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * List of all modules. if request is ajax, return datatables.
      */
     public function index()
     {
-        // check if request is ajax
         if (request()->ajax()) {
-            // query all modules
             $query = DeploymentModule::query();
 
-            // return datatables
             return DataTables::of($query)
                 ->addColumn('action', function ($module) {
                     return '
@@ -40,116 +37,76 @@ class DeploymentModuleController extends Controller
                 ->make();
         }
 
-        // return index view
         return view('admin.deployment.deployment-modules.index');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form to create a new module.
      */
     public function create()
     {
-        // return create view
         return view('admin.deployment.deployment-modules.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new module.
      */
     public function store(Request $request)
     {
-        // validate request
         $request->validate([
             'name' => 'required|max:15'
         ]);
 
-        // check if module name already exists
         if (DeploymentModule::where('name', $request->name)->first()) {
             return redirect()->back()->with('error', 'Module already exists.');
         }
 
-        // create new module
-        DeploymentModule::create($request->all());
+        DeploymentModule::create($request->only('name'));
 
-        // redirect to index page
         return redirect()->route('admin.deployments.modules.index')->with('success', 'Module created successfully.');
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(DeploymentModule $module)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
+     * Show the form to edit a module.
      */
     public function edit($id)
     {
-        // find module by id
-        $deploymentModule = DeploymentModule::find($id);
+        $deploymentModule = DeploymentModule::findOrfail($id);
 
-        // if module not found, redirect back with error message
-        if (!$deploymentModule) {
-            return redirect()->back()->with('error', 'Module not found.');
-        }
-
-        // return edit view with module data
         return view('admin.deployment.deployment-modules.edit', compact('deploymentModule'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update an existing module.
      */
     public function update(Request $request, $id)
     {
-        // validate request
         $request->validate([
             'name' => 'required|max:15'
         ]);
 
-        // find module by id
-        $module = DeploymentModule::find($id);
+        $module = DeploymentModule::findOrfail($id);
 
-        // if module not found, redirect back with error message
-        if (!$module) {
-            return redirect()->back()->with('error', 'Module not found.');
-        }
-
-        // check if module name already exists
         if ($module->name != $request->name) {
             if (DeploymentModule::where('name', $request->name)->first()) {
                 return redirect()->back()->with('error', 'Module already exists.');
             }
         }
 
-        // update module
-        $module->update($request->all());
+        $module->update($request->only('name'));
 
-        // redirect to index page
         return redirect()->route('admin.deployments.modules.index')->with('success', 'Module updated successfully.');
     }
 
 
     /**
-     * Remove the specified resource from storage.
+     * Delete a module.
      */
     public function destroy($id)
     {
-        // find module by id
-        $module = DeploymentModule::find($id);
-
-        // if module not found, redirect back with error message
-        if (!$module) {
-            return redirect()->back()->with('error', 'Module not found.');
-        }
-
-        // delete module
+        $module = DeploymentModule::findOrfail($id);
         $module->delete();
 
-        // redirect to index page
         return redirect()->route('admin.deployments.modules.index')->with('success', 'Module deleted successfully.');
     }
 }

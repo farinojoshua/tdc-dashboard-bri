@@ -11,16 +11,13 @@ use App\Models\Deployment\DeploymentServerType;
 class DeploymentServerTypeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * List of all server types. if request is ajax, return datatables.
      */
     public function index()
     {
-        // check if request is ajax
         if (request()->ajax()) {
-            // query all server types
             $query = DeploymentServerType::with('module');
 
-            // return datatables
             return DataTables::of($query)
                 ->addColumn('action', function ($serverType) {
                     return '
@@ -44,105 +41,78 @@ class DeploymentServerTypeController extends Controller
                 ->make();
         }
 
-        // return index view
         return view('admin.deployment.deployment-server-types.index');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form to create a new server type.
      */
     public function create()
     {
-        // select all modules
         $modules = DeploymentModule::all();
 
-        // return create view
         return view('admin.deployment.deployment-server-types.create', compact('modules'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new server type.
      */
     public function store(Request $request)
     {
-        // validate request
         $request->validate([
             'name' => 'required|max:10',
             'module_id' => 'required|exists:deployment_modules,id'
         ]);
 
-        // check if server type already exists
         if (DeploymentServerType::where('name', $request->name)->where('module_id', $request->module_id)->first()) {
             return redirect()->back()->with('error', 'Server Type already exists in the same module.');
         }
 
-        // create new server type
-        DeploymentServerType::create($request->all());
+        DeploymentServerType::create($request->only('name', 'module_id'));
 
-        // redirect to index page
         return redirect()->route('admin.deployments.server-types.index')->with('success', 'Server Type created successfully.');
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
+     * Show the form to edit a server type.
      */
     public function edit($id)
     {
-        // find server type by id
         $serverType = DeploymentServerType::findOrFail($id);
-        // select all modules
         $modules = DeploymentModule::all();
 
-        // return edit view with server type and modules data
         return view('admin.deployment.deployment-server-types.edit', compact('serverType', 'modules'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update an existing server type.
      */
     public function update(Request $request, $id)
     {
-        // validate request
         $request->validate([
             'name' => 'required|max:10',
             'module_id' => 'required|exists:deployment_modules,id'
         ]);
 
-        // find server type by id
         $serverType = DeploymentServerType::findOrFail($id);
 
-        // check if server type already exists
         if (DeploymentServerType::where('name', $request->name)->where('module_id', $request->module_id)->where('id', '!=', $id)->first()) {
             return redirect()->back()->with('error', 'Server Type already exists in the same module.');
         }
 
-        // update server type
-        $serverType->update($request->all());
+        $serverType->update($request->only('name', 'module_id'));
 
-        // redirect to index page
         return redirect()->route('admin.deployments.server-types.index')->with('success', 'Server Type updated successfully.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete an existing server type.
      */
     public function destroy($id)
     {
-        // find server type by id
         $serverType = DeploymentServerType::findOrFail($id);
-
-        // delete server type
         $serverType->delete();
 
-        // redirect to index page
         return redirect()->route('admin.deployments.server-types.index')->with('success', 'Server Type deleted successfully.');
     }
 }
