@@ -103,6 +103,12 @@ class ProcessController extends Controller
     public function destroy($id)
     {
         $process = Process::findOrFail($id);
+
+        // if process has jobs, delete them first
+        if ($process->backgroundJobs()->count()) {
+            $process->backgroundJobs()->delete();
+        }
+
         $process->delete();
 
         return redirect()->route('admin.background-jobs-monitoring.processes.index')->with('success', 'Process deleted successfully.');

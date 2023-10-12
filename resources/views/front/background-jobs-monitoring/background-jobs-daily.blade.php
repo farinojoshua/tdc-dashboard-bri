@@ -12,7 +12,6 @@
             <option value="{{ route('background-jobs-monitoring.daily') }}">Daily</option>
             <option value="{{ route('background-jobs-monitoring.data-amount') }}">Chart - Data Amount</option>
             <option value="{{ route('background-jobs-monitoring.duration') }}">Chart - Duration</option>
-                <!-- tambahkan opsi lain sesuai kebutuhan -->
         </select>
         <div class="mt-6">
                 <!-- Dropdown untuk Bulan -->
@@ -125,7 +124,7 @@
         // Mendefinisikan kategori berdasarkan semua proses yang ada
         let categories = mappedData.map(item => item.process).filter((value, index, self) => self.indexOf(value) === index);
 
-        // Mendefinisikan peta status ke nilai
+        // Mendefinisikan peta status
         let statusMap = {
             'Normal Run': 0,
             'Rerun Background Job': 1,
@@ -136,15 +135,15 @@
 
         let seriesData = [];
 
-        // Make sure every date and every process always appear in seriesData with a null value if no data for them
+        // Looping untuk setiap tanggal dan proses
         dates.forEach(date => {
             categories.forEach(process => {
-                const foundData = mappedData.find(d => d.date === date && d.process === process);
+                const foundData = mappedData.find(d => d.date === date && d.process === process); // Cari data yang sesuai dengan tanggal dan proses
                 if (foundData) {
                     let y = categories.indexOf(process);
                     let x = dates.indexOf(date);
-                    let value = statusMap.hasOwnProperty(foundData.status) ? statusMap[foundData.status] : null;
-                    seriesData.push({ x, y, value });
+                    let value = statusMap.hasOwnProperty(foundData.status) ? statusMap[foundData.status] : null; // Jika status tidak ada di peta, maka value = null
+                    seriesData.push({ x, y, value }); // Tambahkan data ke seriesData
                 } else {
                     let y = categories.indexOf(process);
                     let x = dates.indexOf(date);

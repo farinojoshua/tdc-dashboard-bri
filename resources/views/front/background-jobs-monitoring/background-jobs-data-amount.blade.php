@@ -9,17 +9,14 @@
     <h1 class="mb-4 text-2xl font-semibold sm:text-3xl">Background Jobs - Data Amount</h1>
 
     <div class="flex items-center justify-between mt-12">
-        <!-- Spacer kosong untuk menjaga balance -->
         <div class="w-1/3">
             <select id="navigationDropdown" class="w-56 text-white rounded-lg cursor-pointer focus:outline-none focus:border-blue-900 focus:shadow-outline-blue bg-darker-blue">
                 <option value="{{ route('background-jobs-monitoring.data-amount') }}">Chart - Data Amount</option>
                 <option value="{{ route('background-jobs-monitoring.duration') }}">Chart - Duration</option>
                 <option value="{{ route('background-jobs-monitoring.daily') }}">Daily</option>
-                <!-- tambahkan opsi lain sesuai kebutuhan -->
             </select>
         </div>
 
-        <!-- Dropdown Proses Inbound dan Outbound di tengah -->
         <div class="w-1/2 mx-auto text-center">
             <select id="chartDropdown" class="w-full px-4 py-4 text-xl text-white border rounded cursor-pointer bg-dark-blue focus:outline-none focus:border-blue-900 focus:shadow-outline-blue">
                 @foreach($allChartData as $processName => $chartData)
@@ -28,7 +25,6 @@
             </select>
         </div>
 
-        <!-- Filter Tanggal dan Tahun di pojok kanan atas -->
         <div class="w-1/3">
             <form method="GET" action="{{ route('background-jobs-monitoring.data-amount') }}" class="flex flex-col items-end justify-end gap-4">
                 <div class="flex mr-4 overflow-hidden border rounded-lg">

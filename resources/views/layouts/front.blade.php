@@ -64,11 +64,11 @@
                 <a href="" class="text-xl font-bold navbar-link text-dark-blue">Usman</a>
                 <a href="" class="text-xl font-bold navbar-link text-dark-blue">Brisol</a>
                 <div class="relative inline-block text-left">
-                    <a href="#" class="inline-flex justify-center w-full text-xl font-bold navbar-link text-dark-blue">
+                    <a href="{{ route('deployments.calendar') }}" class="inline-flex justify-center w-full text-xl font-bold navbar-link text-dark-blue">
                         Deployment
                     </a>
                 </div>
-                <a href="" class="text-xl font-bold navbar-link text-dark-blue">Background Jobs</a>
+                <a href="{{ route('background-jobs-monitoring.daily') }}" class="text-xl font-bold navbar-link text-dark-blue">Background Jobs</a>
             </div>
         </nav>
     </div>
