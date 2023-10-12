@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="w-[1200px] p-10 mx-auto my-10 rounded-lg shadow-lg">
+<div class="p-10 mx-auto my-10 rounded-lg shadow-lg">
     <h1 class="mb-4 text-3xl font-semibold">Background Jobs - Duration</h1>
 
     <div class="flex items-center justify-between mt-12">
@@ -13,7 +13,7 @@
             <select id="navigationDropdown" class="w-56 text-white rounded-lg cursor-pointer focus:outline-none focus:border-blue-900 focus:shadow-outline-blue bg-darker-blue">
                 <option value="{{ route('background-jobs-monitoring.duration') }}">Chart - Duration</option>
                 <option value="{{ route('background-jobs-monitoring.data-amount') }}">Chart - Data Amount</option>
-                <!-- tambahkan opsi lain sesuai kebutuhan -->
+                <option value="{{ route('background-jobs-monitoring.daily') }}">Daily</option>
             </select>
         </div>
 

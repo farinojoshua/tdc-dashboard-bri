@@ -7,24 +7,34 @@
 @section('content')
 
 <div class="p-10 mx-auto my-10 rounded-lg shadow-lg">
-        <!-- Dropdown untuk Bulan -->
-        <select id="month-selector" class="px-8 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
-            @foreach(range(1, 12) as $month)
-                <option value="{{ $month }}" {{ (int)date('m') === $month ? 'selected' : '' }}>
-                    {{ DateTime::createFromFormat('!m', $month)->format('F') }}
-                </option>
-            @endforeach
+    <div class="flex flex-col">
+        <select id="navigationDropdown" class="w-56 text-white rounded-lg cursor-pointer focus:outline-none focus:border-blue-900 focus:shadow-outline-blue bg-darker-blue">
+            <option value="{{ route('background-jobs-monitoring.daily') }}">Daily</option>
+            <option value="{{ route('background-jobs-monitoring.data-amount') }}">Chart - Data Amount</option>
+            <option value="{{ route('background-jobs-monitoring.duration') }}">Chart - Duration</option>
+                <!-- tambahkan opsi lain sesuai kebutuhan -->
         </select>
+        <div class="mt-6">
+                <!-- Dropdown untuk Bulan -->
+                <select id="month-selector" class="px-8 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    @foreach(range(1, 12) as $month)
+                        <option value="{{ $month }}" {{ (int)date('m') === $month ? 'selected' : '' }}>
+                            {{ DateTime::createFromFormat('!m', $month)->format('F') }}
+                        </option>
+                    @endforeach
+                </select>
 
-        <!-- Dropdown untuk Tahun -->
-        <select id="year-selector" class="px-8 py-2 ml-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
-            <option value="2023">2023</option>
-            <option value="2024">2024</option>
-            <option value="2025">2025</option>
-        </select>
+                <!-- Dropdown untuk Tahun -->
+                <select id="year-selector" class="px-8 py-2 ml-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                </select>
 
-        <!-- Button untuk apply filter -->
-        <button id="apply-filter-button" class="px-6 py-2 ml-2 text-white rounded-md bg-darker-blue focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Filter</button>
+                <!-- Button untuk apply filter -->
+                <button id="apply-filter-button" class="px-6 py-2 ml-2 text-white rounded-md bg-darker-blue focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Filter</button>
+        </div>
+    </div>
 
                 <div id="heatmap-container-type1"></div>
                     <div class="p-4">
@@ -66,6 +76,11 @@
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
 
     <script>
+        document.getElementById('navigationDropdown').addEventListener('change', function(){
+            if (this.value){
+                window.location.href = this.value;
+            }
+        })
         document.addEventListener('DOMContentLoaded', function () {
 
         applyFilter();

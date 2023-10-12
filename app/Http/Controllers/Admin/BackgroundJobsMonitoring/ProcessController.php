@@ -10,16 +10,13 @@ use App\Models\BackgroundJobsMonitoring\Process;
 class ProcessController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * List all processes. If request is ajax, return datatables.
      */
     public function index()
     {
-        // check if request is ajax
         if (request()->ajax()) {
-            // query all processes
             $query = Process::query();
 
-            // return datatables
             return DataTables::of($query)
                 ->addColumn('action', function ($process) {
                     return '
@@ -40,54 +37,37 @@ class ProcessController extends Controller
                 ->make();
         }
 
-        // return index view
         return view('admin.background-jobs-monitoring.processes.index');
     }
     /**
-     * Show the form for creating a new resource.
+     * Show the form to create a new process.
      */
     public function create()
     {
-        // return create view
         return view('admin.background-jobs-monitoring.processes.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new process.
      */
     public function store(Request $request)
     {
-        // validate request
         $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|in:Product,Non-Product',
         ]);
 
-        // if process already exists in the same type
         if (Process::where('name', $request->name)->where('type', $request->type)->first()) {
             return redirect()->back()->with('error', 'Process already exists in the same type.');
         }
 
-        // create process
-        Process::create([
-            'name' => $request->name,
-            'type' => $request->type,
-        ]);
+        Process::create($request->only(['name', 'type']));
 
-        // redirect to index view
         return redirect()->route('admin.background-jobs-monitoring.processes.index')->with('success', 'Process created successfully.');
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
+     * Show the form to edit a process.
      */
     public function edit($id)
     {
@@ -97,41 +77,32 @@ class ProcessController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update an existing process.
      */
     public function update(Request $request, string $id)
     {
-        // validate request
         $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|in:Product,Non-Product',
         ]);
 
-        // find process by id
         $process = Process::findOrFail($id);
 
-        // if process already exists in the same type
         if (Process::where('name', $request->name)->where('type', $request->type)->where('id', '!=', $process->id)->first()) {
             return redirect()->back()->with('error', 'Process already exists in the same type.');
         }
 
-        // update process
-        $process->update([
-            'name' => $request->name,
-            'type' => $request->type,
-        ]);
+        $process->update($request->only(['name', 'type']));
 
-        // redirect to index view
         return redirect()->route('admin.background-jobs-monitoring.processes.index')->with('success', 'Process updated successfully.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete a process.
      */
     public function destroy($id)
     {
         $process = Process::findOrFail($id);
-
         $process->delete();
 
         return redirect()->route('admin.background-jobs-monitoring.processes.index')->with('success', 'Process deleted successfully.');

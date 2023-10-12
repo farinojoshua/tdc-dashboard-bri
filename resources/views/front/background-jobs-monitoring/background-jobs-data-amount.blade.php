@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="w-[1200px] p-10 mx-auto my-10 rounded-lg shadow-lg">
+<div class="p-10 mx-auto my-10 rounded-lg shadow-lg">
     <h1 class="mb-4 text-2xl font-semibold sm:text-3xl">Background Jobs - Data Amount</h1>
 
     <div class="flex items-center justify-between mt-12">
@@ -14,6 +14,7 @@
             <select id="navigationDropdown" class="w-56 text-white rounded-lg cursor-pointer focus:outline-none focus:border-blue-900 focus:shadow-outline-blue bg-darker-blue">
                 <option value="{{ route('background-jobs-monitoring.data-amount') }}">Chart - Data Amount</option>
                 <option value="{{ route('background-jobs-monitoring.duration') }}">Chart - Duration</option>
+                <option value="{{ route('background-jobs-monitoring.daily') }}">Daily</option>
                 <!-- tambahkan opsi lain sesuai kebutuhan -->
             </select>
         </div>
@@ -70,11 +71,12 @@
 
 @section('script')
 <script>
-    document.getElementById('navigationDropdown').addEventListener('change', function() {
-        if (this.value) {
+document.getElementById('navigationDropdown').addEventListener('change', function() {
+    if (this.value) {
             window.location.href = this.value;
-        }
-    });
+    }
+});
+
 function setMode(selectedMode, event){
     event.preventDefault();
 

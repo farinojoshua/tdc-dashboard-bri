@@ -7,20 +7,17 @@ use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 use App\Models\BackgroundJobsMonitoring\Process;
 use App\Models\BackgroundJobsMonitoring\BackgroundJob;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 
 class BackgroundJobController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * List all background jobs. If request is ajax, return datatables.
      */
     public function index()
     {
         if (request()-> ajax()) {
             $query = BackgroundJob::with('process')->get();
 
-            // return datatables
             return DataTables::of($query)
                 ->addColumn('action', function ($jobs) {
                     return '
@@ -41,26 +38,24 @@ class BackgroundJobController extends Controller
                 ->make();
         }
 
-        // return index view
         return view('admin.background-jobs-monitoring.background-jobs.index');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form to create a new background job.
      */
     public function create()
     {
         $processes = Process::all();
-        // return create view
+
         return view('admin.background-jobs-monitoring.background-jobs.create', compact('processes'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new background job.
      */
     public function store(Request $request)
     {
-        // validate request
         $request->validate([
             'type' => 'required|string',
             'process_id' => 'required|exists:bjm_processes,id',
@@ -72,63 +67,40 @@ class BackgroundJobController extends Controller
             'execution_date' => 'required|date',
         ]);
 
-        // if background job in that date already exists then redirect back with error
         if (BackgroundJob::where('process_id', $request->process_id)->where('execution_date', $request->execution_date)->exists()) {
             return redirect()->back()->with('error', 'Background job already exists in that date.');
         }
 
-        // create background job
-        BackgroundJob::create([
-            'type' => $request->type,
-            'process_id' => $request->process_id,
-            'data_amount_to_EIM' => $request->data_amount_to_EIM,
-            'data_amount_to_S4GL' => $request->data_amount_to_S4GL,
-            'status' => $request->status,
-            'duration_to_EIM' => $request->duration_to_EIM,
-            'duration_to_S4GL' => $request->duration_to_S4GL,
-            'execution_date' => $request->execution_date,
-        ]);
+        BackgroundJob::create($request->only([
+            'type',
+            'process_id',
+            'data_amount_to_EIM',
+            'data_amount_to_S4GL',
+            'status',
+            'duration_to_EIM',
+            'duration_to_S4GL',
+            'execution_date',
+        ]));
 
-        // redirect to index view
         return redirect()->route('admin.background-jobs-monitoring.jobs.index')->with('success', 'Background job created.');
     }
 
-    public function getProcessesByType(Request $request)
-    {
-        $type = $request->input('type');
-        $processes = Process::where('type', $type)->get();
-        return response()->json($processes);
-    }
-
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
+     * Show the form to edit a background job.
      */
     public function edit(string $id)
     {
-        // get background job
         $job = BackgroundJob::findOrFail($id);
-
-        // get processes
         $processes = Process::all();
 
-        // return edit view
         return view('admin.background-jobs-monitoring.background-jobs.edit', compact('job', 'processes'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update an existing background job.
      */
     public function update(Request $request, string $id)
     {
-        // validate request
         $request->validate([
             'type' => 'required|string',
             'process_id' => 'required|exists:bjm_processes,id',
@@ -140,37 +112,41 @@ class BackgroundJobController extends Controller
             'execution_date' => 'required|date',
         ]);
 
-        // find background job by id
         $job = BackgroundJob::findOrFail($id);
 
-        // update background job
-        $job->update([
-            'type' => $request->type,
-            'process_id' => $request->process_id,
-            'data_amount_to_EIM' => $request->data_amount_to_EIM,
-            'data_amount_to_S4GL' => $request->data_amount_to_S4GL,
-            'status' => $request->status,
-            'duration_to_EIM' => $request->duration_to_EIM,
-            'duration_to_S4GL' => $request->duration_to_S4GL,
-            'execution_date' => $request->execution_date,
-        ]);
+        $job->update($request->only([
+            'type',
+            'process_id',
+            'data_amount_to_EIM',
+            'data_amount_to_S4GL',
+            'status',
+            'duration_to_EIM',
+            'duration_to_S4GL',
+            'execution_date',
+        ]));
 
-        // redirect to index view
         return redirect()->route('admin.background-jobs-monitoring.jobs.index')->with('success', 'Background job updated.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete an existing background job.
      */
     public function destroy(string $id)
     {
-        // find background job by id
         $job = BackgroundJob::findOrFail($id);
-
-        // delete background job
         $job->delete();
 
-        // redirect to index view
         return redirect()->route('admin.background-jobs-monitoring.jobs.index')->with('success', 'Background job deleted.');
+    }
+
+    /**
+     * Get processes by type for form select input.
+     */
+    public function getProcessesByType(Request $request)
+    {
+        $type = $request->input('type');
+        $processes = Process::where('type', $type)->get();
+
+        return response()->json($processes);
     }
 }
