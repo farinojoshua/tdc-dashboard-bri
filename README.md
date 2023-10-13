@@ -42,8 +42,8 @@ Install NPM dependencies
 
 Setup Environment
 
-Copy the .env.example file and rename it to .env.
-Configure your database connection in the .env file.
+- Copy the .env.example file and rename it to .env.
+- Configure your database connection in the .env file.
 
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
