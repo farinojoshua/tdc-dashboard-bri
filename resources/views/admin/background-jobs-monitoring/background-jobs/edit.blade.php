@@ -168,9 +168,8 @@
             });
         }
 
-        // Load processes when the page loads
         var initialType = $('#type').val();
-        var selectedProcessId = {{ $job->process_id }}; // Assuming $job is the variable containing the job data.
+        var selectedProcessId = {{ $job->process_id }};
         if(initialType) loadProcesses(initialType, selectedProcessId);
 
         $('#type').on('change', function() {

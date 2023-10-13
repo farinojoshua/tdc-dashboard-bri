@@ -52,7 +52,6 @@
 
 </head>
 <body>
-    {{-- create navbar --}}
     <div>
         <nav class="flex justify-between p-6 bg-white font-poppins" id="navbar">
             <div>
@@ -92,7 +91,6 @@
     });
 </script>
 
-    {{-- add script yield --}}
     @yield('script')
 
 </body>

@@ -98,7 +98,6 @@
         const daysInMonth = new Date(year, month, 0).getDate(); // Dapatkan jumlah hari dalam bulan
         const dates = Array.from({ length: daysInMonth }, (_, i) => `${year}-${String(month).padStart(2, '0')}-${String(i + 1).padStart(2, '0')}`); // Buat array tanggal sesuai dengan jumlah hari dalam bulan
 
-        // Fetch data berdasarkan bulan dan tahun yang dipilih
         fetchData(month, year, dates);
     }
 
@@ -121,10 +120,8 @@
             }))
         );
 
-        // Mendefinisikan kategori berdasarkan semua proses yang ada
         let categories = mappedData.map(item => item.process).filter((value, index, self) => self.indexOf(value) === index);
 
-        // Mendefinisikan peta status
         let statusMap = {
             'Normal Run': 0,
             'Rerun Background Job': 1,
@@ -135,7 +132,6 @@
 
         let seriesData = [];
 
-        // Looping untuk setiap tanggal dan proses
         dates.forEach(date => {
             categories.forEach(process => {
                 const foundData = mappedData.find(d => d.date === date && d.process === process); // Cari data yang sesuai dengan tanggal dan proses
@@ -143,7 +139,7 @@
                     let y = categories.indexOf(process);
                     let x = dates.indexOf(date);
                     let value = statusMap.hasOwnProperty(foundData.status) ? statusMap[foundData.status] : null; // Jika status tidak ada di peta, maka value = null
-                    seriesData.push({ x, y, value }); // Tambahkan data ke seriesData
+                    seriesData.push({ x, y, value });
                 } else {
                     let y = categories.indexOf(process);
                     let x = dates.indexOf(date);
@@ -163,13 +159,13 @@
                 text: title
             },
             xAxis: {
-                categories: dates.map(date => date.split('-')[2]), // Hanya tampilkan tanggal (DD)
+                categories: dates.map(date => date.split('-')[2]),
                 title: {
                     text: 'Tanggal'
                 },
                 labels: {
                     formatter: function () {
-                        return this.value; // Tampilkan hanya tanggal, tanpa bulan/tahun
+                        return this.value;
                     }
                 }
             },
@@ -181,11 +177,11 @@
                 min: -1,
                 max: Object.keys(statusMap).length - 1,
                 stops: [
-                    [-1, '#000000'], // black for unexpected/error value
-                    [0, '#3060cf'], // blue for 'Normal Run'
-                    [0.33, '#2ecf71'], // green for 'Rerun Background Job'
-                    [0.66, '#ffe243'], // yellow for 'Manual Run Background Job'
-                    [1, '#ff5050'] // red for 'Pending'
+                    [-1, '#000000'],
+                    [0, '#3060cf'],
+                    [0.33, '#2ecf71'],
+                    [0.66, '#ffe243'],
+                    [1, '#ff5050']
                 ]
             },
 

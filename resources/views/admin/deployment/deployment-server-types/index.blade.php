@@ -64,7 +64,7 @@
         ],
       });
 
-          // sweet alert delete
+    // sweet alert delete
     $('body').on('click', '.btn-delete', function (e) {
         e.preventDefault();
 

@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const data = chartsData[processName];
 
         if (chart) {
-            chart.destroy(); // Menghancurkan chart sebelumnya agar bisa membuat yang baru
+            chart.destroy();
         }
 
         document.getElementById('chartTitle').innerText = `Jumlah Data ${processName}`;
@@ -136,7 +136,6 @@ document.addEventListener('DOMContentLoaded', function() {
         renderChart(this.value);
     });
 
-    // Render the first chart on load
     renderChart(Object.keys(chartsData)[0]);
 });
 </script>

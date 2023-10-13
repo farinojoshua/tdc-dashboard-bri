@@ -13,11 +13,9 @@
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="p-4 overflow-hidden bg-white shadow-xl sm:rounded-lg">
             <div class="flex justify-between p-6 mb-4 bg-white rounded shadow calendar-filter">
-                <!-- Left-side Filter Form -->
                 <form id="calendarFilterForm" class="flex flex-wrap items-center">
                     <label for="month" class="mr-2 font-bold">Month:</label>
                 <select id="month" name="month" class="w-48 p-2 mr-4 border rounded">
-                    {{-- month option from January to December--}}
                    <option value="0">Januari</option>
                     <option value="1">Februari</option>
                     <option value="2">Maret</option>
@@ -32,7 +30,6 @@
                     <option value="11">Desember</option>
                 </select>
 
-                {{-- Select Year --}}
                 <label for="year" class="mr-2 font-bold">Year:</label>
                 <select id="year" name="year" class="w-48 p-2 mr-4 border rounded">
                     @for($i = 2023; $i <= 2030; $i++)
@@ -45,7 +42,6 @@
                 </button>
                 </form>
 
-                <!-- Right-side Dropdown -->
                <div class="relative">
                     <button class="inline-flex px-4 py-2 text-white rounded bg-darker-blue focus:outline-none focus:ring-2 focus:ring-gray-200 dropdown-btn">
                         Calendar
@@ -79,7 +75,6 @@
 
 @section('script')
   <script>
-    // Get the modal calendar
     document.addEventListener("DOMContentLoaded", function () {
         const dropdownBtn = document.querySelector('.dropdown-btn');
         const dropdownMenu = document.querySelector('.dropdown-menu');

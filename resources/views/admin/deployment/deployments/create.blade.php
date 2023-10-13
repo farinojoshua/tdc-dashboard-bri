@@ -99,13 +99,10 @@
 
     <x-slot name="script">
         <script>
-            // for server type select
             document.addEventListener('DOMContentLoaded', function() {
-                // Attach the event listener
                 document.getElementById('module_id').addEventListener('change', function() {
                     var selectedModule = this.value;
 
-                    // Fetch data from the server
                     fetch(`/api/modules/${selectedModule}/server-types`, {
                         method: 'GET',
                         headers: {

@@ -116,15 +116,12 @@
 
     <x-slot name="script">
         <script>
-            // for server type select
             document.addEventListener('DOMContentLoaded', function() {
             var previouslySelectedModuleId = "{{ old('module_id', $deployment->module_id) }}";
             var previouslySelectedServerTypeId = "{{ old('server_type_id', $deployment->server_type_id) }}";
 
-            // take element select box modul
             var moduleSelect = document.getElementById('module_id');
 
-            // check what is the value of previouslySelectedModuleId
             if(previouslySelectedModuleId) {
                 moduleSelect.value = previouslySelectedModuleId; // Set value select box modul
                 fetchServerTypes(previouslySelectedModuleId, previouslySelectedServerTypeId); // fetch data server type
@@ -135,7 +132,6 @@
             });
         });
 
-        // fetch data server type
         function fetchServerTypes(selectedModule, selectedServerType = null) {
             fetch(`/api/modules/${selectedModule}/server-types`)
             .then(response => response.json())
@@ -152,7 +148,7 @@
             })
             .catch(error => console.error('Error:', error));
         }
-                </script>
+        </script>
     </x-slot>
 </x-app-layout>
 
