@@ -21,6 +21,9 @@
                     <x-nav-link href="{{ route('admin.background-jobs-monitoring.jobs.index') }}" :active="request()->routeIs('admin.background-jobs-monitoring.*')">
                         {{ __('Background Jobs') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('admin.user-management.incidents.index') }}" :active="request()->routeIs('admin.user-management.*')">
+                        {{ __('User Management') }}
+                    </x-nav-link>
                 </div>
             </div>
 
