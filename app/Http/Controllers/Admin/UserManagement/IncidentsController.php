@@ -47,7 +47,6 @@ class IncidentsController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi file yang diunggah
         $request->validate([
             'file' => 'required|mimes:xlsx,xls|max:2048',
         ], [

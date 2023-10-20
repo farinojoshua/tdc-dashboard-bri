@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BackgroundJobsMonitoring\BackgroundJobController;
 use App\Http\Controllers\Admin\Deployment\DeploymentController;
 use App\Http\Controllers\Front\Deployment\DeploymentController as FrontDeploymentController;
 use App\Http\Controllers\Front\BackgroundJobsMonitoring\BackgroundJobController as FrontBackgroundJobController;
+use App\Http\Controllers\Front\UserManagement\UserManagementController as FrontUserManagementController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,3 +31,7 @@ Route::get('/deployments/chart-data', [FrontDeploymentController::class, 'getCha
 // background jobs monitoring
 Route::get('/get-processes-by-type', [BackgroundJobController::class, 'getProcessesByType']);
 Route::get('/get-background-jobs-daily', [FrontBackgroundJobController::class, 'getBackgroundJobs']);
+
+// user management
+Route::get('usman/get-request-by-type-chart', [FrontUserManagementController::class, 'getRequestByType']);
+Route::get('usman/get-sla-category-chart', [FrontUserManagementController::class, 'getSLADataByMonth']);

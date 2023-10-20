@@ -14,9 +14,9 @@
         <div class="p-4 overflow-hidden bg-white shadow-xl sm:rounded-lg">
             <div class="flex justify-between p-6 mb-4 bg-white rounded shadow calendar-filter">
                 <form id="calendarFilterForm" class="flex flex-wrap items-center">
-                    <label for="month" class="mr-2 font-bold">Month:</label>
+                <label for="month" class="mr-2 font-bold">Month:</label>
                 <select id="month" name="month" class="w-48 p-2 mr-4 border rounded">
-                   <option value="0">Januari</option>
+                    <option value="0">Januari</option>
                     <option value="1">Februari</option>
                     <option value="2">Maret</option>
                     <option value="3">April</option>

@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\BackgroundJobsMonitoring\ProcessController;
 use App\Http\Controllers\Admin\BackgroundJobsMonitoring\BackgroundJobController;
 use App\Http\Controllers\Front\Deployment\DeploymentController as FrontDeploymentController;
 use App\Http\Controllers\Front\BackgroundJobsMonitoring\BackgroundJobController as FrontBackgroundJobController;
+use App\Http\Controllers\Front\UserManagement\UserManagementController as FrontUserManagementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,8 @@ Route::get('/deployments/calendar', [FrontDeploymentController::class, 'calendar
 Route::get('/background-jobs-monitoring/daily', [FrontBackgroundJobController::class, 'daily'])->name('background-jobs-monitoring.daily');
 Route::get('/background-jobs-monitoring/data-amount', [FrontBackgroundJobController::class, 'showDataAmountCharts'])->name('background-jobs-monitoring.data-amount');
 Route::get('/background-jobs-monitoring/duration', [FrontBackgroundJobController::class, 'showDurationCharts'])->name('background-jobs-monitoring.duration');
+Route::get('/user-management/request-by-type', [FrontUserManagementController::class, 'showRequestByTypeChart'])->name('user-management.request-by-type');
+Route::get('/user-management/sla-category', [FrontUserManagementController::class, 'showSLACategoryChart'])->name('user-management.sla-category');
 
 Route::middleware([
     'auth:sanctum',
