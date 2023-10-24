@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('usman_monthly_target', function (Blueprint $table) {
             $table->id();
-            $table->string('month');
+            $table->integer('month');
             $table->integer('year');
             $table->decimal('monthly_target_value', 5, 2);
             $table->timestamps();

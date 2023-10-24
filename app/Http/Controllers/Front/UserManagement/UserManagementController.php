@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front\UserManagement;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserManagement\Incident;
+use App\Models\UserManagement\MonthlyTarget;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -140,5 +141,52 @@ class UserManagementController extends Controller
     public function showTopBranchRequestsChart()
     {
         return view('front.user-management.user-management-top-branch');
+    }
+
+    // app/Http/Controllers/ChartDataController.php
+
+    public function getMonthlyDataTargetActual(Request $request)
+    {
+        $year = $request->input('year', date('Y')); // Menggunakan tahun saat ini sebagai default jika tidak diberikan
+
+        $monthlyTargets = MonthlyTarget::where('year', $year)
+                                    ->orderBy('month', 'asc')
+                                    ->get();
+
+        $targetData = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $monthData = $monthlyTargets->firstWhere('month', $i);
+            $targetData[] = $monthData ? $monthData->monthly_target_value : 0;
+        }
+
+        $months = range(1, 12);
+        $actualPercentageData = [];
+        foreach ($months as $month) {
+            $totalIncidents = Incident::whereYear('reported_date', $year)
+                                    ->whereMonth('reported_date', $month)
+                                    ->count();
+            $completedIncidents = Incident::whereYear('execution_date', $year)
+                                        ->whereMonth('execution_date', $month)
+                                        ->where('exec_status', 'Done')
+                                        ->count();
+
+            if ($totalIncidents != 0) {
+                $percentageCompleted = ($completedIncidents / $totalIncidents) * 100;
+            } else {
+                $percentageCompleted = 0;
+            }
+
+            $actualPercentageData[$month] = $percentageCompleted;
+        }
+
+        return response()->json([
+            'targets' => $targetData,
+            'actuals' => array_values($actualPercentageData)
+        ]);
+    }
+
+    public function showMonthlyDataTargetActualChart()
+    {
+        return view('front.user-management.user-management-monthly-target');
     }
 }
