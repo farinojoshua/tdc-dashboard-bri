@@ -9,15 +9,11 @@
     <h1 class="mb-4 text-2xl font-semibold sm:text-3xl">User Management Request</h1>
     <div class="flex items-center justify-between mt-12">
         <div class="w-1/3">
-            <select id="navigationDropdown" class="w-56 text-white rounded-lg cursor-pointer focus:outline-none focus:border-blue-900 focus:shadow-outline-blue bg-darker-blue">
-                <option value="{{ route('background-jobs-monitoring.data-amount') }}">Chart - Data Amount</option>
-                <option value="{{ route('background-jobs-monitoring.duration') }}">Chart - Duration</option>
-                <option value="{{ route('background-jobs-monitoring.daily') }}">Daily</option>
-            </select>
+            <h2 id="totalRequests" class="text-2xl"></h2>
         </div>
         <div class="w-1/2 mx-auto text-center">
             <select id="chartDropdown" class="w-full px-4 py-4 text-xl text-white border rounded cursor-pointer bg-dark-blue focus:outline-none focus:border-blue-900 focus:shadow-outline-blue">
-                <option value="1">Januari</option>
+                <option value="1">User Management Request</option>
             </select>
         </div>
         <div class="w-1/3">
@@ -62,7 +58,7 @@
         document.getElementById('dateButton').classList.remove('bg-darker-blue', 'text-white');
 
         if (currentMode === 'date') {
-            document.getElementById('monthDiv').style.display = 'inline-block'; // <-- This line shows the month dropdown
+            document.getElementById('monthDiv').style.display = 'inline-block';
             document.getElementById('dateButton').classList.add('bg-darker-blue', 'text-white');
         } else {
             document.getElementById('monthDiv').style.display = 'none';
@@ -94,6 +90,8 @@
             .then(data => {
                 const labels = mode === 'month' ? data.months : data.days;
                 const ctx = document.getElementById('incidentChart').getContext('2d');
+
+                document.getElementById('totalRequests').innerHTML = `Total Requests: ${data.totalRequests}`;
 
                 const typeKeys = Object.keys(data.incidentCounts)
                     .filter(key => Object.keys(data.incidentCounts[key]).length > 0)

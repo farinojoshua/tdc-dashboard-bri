@@ -48,11 +48,10 @@ class IncidentsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:xlsx,xls|max:2048',
+            'file' => 'required|mimes:xlsx,xls',
         ], [
             'file.required' => 'File is required',
             'file.mimes' => 'File must be an Excel document',
-            'file.max' => 'File must not exceed 2MB'
         ]);
 
         $file = $request->file('file');

@@ -7,7 +7,6 @@
 @section('content')
 
 <div class="p-10 mx-auto my-10 rounded-lg shadow-lg">
-    <!-- Dropdowns untuk filter bulan dan tahun -->
     <div class="filter-section">
         <label for="monthFilter">Bulan:</label>
         <select id="monthFilter">
@@ -26,7 +25,6 @@
         <button id="filterButton">Filter</button>
     </div>
 
-    <!-- Canvas untuk chart -->
     <div class="chart-section">
         <canvas id="slaChart"></canvas>
     </div>
@@ -42,13 +40,23 @@
     window.onload = function() {
         var ctx = document.getElementById('slaChart').getContext('2d');
         slaChart = new Chart(ctx, {
-            type: 'pie',
+            type: 'line',
             data: {
-                labels: ['Meet SLA', 'Over SLA'],
-                datasets: [{
-                    data: [],  // Initial data is empty
-                    backgroundColor: ['green', 'red']
-                }]
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [
+                    {
+                        label: 'Meet SLA',
+                        data: [],
+                        borderColor: 'green',
+                        fill: false
+                    },
+                    {
+                        label: 'Over SLA',
+                        data: [],
+                        borderColor: 'red',
+                        fill: false
+                    }
+                ]
             },
             options: {
                 responsive: true,
@@ -59,30 +67,26 @@
             }
         });
 
-        // Set default month and year to current month and year
-        var currentDate = new Date();
-        var currentMonth = currentDate.getMonth() + 1;
-        var currentYear = currentDate.getFullYear();
-
-        document.getElementById('monthFilter').value = currentMonth;
+        var currentYear = (new Date()).getFullYear();
         document.getElementById('yearFilter').value = currentYear;
-
-        updateChart(currentMonth, currentYear);
+        updateChart(currentYear);
     }
 
     document.getElementById('filterButton').addEventListener('click', function() {
-        var selectedMonth = document.getElementById('monthFilter').value;
         var selectedYear = document.getElementById('yearFilter').value;
-        updateChart(selectedMonth, selectedYear);
+        updateChart(selectedYear);
     });
 
-    function updateChart(month, year) {
-        fetch(`/api/usman/get-sla-category-chart?month=${month}&year=${year}`)
+    function updateChart(year) {
+        fetch(`/api/usman/get-sla-category-chart?year=${year}`)
             .then(response => response.json())
             .then(data => {
-                slaChart.data.datasets[0].data = [data.meetSLA, data.overSLA];
+                slaChart.data.datasets[0].data = data.map(item => item.meetSLA);
+                slaChart.data.datasets[1].data = data.map(item => item.overSLA);
                 slaChart.update();
             });
     }
 </script>
+
+
 @endsection

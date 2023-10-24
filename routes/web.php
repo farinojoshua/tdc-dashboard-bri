@@ -34,6 +34,7 @@ Route::get('/background-jobs-monitoring/data-amount', [FrontBackgroundJobControl
 Route::get('/background-jobs-monitoring/duration', [FrontBackgroundJobController::class, 'showDurationCharts'])->name('background-jobs-monitoring.duration');
 Route::get('/user-management/request-by-type', [FrontUserManagementController::class, 'showRequestByTypeChart'])->name('user-management.request-by-type');
 Route::get('/user-management/sla-category', [FrontUserManagementController::class, 'showSLACategoryChart'])->name('user-management.sla-category');
+Route::get('/user-management/top-branch', [FrontUserManagementController::class, 'showTopBranchRequestsChart'])->name('user-management.top-branch');
 
 Route::middleware([
     'auth:sanctum',

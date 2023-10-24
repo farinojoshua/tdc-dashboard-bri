@@ -34,4 +34,5 @@ Route::get('/get-background-jobs-daily', [FrontBackgroundJobController::class, '
 
 // user management
 Route::get('usman/get-request-by-type-chart', [FrontUserManagementController::class, 'getRequestByType']);
-Route::get('usman/get-sla-category-chart', [FrontUserManagementController::class, 'getSLADataByMonth']);
+Route::get('usman/get-sla-category-chart', [FrontUserManagementController::class, 'getSLADataForYear']);
+Route::get('usman/get-top-branch-request-chart', [FrontUserManagementController::class, 'getTopBranchRequests']);
