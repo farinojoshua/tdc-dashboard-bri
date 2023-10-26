@@ -12,9 +12,12 @@
             <h2 id="totalRequests" class="text-2xl"></h2>
         </div>
         <div class="w-1/2 mx-auto text-center">
-            <select id="chartDropdown" class="w-full px-4 py-4 text-xl text-white border rounded cursor-pointer bg-dark-blue focus:outline-none focus:border-blue-900 focus:shadow-outline-blue">
-                <option value="1">User Management Request</option>
-            </select>
+                <select id="chartDropdownSelector" class="w-full px-4 py-4 text-xl text-white border rounded cursor-pointer bg-dark-blue focus:outline-none focus:border-blue-900 focus:shadow-outline-blue">
+                    <option value="{{ route('user-management.request-by-type') }}">User Management Request</option>
+                    <option value="{{ route('user-management.monthly-target') }}">Target Realization</option>
+                    <option value="{{ route('user-management.sla-category') }}">SLA Monitoring</option>
+                    <option value="{{ route('user-management.top-branch') }}">Top 5 Ukker Request</option>
+                </select>
         </div>
         <div class="w-1/3">
             <div class="flex flex-col items-end justify-end gap-4">
@@ -47,6 +50,12 @@
 
 @section('script')
 <script>
+    document.getElementById("chartDropdownSelector").addEventListener("change", function() {
+        const selectedURL = this.value;
+        if (selectedURL) {
+            window.location.href = selectedURL;
+        }
+    });
     let chart;
     let currentMode = '{{ request('mode', 'month') }}';
 

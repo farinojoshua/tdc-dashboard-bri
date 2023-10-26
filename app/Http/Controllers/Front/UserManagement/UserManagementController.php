@@ -86,26 +86,55 @@ class UserManagementController extends Controller
 
     public function getSLADataForYear(Request $request)
     {
+        $month = $request->input('month', date('m'));
         $year = $request->input('year', date('Y'));
 
-        $data = [];
+        $data = DB::table('usman_incident')
+            ->select(DB::raw('DATE(reported_date) as date'), DB::raw('sla_category'), DB::raw('COUNT(*) as count'))
+            ->whereMonth('reported_date', $month)
+            ->whereYear('reported_date', $year)
+            ->groupBy('date', 'sla_category')
+            ->get();
 
-        for ($month = 1; $month <= 12; $month++) {
-            $meetSLA = Incident::where('sla_category', 'Meet SLA')
-                ->whereYear('reported_date', '=', $year)
-                ->whereMonth('reported_date', '=', $month)
-                ->count();
+        $totalIncidents = DB::table('usman_incident')
+            ->whereMonth('reported_date', $month)
+            ->whereYear('reported_date', $year)
+            ->count();
 
-            $overSLA = Incident::where('sla_category', 'Over SLA')
-                ->whereYear('reported_date', '=', $year)
-                ->whereMonth('reported_date', '=', $month)
-                ->count();
+        $doneIncidents = DB::table('usman_incident')
+            ->whereMonth('reported_date', $month)
+            ->whereYear('reported_date', $year)
+            ->where('exec_status', 'Done')
+            ->count();
 
-            $data[] = ['month' => $month, 'meetSLA' => $meetSLA, 'overSLA' => $overSLA];
+        $pendingIncidents = DB::table('usman_incident')
+            ->whereMonth('reported_date', $month)
+            ->whereYear('reported_date', $year)
+            ->where('exec_status', 'Pending')
+            ->count();
+
+        $formattedData = [];
+        $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+
+        for ($i = 1; $i <= $daysInMonth; $i++) {
+            $date = $year . '-' . str_pad($month, 2, "0", STR_PAD_LEFT) . '-' . str_pad($i, 2, "0", STR_PAD_LEFT);
+            $formattedData[$date] = ['Meet SLA' => 0, 'Over SLA' => 0];
         }
 
-        return response()->json($data);
+        foreach ($data as $row) {
+            $formattedData[$row->date][$row->sla_category] = $row->count;
+        }
+
+        return response()->json([
+            'slaData' => $formattedData,
+            'totals' => [
+                'totalIncidents' => $totalIncidents,
+                'doneIncidents' => $doneIncidents,
+                'pendingIncidents' => $pendingIncidents
+            ]
+        ]);
     }
+
 
 
     public function showSLACategoryChart()

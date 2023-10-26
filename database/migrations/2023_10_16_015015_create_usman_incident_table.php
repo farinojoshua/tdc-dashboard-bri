@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreign('type_id')->references('id')->on('usman_req_type');
             $table->unsignedBigInteger('branch_id');
             $table->foreign('branch_id')->references('id')->on('usman_branch');
-            $table->string('req_status');
+            $table->string('req_status')->nullable();
             $table->string('exec_status')->default('Pending');
             $table->date('execution_date')->nullable();
             $table->enum('sla_category', ['Meet SLA', 'Over SLA'])->nullable();

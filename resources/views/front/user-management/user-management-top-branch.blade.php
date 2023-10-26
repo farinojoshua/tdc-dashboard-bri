@@ -6,13 +6,16 @@
 
     @section('content')
     <div class="p-10 mx-auto my-10 rounded-lg shadow-lg">
-        <h1 class="mb-4 text-2xl font-semibold sm:text-3xl">5 Top Ukker Request</h1>
+        <h1 class="mb-4 text-2xl font-semibold sm:text-3xl">User Management</h1>
         <div class="flex items-center justify-between gap-3">
             <div class="w-1/3">
             </div>
             <div class="w-1/2 mx-auto text-center">
-                <select id="chartDropdown" class="w-full px-4 py-4 text-xl text-white border rounded cursor-pointer bg-dark-blue focus:outline-none focus:border-blue-900 focus:shadow-outline-blue">
-                    <option value="1">User Management Request</option>
+                <select id="chartDropdownSelector" class="w-full px-4 py-4 text-xl text-white border rounded cursor-pointer bg-dark-blue focus:outline-none focus:border-blue-900 focus:shadow-outline-blue">
+                    <option value="{{ route('user-management.top-branch') }}">Top 5 Ukker Request</option>
+                    <option value="{{ route('user-management.request-by-type') }}">User Management Request</option>
+                    <option value="{{ route('user-management.monthly-target') }}">Target Realization</option>
+                    <option value="{{ route('user-management.sla-category') }}">SLA Monitoring</option>
                 </select>
             </div>
             <div class="w-1/3">
@@ -43,7 +46,13 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        let branchPieChart; // untuk menyimpan instance chart
+        document.getElementById("chartDropdownSelector").addEventListener("change", function() {
+            const selectedURL = this.value;
+            if (selectedURL) {
+                window.location.href = selectedURL;
+            }
+        });
+        let branchPieChart;
 
         async function fecthData() {
             const month = document.getElementById('monthSelect').value;

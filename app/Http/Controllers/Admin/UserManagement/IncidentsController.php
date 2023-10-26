@@ -55,12 +55,19 @@ class IncidentsController extends Controller
         ]);
 
         $file = $request->file('file');
-        Incident::truncate();
+
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        Incident::whereMonth('reported_date', $currentMonth)
+                ->whereYear('reported_date', $currentYear)
+                ->delete();
+
         Excel::import(new IncidentsImport, $file);
 
         return redirect()->route('admin.user-management.incidents.index')
             ->with('success', 'Incidents imported successfully');
     }
+
 
     /**
      * Display the specified resource.
