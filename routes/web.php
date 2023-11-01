@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\UserManagement\IncidentsController;
-use App\Http\Controllers\Admin\UserManagement\MonthlyTargetController;
+use App\Http\Controllers\Admin\UserManagement\IncidentsController as UsmanIncidentsController;
+use App\Http\Controllers\Admin\UserManagement\MonthlyTargetController as UsmanMonthlyTargetController;
+use App\Http\Controllers\Admin\Brisol\IncidentsController as BrisolIncidentsController;
 use App\Http\Controllers\Admin\Deployment\DeploymentController;
 use App\Http\Controllers\Admin\Deployment\DeploymentModuleController;
 use App\Http\Controllers\Admin\Deployment\DeploymentServerTypeController;
@@ -55,8 +56,11 @@ Route::middleware([
             Route::resource('jobs', BackgroundJobController::class);
         });
         Route::prefix('user-management')->name('user-management.')->group(function () {
-            Route::resource('incidents', IncidentsController::class);
-            Route::resource('monthly-target', MonthlyTargetController::class);
+            Route::resource('incidents', UsmanIncidentsController::class);
+            Route::resource('monthly-target', UsmanMonthlyTargetController::class);
+        });
+        Route::prefix('brisol')->name('brisol.')->group(function () {
+            Route::resource('incidents', BrisolIncidentsController::class);
         });
     });
 });
