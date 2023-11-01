@@ -24,6 +24,9 @@
                     <x-nav-link href="{{ route('admin.user-management.incidents.index') }}" :active="request()->routeIs('admin.user-management.*')">
                         {{ __('User Management') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('admin.brisol.incidents.index') }}" :active="request()->routeIs('admin.brisol.*')">
+                        {{ __('Brisol') }}
+                    </x-nav-link>
                 </div>
             </div>
 
