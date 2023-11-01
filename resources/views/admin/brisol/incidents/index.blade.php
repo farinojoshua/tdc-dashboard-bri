@@ -51,18 +51,6 @@
                 name: 'service_ci',
             },
             {
-                data: 'prd_tier1',
-                name: 'prd_tier1',
-            },
-            {
-                data: 'prd_tier2',
-                name: 'prd_tier2',
-            },
-            {
-                data: 'prd_tier3',
-                name: 'prd_tier3',
-            },
-            {
                 data: 'ctg_tier1',
                 name: 'ctg_tier1',
             },
@@ -114,9 +102,6 @@
                 <th>Resolved Date</th>
                 <th>Region</th>
                 <th>Service CI</th>
-                <th>PRD Tier 1</th>
-                <th>PRD Tier 2</th>
-                <th>PRD Tier 3</th>
                 <th>CTG Tier 1</th>
                 <th>CTG Tier 2</th>
                 <th>CTG Tier 3</th>
