@@ -104,11 +104,15 @@
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="overflow-hidden shadow sm:rounded-md">
         <div class="px-4 py-5 bg-white sm:p-6">
-            <div class="mb-10">
+            <div class="flex gap-4 mb-10">
               <a href="{{ route('admin.user-management.incidents.create') }}"
                  class="px-4 py-2 font-bold text-white rounded shadow-lg bg-darker-blue font-poppins">
                 + Add  Data
               </a>
+                <a href="{{ route('user-management.request-by-type') }}" target="_blank"
+                    class="px-4 py-2 font-bold text-white rounded shadow-lg bg-darker-blue font-poppins">
+                    View Chart
+                </a>
             </div>
           <table id="dataTable">
             <thead>
