@@ -56,6 +56,7 @@ class IncidentsController extends Controller
 
         $file = $request->file('file');
 
+        // delete all incidents of the current month
         $currentMonth = date('m');
         $currentYear = date('Y');
         Incident::whereMonth('reported_date', $currentMonth)

@@ -176,7 +176,7 @@ class UserManagementController extends Controller
 
     public function getMonthlyDataTargetActual(Request $request)
     {
-        $year = $request->input('year', date('Y')); // Menggunakan tahun saat ini sebagai default jika tidak diberikan
+        $year = $request->input('year', date('Y'));
 
         $monthlyTargets = MonthlyTarget::where('year', $year)
                                     ->orderBy('month', 'asc')

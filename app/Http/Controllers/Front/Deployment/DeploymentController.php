@@ -52,7 +52,7 @@ class DeploymentController extends Controller
     public function getChartData(Request $request)
     {
         $module_id = $request->input('module_id');
-        $year = $request->input('year', date('Y'));  // if year is not set, use current year
+        $year = $request->input('year', date('Y'));
 
         $data = DB::table('deployments')
             ->select(DB::raw('MONTH(deployments.deploy_date) as month'), 'deployment_server_types.name as server_type', DB::raw('COUNT(*) as count'))

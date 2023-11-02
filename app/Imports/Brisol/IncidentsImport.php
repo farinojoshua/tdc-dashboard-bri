@@ -37,6 +37,7 @@ class IncidentsImport implements ToModel, WithHeadingRow
         ]);
     }
 
+    // Convert Excel Date to Unix Date then to MySQL Date
     private function convertExcelDate($excelDate){
         $unixDate = ($excelDate - 25569) * 86400;
         return gmdate("Y-m-d", $unixDate);

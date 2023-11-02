@@ -75,6 +75,7 @@ class DeploymentController extends Controller
             'cm_description' => 'required|string',
         ]);
 
+        // check if deployment already exists
         if (Deployment::where('title', $request->title)->first()) {
             return redirect()->back()->with('error', 'Deployment already exists.');
         }
@@ -109,6 +110,7 @@ class DeploymentController extends Controller
             'cm_description' => 'required|string',
         ]);
 
+        // check if deployment already exists
         if ($deployment->title != $request->title) {
             if (Deployment::where('title', $request->title)->first()) {
                 return redirect()->back()->with('error', 'Deployment already exists.');

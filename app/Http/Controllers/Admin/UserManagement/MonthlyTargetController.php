@@ -60,7 +60,6 @@ class MonthlyTargetController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the request...
         $request->validate([
             'month' => 'required|integer',
             'year' => 'required|integer',

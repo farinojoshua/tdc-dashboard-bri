@@ -67,6 +67,7 @@ class BackgroundJobController extends Controller
             'execution_date' => 'required|date',
         ]);
 
+        // Check if background job already exists in that date
         if (BackgroundJob::where('process_id', $request->process_id)->where('execution_date', $request->execution_date)->exists()) {
             return redirect()->back()->with('error', 'Background job already exists in that date.');
         }

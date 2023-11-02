@@ -57,6 +57,7 @@ class ProcessController extends Controller
             'type' => 'required|in:Product,Non-Product',
         ]);
 
+        // check if process already exists
         if (Process::where('name', $request->name)->where('type', $request->type)->first()) {
             return redirect()->back()->with('error', 'Process already exists in the same type.');
         }
@@ -88,6 +89,7 @@ class ProcessController extends Controller
 
         $process = Process::findOrFail($id);
 
+        // check if process already exists
         if (Process::where('name', $request->name)->where('type', $request->type)->where('id', '!=', $process->id)->first()) {
             return redirect()->back()->with('error', 'Process already exists in the same type.');
         }

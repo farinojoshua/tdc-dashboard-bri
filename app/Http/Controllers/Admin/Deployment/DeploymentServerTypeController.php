@@ -64,6 +64,7 @@ class DeploymentServerTypeController extends Controller
             'module_id' => 'required|exists:deployment_modules,id'
         ]);
 
+        // check if server type already exists
         if (DeploymentServerType::where('name', $request->name)->where('module_id', $request->module_id)->first()) {
             return redirect()->back()->with('error', 'Server Type already exists in the same module.');
         }
@@ -96,6 +97,7 @@ class DeploymentServerTypeController extends Controller
 
         $serverType = DeploymentServerType::findOrFail($id);
 
+        // check if server type already exists
         if (DeploymentServerType::where('name', $request->name)->where('module_id', $request->module_id)->where('id', '!=', $id)->first()) {
             return redirect()->back()->with('error', 'Server Type already exists in the same module.');
         }

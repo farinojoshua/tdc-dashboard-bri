@@ -15,6 +15,7 @@ class BackgroundJobController extends Controller
         return view('front.background-jobs-monitoring.background-jobs-daily');
     }
 
+    // Get data for daily background jobs monitoring
     private function getFormattedData($data, $month, $year)
     {
         $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
@@ -75,7 +76,6 @@ class BackgroundJobController extends Controller
         $allChartData = [];
 
         foreach ($processes as $process) {
-            // Initialize data based on mode
             if ($mode == 'month') {
                 $results = $process->backgroundJobs()
                     ->whereYear('execution_date', $chosenYear)
@@ -106,7 +106,6 @@ class BackgroundJobController extends Controller
                 $labels = range(1, $lastDay);
             }
 
-            // Process results
             foreach ($results as $result) {
                 $index = ($mode == 'month' ? $result->month_num : $result->day_num) - 1;
                 $s4glAmounts[$index] = $result->total_s4gl;

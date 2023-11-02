@@ -57,6 +57,7 @@ class DeploymentModuleController extends Controller
             'name' => 'required|max:15'
         ]);
 
+        // check if module already exists
         if (DeploymentModule::where('name', $request->name)->first()) {
             return redirect()->back()->with('error', 'Module already exists.');
         }
@@ -87,6 +88,7 @@ class DeploymentModuleController extends Controller
 
         $module = DeploymentModule::findOrfail($id);
 
+        // check if module already exists
         if ($module->name != $request->name) {
             if (DeploymentModule::where('name', $request->name)->first()) {
                 return redirect()->back()->with('error', 'Module already exists.');
