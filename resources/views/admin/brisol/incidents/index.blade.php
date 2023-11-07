@@ -75,6 +75,10 @@
                 name: 'ctg_tier3',
             },
             {
+                data: 'status',
+                name: 'status',
+            },
+            {
                 name: 'slm_status',
                 data: 'slm_status',
             }
@@ -88,11 +92,15 @@
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="overflow-hidden shadow sm:rounded-md">
         <div class="px-4 py-5 bg-white sm:p-6">
-            <div class="mb-10">
-              <a href="{{ route('admin.brisol.incidents.create') }}"
-                 class="px-4 py-2 font-bold text-white rounded shadow-lg bg-darker-blue font-poppins">
-                + Add  Data
-              </a>
+            <div class="flex gap-4 mb-10">
+                <a href="{{ route('admin.brisol.incidents.create') }}"
+                    class="px-4 py-2 font-bold text-white rounded shadow-lg bg-darker-blue font-poppins">
+                    + Add  Data
+                </a>
+                <a href="{{ route('brisol.service-ci') }}" target="_blank"
+                    class="px-4 py-2 font-bold text-white rounded shadow-lg bg-darker-blue font-poppins">
+                    View Chart
+                </a>
             </div>
           <table id="dataTable">
             <thead>
@@ -106,6 +114,7 @@
                 <th>Cat Tier 1</th>
                 <th>Cat Tier 2</th>
                 <th>Cat Tier 3</th>
+                <th>Status</th>
                 <th>SLM Status</th>
               </tr>
             </thead>

@@ -15,6 +15,7 @@
                 <option value="{{ route('brisol.reported-source') }}">Brisol Reported Source</option>
                 <option value="{{ route('brisol.slm-status') }}">Brisol SLM Status</option>
                 <option value="{{ route('brisol.service-ci') }}">Brisol Service CI</option>
+                <option value="{{ route('brisol.monthly-target') }}">Brisol Monthly Target</option>
             </select>
         </div>
         <div class="w-1/3">

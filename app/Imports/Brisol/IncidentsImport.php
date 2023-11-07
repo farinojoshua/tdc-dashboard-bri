@@ -3,9 +3,9 @@
 namespace App\Imports\Brisol;
 
 use App\Models\Brisol\Incident;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;
 
 class IncidentsImport implements ToCollection, WithHeadingRow
@@ -68,7 +68,21 @@ class IncidentsImport implements ToCollection, WithHeadingRow
 
     private function convertExcelDate($excelDate)
     {
-        $unixDate = ($excelDate - 25569) * 86400;
-        return gmdate("Y-m-d", $unixDate);
+        if (is_numeric($excelDate)) {
+            $unixDate = ($excelDate - 25569) * 86400;
+            return gmdate("Y-m-d", $unixDate);
+        }
+
+        return null;
+    }
+
+    /**
+     * @return int
+     */
+    // heading
+    public function headingRow(): int
+    {
+        return 4;
     }
 }
+

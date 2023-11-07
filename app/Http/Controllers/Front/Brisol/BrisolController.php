@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Front\Brisol;
 
 use Illuminate\Http\Request;
+use App\Models\Brisol\Incident;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Brisol\MonthlyTarget;
 
 class BrisolController extends Controller
 {
@@ -147,6 +149,50 @@ class BrisolController extends Controller
         return view('front.brisol.brisol-reported-source');
     }
 
+    public function getMonthlyDataTargetActual(Request $request)
+    {
+        $year = $request->input('year', date('Y'));
 
+        $monthlyTargets = MonthlyTarget::where('year', $year)
+                                    ->orderBy('month', 'asc')
+                                    ->get();
+
+        $targetData = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $monthData = $monthlyTargets->firstWhere('month', $i);
+            $targetData[] = $monthData ? $monthData->monthly_target_value : 0;
+        }
+
+        $months = range(1, 12);
+        $actualPercentageData = [];
+        foreach ($months as $month) {
+            $completedIncidents = Incident::whereYear('reported_date', $year)
+                                        ->whereMonth('reported_date', $month)
+                                        ->where('status', ['closed', 'resolved'])
+                                        ->count();
+
+            $totalIncidents = Incident::whereYear('reported_date', $year)
+                                        ->whereMonth('reported_date', $month)
+                                        ->count();
+
+            if ($totalIncidents != 0) {
+                $percentageCompleted = ($completedIncidents / $totalIncidents) * 100;
+            } else {
+                $percentageCompleted = 0;
+            }
+
+            $actualPercentageData[$month] = $percentageCompleted;
+        }
+
+        return response()->json([
+            'targets' => $targetData,
+            'actuals' => array_values($actualPercentageData)
+        ]);
+    }
+
+    public function showMonthlyDataTargetActualChart()
+    {
+        return view('front.brisol.brisol-monthly-target');
+    }
 
 }

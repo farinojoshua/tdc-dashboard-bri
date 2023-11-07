@@ -43,6 +43,7 @@ Route::get('/user-management/monthly-target', [FrontUserManagementController::cl
 Route::get('/brisol/service-ci', [FrontBrisolController::class, 'showServiceCIChart'])->name('brisol.service-ci');
 Route::get('/brisol/slm-status', [FrontBrisolController::class, 'showSLMStatusChart'])->name('brisol.slm-status');
 Route::get('/brisol/reported-source', [FrontBrisolController::class, 'showReportedSourceChart'])->name('brisol.reported-source');
+Route::get('/brisol/monthly-target', [FrontBrisolController::class, 'showMonthlyDataTargetActualChart'])->name('brisol.monthly-target');
 
 Route::middleware([
     'auth:sanctum',

@@ -53,7 +53,7 @@
                                name="monthly_target_value"
                                type="number"
                                placeholder="Target"
-                               step="min=0 max=100"
+                               step="0.01"
                                required>
                     </div>
                 </div>
