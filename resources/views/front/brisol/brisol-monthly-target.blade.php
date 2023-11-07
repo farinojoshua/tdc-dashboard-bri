@@ -14,6 +14,7 @@
                 <select id="chartDropdownSelector" class="w-full px-4 py-4 text-xl text-white border rounded cursor-pointer bg-dark-blue focus:outline-none focus:border-blue-900 focus:shadow-outline-blue">
                     <option value="{{ route('brisol.monthly-target') }}">Brisol Monthly Target</option>
                     <option value="{{ route('brisol.reported-source') }}">Brisol Reported Source</option>
+                    <option value="{{ route('brisol.service-ci-top-issue') }}">Brisol Service CI Top Issue</option>
                     <option value="{{ route('brisol.slm-status') }}">Brisol SLM Status</option>
                     <option value="{{ route('brisol.service-ci') }}">Brisol Service CI</option>
                 </select>

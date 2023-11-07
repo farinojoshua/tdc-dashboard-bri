@@ -9,7 +9,6 @@
     <h1 class="mb-4 text-2xl font-semibold text-gray-800 sm:text-3xl">Brisol SLM Status</h1>
     <div class="flex items-center justify-between mt-12">
         <div class="w-1/3">
-            <h2 id="totalRequests" class="text-2xl"></h2>
         </div>
         <div class="w-1/2 mx-auto text-center">
                 <select id="chartDropdownSelector" class="w-full px-4 py-4 text-xl text-white border rounded cursor-pointer bg-dark-blue focus:outline-none focus:border-blue-900 focus:shadow-outline-blue">
@@ -17,6 +16,7 @@
                     <option value="{{ route('brisol.service-ci') }}">Brisol Service CI</option>
                     <option value="{{ route('brisol.reported-source') }}">Brisol Reported Source</option>
                     <option value="{{ route('brisol.monthly-target') }}">Brisol Monthly Target</option>
+                    <option value="{{ route('brisol.service-ci-top-issue') }}">Brisol Service CI Top Issue</option>
                 </select>
         </div>
         <div class="w-1/3">
@@ -47,7 +47,6 @@
 @endsection
 
 @section('script')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.getElementById("chartDropdownSelector").addEventListener("change", function() {
         window.location.href = this.value;

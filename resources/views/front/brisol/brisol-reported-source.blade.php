@@ -14,6 +14,7 @@
             <select id="chartDropdownSelector" class="w-full px-4 py-4 text-xl text-white border rounded cursor-pointer bg-dark-blue focus:outline-none focus:border-blue-900 focus:shadow-outline-blue">
                 <option value="{{ route('brisol.reported-source') }}">Brisol Reported Source</option>
                 <option value="{{ route('brisol.slm-status') }}">Brisol SLM Status</option>
+                <option value="{{ route('brisol.service-ci-top-issue') }}">Brisol Service CI Top Issue</option>
                 <option value="{{ route('brisol.service-ci') }}">Brisol Service CI</option>
                 <option value="{{ route('brisol.monthly-target') }}">Brisol Monthly Target</option>
             </select>
@@ -38,7 +39,6 @@
 
 
 @section('script')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.getElementById("chartDropdownSelector").addEventListener("change", function() {
         window.location.href = this.value;
@@ -59,7 +59,7 @@
                 const datasets = uniqueSources.map(source => ({
                     label: source,
                     data: data.months.map(month => data.data[month][source] || 0),
-                    backgroundColor: '#' + Math.floor(Math.random() * 16777215).toString(16),
+                    backgroundColor: '#' + Math.floor(Math.random() * 16777215).toString(16) + '50',
                 }));
 
                 currentChart = new Chart(ctx, {

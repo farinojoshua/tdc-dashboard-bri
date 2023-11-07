@@ -44,3 +44,4 @@ Route::get('/brisol/get-service-ci-chart', [FrontBrisolController::class, 'getSe
 Route::get('/brisol/get-slm-status-chart', [FrontBrisolController::class, 'getSLMStatusChart']);
 Route::get('/brisol/get-reported-source-chart', [FrontBrisolController::class, 'getReportedSource']);
 Route::get('/brisol/get-monthly-target-actual', [FrontBrisolController::class, 'getMonthlyDataTargetActual']);
+Route::get('/brisol/get-service-ci-top-issue', [FrontBrisolController::class, 'getServiceCITopIssueChart']);

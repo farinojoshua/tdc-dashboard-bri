@@ -195,4 +195,57 @@ class BrisolController extends Controller
         return view('front.brisol.brisol-monthly-target');
     }
 
+    public function getServiceCITopIssueChart(Request $request)
+    {
+        $year = $request->input('year', date('Y'));
+
+        $serviceCisWithTopIssues = DB::table('brisol_incident')
+                                    ->select('service_ci', 'ctg_tier2')
+                                    ->whereYear('reported_date', '=', $year)
+                                    ->groupBy('service_ci', 'ctg_tier2')
+                                    ->orderByRaw('COUNT(*) DESC')
+                                    ->get()
+                                    ->groupBy('service_ci')
+                                    ->map(function ($items) {
+                                        // Hanya ambil service_ci yang memiliki setidaknya 5 issues
+                                        return count($items) >= 5 ? $items->take(5) : null;
+                                    })
+                                    ->filter(); // Menghilangkan service_ci yang null dari koleksi
+
+        $serviceCiData = [];
+
+        foreach ($serviceCisWithTopIssues as $serviceCi => $issues) {
+            $issuesData = [];
+
+            foreach ($issues as $issue) {
+                $issueCount = DB::table('brisol_incident')
+                                ->whereYear('reported_date', '=', $year)
+                                ->where('service_ci', '=', $serviceCi)
+                                ->where('ctg_tier2', '=', $issue->ctg_tier2)
+                                ->count();
+
+                $issuesData[] = [
+                    'issue' => $issue->ctg_tier2,
+                    'count' => $issueCount
+                ];
+            }
+
+            if (!empty($issuesData)) {
+                $serviceCiData[] = [
+                    'service_ci' => $serviceCi,
+                    'issues' => $issuesData
+                ];
+            }
+        }
+
+        return response()->json($serviceCiData);
+    }
+
+
+    public function showServiceCITopIssueChart()
+    {
+        return view('front.brisol.brisol-service-ci-top-issue');
+    }
+
+
 }

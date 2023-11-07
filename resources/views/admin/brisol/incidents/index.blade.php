@@ -74,14 +74,6 @@
                 data: 'ctg_tier3',
                 name: 'ctg_tier3',
             },
-            {
-                data: 'status',
-                name: 'status',
-            },
-            {
-                name: 'slm_status',
-                data: 'slm_status',
-            }
         ],
       });
 
@@ -99,7 +91,7 @@
                 </a>
                 <a href="{{ route('brisol.service-ci') }}" target="_blank"
                     class="px-4 py-2 font-bold text-white rounded shadow-lg bg-darker-blue font-poppins">
-                    View Chart
+                     👁 View Chart
                 </a>
             </div>
           <table id="dataTable">
@@ -114,8 +106,6 @@
                 <th>Cat Tier 1</th>
                 <th>Cat Tier 2</th>
                 <th>Cat Tier 3</th>
-                <th>Status</th>
-                <th>SLM Status</th>
               </tr>
             </thead>
             <tbody></tbody>
