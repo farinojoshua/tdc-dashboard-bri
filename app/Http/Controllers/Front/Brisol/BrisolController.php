@@ -25,6 +25,10 @@ class BrisolController extends Controller
                     ->whereMonth('reported_date', '=', date('m', strtotime($month)))
                     ->groupBy('service_ci')
                     ->select('service_ci', DB::raw('count(*) as total'))
+                    ->get()
+                    ->filter(function($value, $key) {
+                        return !empty($value->service_ci); // Filter untuk mengabaikan service_ci yang kosong
+                    })
                     ->pluck('total', 'service_ci')
                     ->all();
 
@@ -59,7 +63,9 @@ class BrisolController extends Controller
                     ->groupBy('service_ci')
                     ->select('service_ci', DB::raw('count(*) as total'));
 
-                $incidentCountsForDay = $query->get()->keyBy('service_ci')->map(function ($row) {
+                $incidentCountsForDay = $query->get()->filter(function ($value, $key) {
+                    return !empty($value->service_ci); // Sama seperti sebelumnya, filter untuk mengabaikan service_ci yang kosong
+                })->keyBy('service_ci')->map(function ($row) {
                     return $row->total;
                 })->all();
 
@@ -93,6 +99,10 @@ class BrisolController extends Controller
             ->groupBy(DB::raw('MONTH(reported_date)'), 'slm_status')
             ->get();
 
+        $data = $data->reject(function ($item) {
+            return empty($item->slm_status);
+        });
+
         $monthlyData = [];
 
         foreach ($allMonths as $month) {
@@ -100,7 +110,13 @@ class BrisolController extends Controller
         }
 
         foreach ($data as $item) {
-            $monthlyData[$allMonths[$item->month - 1]][$item->slm_status] = $item->count;
+            $monthlyStatus = &$monthlyData[$allMonths[$item->month - 1]];
+
+            if (!array_key_exists($item->slm_status, $monthlyStatus)) {
+                $monthlyStatus[$item->slm_status] = $item->count;
+            } else {
+                $monthlyStatus[$item->slm_status] += $item->count;
+            }
         }
 
         return response()->json([
@@ -108,6 +124,7 @@ class BrisolController extends Controller
             'data' => $monthlyData,
         ]);
     }
+
 
 
     public function showSLMStatusChart()
@@ -207,10 +224,9 @@ class BrisolController extends Controller
                                     ->get()
                                     ->groupBy('service_ci')
                                     ->map(function ($items) {
-                                        // Hanya ambil service_ci yang memiliki setidaknya 5 issues
                                         return count($items) >= 5 ? $items->take(5) : null;
                                     })
-                                    ->filter(); // Menghilangkan service_ci yang null dari koleksi
+                                    ->filter();
 
         $serviceCiData = [];
 
