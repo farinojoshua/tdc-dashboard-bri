@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserManagement\IncidentsController as UsmanIncidentsController;
 use App\Http\Controllers\Admin\UserManagement\MonthlyTargetController as UsmanMonthlyTargetController;
 use App\Http\Controllers\Admin\Brisol\IncidentsController as BrisolIncidentsController;
+use App\Http\Controllers\Admin\Brisol\MonthlyTargetController as BrisolMonthlyTargetController;
 use App\Http\Controllers\Admin\Deployment\DeploymentController;
 use App\Http\Controllers\Admin\Deployment\DeploymentModuleController;
 use App\Http\Controllers\Admin\Deployment\DeploymentServerTypeController;
@@ -65,6 +66,7 @@ Route::middleware([
         });
         Route::prefix('brisol')->name('brisol.')->group(function () {
             Route::resource('incidents', BrisolIncidentsController::class);
+            Route::resource('monthly-target', BrisolMonthlyTargetController::class);
         });
     });
 });
