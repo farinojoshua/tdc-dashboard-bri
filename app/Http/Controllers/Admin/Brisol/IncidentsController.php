@@ -49,7 +49,7 @@ class IncidentsController extends Controller
 
         Excel::import(new IncidentsImport, $file);
 
-        return redirect()->route('admin.brisol.incidents.create')->with('success', 'Incidents imported successfully');
+        return redirect()->route('admin.brisol.incidents.index')->with('success', 'Incidents imported successfully');
     }
 
     /**

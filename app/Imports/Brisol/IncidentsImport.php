@@ -3,22 +3,40 @@
 namespace App\Imports\Brisol;
 
 use App\Models\Brisol\Incident;
-use Carbon\Carbon;
-use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\Importable;
 
-class IncidentsImport implements ToModel, WithHeadingRow
+class IncidentsImport implements ToCollection, WithHeadingRow
 {
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+    use Importable;
 
-
-    public function model(array $row)
+    public function collection(Collection $rows)
     {
-        return new Incident([
+        foreach ($rows as $row) {
+            $rowArray = $row->toArray(); // Convert the Collection to an array
+
+            // Attempt to retrieve an existing Incident based on incident_number
+            $incident = Incident::where('inc_id', $rowArray['incident_number'])->first();
+
+            if ($incident) {
+                // If Incident exists, check for updates
+                $updatedFields = $this->checkForUpdates($incident, $rowArray);
+                if (!empty($updatedFields)) {
+                    // Update if there are changes
+                    $incident->update($updatedFields);
+                }
+            } else {
+                // Create a new Incident if it does not exist
+                Incident::create($this->modelArray($rowArray));
+            }
+        }
+    }
+
+    private function modelArray(array $row)
+    {
+        return [
             'inc_id'               => $row['incident_number'],
             'reported_date'        => $this->convertExcelDate($row['reported_date']),
             'resolved_date'        => $this->convertExcelDate($row['last_resolved_date']),
@@ -30,15 +48,31 @@ class IncidentsImport implements ToModel, WithHeadingRow
             'ctg_tier1'            => $row['categorization_tier_1'],
             'ctg_tier2'            => $row['categorization_tier_2'],
             'ctg_tier3'            => $row['categorization_tier_3'],
+            'reported_source'      => $row['reported_source'],
             'resolution_category'  => $row['resolution_category'],
             'priority'             => $row['priority'],
             'status'               => $row['status'],
             'slm_status'           => $row['slm_status'],
-        ]);
+        ];
     }
 
-    // Convert Excel Date to Unix Date then to MySQL Date
-    private function convertExcelDate($excelDate){
+    private function checkForUpdates(Incident $incident, array $row)
+    {
+        $attributes = $this->modelArray($row);
+        $changes = [];
+
+        foreach ($attributes as $key => $value) {
+            if ($incident->$key != $value) {
+                $changes[$key] = $value;
+            }
+        }
+
+        return $changes;
+    }
+
+    private function convertExcelDate($excelDate)
+    {
+        // Convert Excel Date to Unix Date then to MySQL Date
         $unixDate = ($excelDate - 25569) * 86400;
         return gmdate("Y-m-d", $unixDate);
     }

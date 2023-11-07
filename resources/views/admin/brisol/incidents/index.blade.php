@@ -51,6 +51,10 @@
                 name: 'service_ci',
             },
             {
+                data: 'reported_source',
+                name: 'reported_source',
+            },
+            {
                 data: 'ctg_tier1',
                 name: 'ctg_tier1',
             },
@@ -61,18 +65,6 @@
             {
                 data: 'ctg_tier3',
                 name: 'ctg_tier3',
-            },
-            {
-                data: 'resolution_category',
-                name: 'resolution_category',
-            },
-            {
-                data: 'priority',
-                name: 'priority',
-            },
-            {
-                name: 'status',
-                data: 'status',
             },
             {
                 name: 'slm_status',
@@ -102,12 +94,10 @@
                 <th>Resolved Date</th>
                 <th>Region</th>
                 <th>Service CI</th>
-                <th>CTG Tier 1</th>
-                <th>CTG Tier 2</th>
-                <th>CTG Tier 3</th>
-                <th>Resolution Category</th>
-                <th>Priority</th>
-                <th>Status</th>
+                <th>Reported Source</th>
+                <th>Cat Tier 1</th>
+                <th>Cat Tier 2</th>
+                <th>Cat Tier 3</th>
                 <th>SLM Status</th>
               </tr>
             </thead>

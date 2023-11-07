@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Deployment\DeploymentController;
 use App\Http\Controllers\Front\Deployment\DeploymentController as FrontDeploymentController;
 use App\Http\Controllers\Front\BackgroundJobsMonitoring\BackgroundJobController as FrontBackgroundJobController;
 use App\Http\Controllers\Front\UserManagement\UserManagementController as FrontUserManagementController;
+use App\Http\Controllers\Front\Brisol\BrisolController as FrontBrisolController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,7 +34,12 @@ Route::get('/get-processes-by-type', [BackgroundJobController::class, 'getProces
 Route::get('/get-background-jobs-daily', [FrontBackgroundJobController::class, 'getBackgroundJobs']);
 
 // user management
-Route::get('usman/get-request-by-type-chart', [FrontUserManagementController::class, 'getRequestByType']);
-Route::get('usman/get-sla-category-chart', [FrontUserManagementController::class, 'getSLADataForYear']);
-Route::get('usman/get-top-branch-request-chart', [FrontUserManagementController::class, 'getTopBranchRequests']);
-Route::get('usman/get-monthly-target-actual', [FrontUserManagementController::class, 'getMonthlyDataTargetActual']);
+Route::get('/usman/get-request-by-type-chart', [FrontUserManagementController::class, 'getRequestByType']);
+Route::get('/usman/get-sla-category-chart', [FrontUserManagementController::class, 'getSLADataForYear']);
+Route::get('/usman/get-top-branch-request-chart', [FrontUserManagementController::class, 'getTopBranchRequests']);
+Route::get('/usman/get-monthly-target-actual', [FrontUserManagementController::class, 'getMonthlyDataTargetActual']);
+
+// brisol
+Route::get('/brisol/get-service-ci-chart', [FrontBrisolController::class, 'getServiceCIChart']);
+Route::get('/brisol/get-slm-status-chart', [FrontBrisolController::class, 'getSLMStatusChart']);
+Route::get('/brisol/get-reported-source-chart', [FrontBrisolController::class, 'getReportedSource']);

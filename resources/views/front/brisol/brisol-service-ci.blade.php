@@ -1,22 +1,22 @@
 @extends('layouts.front')
 
 @section('title')
-    <title>User Management Request</title>
+    <title>Brisol Service CI</title>
 @endsection
 
 @section('content')
 <div class="p-10 mx-auto my-10 rounded-lg shadow-lg">
-    <h1 class="mb-4 text-2xl font-semibold sm:text-3xl">User Management Request</h1>
+    <h1 class="mb-4 text-2xl font-semibold sm:text-3xl">Brisol Incident Management</h1>
     <div class="flex items-center justify-between mt-12">
         <div class="w-1/3">
             <h2 id="totalRequests" class="text-2xl"></h2>
         </div>
         <div class="w-1/2 mx-auto text-center">
                 <select id="chartDropdownSelector" class="w-full px-4 py-4 text-xl text-white border rounded cursor-pointer bg-dark-blue focus:outline-none focus:border-blue-900 focus:shadow-outline-blue">
-                    <option value="{{ route('user-management.request-by-type') }}">User Management Request</option>
-                    <option value="{{ route('user-management.monthly-target') }}">Target Realization</option>
-                    <option value="{{ route('user-management.sla-category') }}">SLA Monitoring</option>
-                    <option value="{{ route('user-management.top-branch') }}">Top 5 Ukker Request</option>
+                    <option value="{{ route('brisol.service-ci') }}">Brisol Service CI</option>
+                    <option value="{{ route('brisol.slm-status') }}">Brisol SLM Status</option>
+                    <option value="{{ route('brisol.reported-source') }}">Brisol Reported Source</option>
+
                 </select>
         </div>
         <div class="w-1/3">
@@ -76,7 +76,7 @@
 
         const form = document.createElement('form');
         form.method = 'GET';
-        form.action = `{{ route('user-management.request-by-type') }}?mode=${selectedMode}`;
+        form.action = `{{ route('brisol.service-ci') }}?mode=${selectedMode}`;
 
         const hiddenField = document.createElement('input');
         hiddenField.type = 'hidden';
@@ -94,14 +94,13 @@
         const month = document.getElementById('monthSelect').value;
         const mode = currentMode;
 
-        fetch(`/api/usman/get-request-by-type-chart?year=${year}&month=${month}&mode=${mode}`)
+        fetch(`/api/brisol/get-service-ci-chart?year=${year}&month=${month}&mode=${mode}`)
             .then(response => response.json())
             .then(data => {
                 const labels = mode === 'month' ? data.months : data.days;
                 const ctx = document.getElementById('incidentChart').getContext('2d');
 
-                // Mengganti backticks (\`) dengan tanda kutip ganda
-                document.getElementById('totalRequests').innerHTML = 'Total Requests: ' + data.totalRequests;
+                document.getElementById('totalRequests').innerHTML = `Total Requests: ${data.totalRequests}`;
 
                 const typeKeys = Object.keys(data.incidentCounts)
                     .filter(key => Object.keys(data.incidentCounts[key]).length > 0)

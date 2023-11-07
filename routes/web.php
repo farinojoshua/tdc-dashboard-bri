@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\BackgroundJobsMonitoring\BackgroundJobController;
 use App\Http\Controllers\Front\Deployment\DeploymentController as FrontDeploymentController;
 use App\Http\Controllers\Front\UserManagement\UserManagementController as FrontUserManagementController;
 use App\Http\Controllers\Front\BackgroundJobsMonitoring\BackgroundJobController as FrontBackgroundJobController;
+use App\Http\Controllers\Front\Brisol\BrisolController as FrontBrisolController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,9 @@ Route::get('/user-management/request-by-type', [FrontUserManagementController::c
 Route::get('/user-management/sla-category', [FrontUserManagementController::class, 'showSLACategoryChart'])->name('user-management.sla-category');
 Route::get('/user-management/top-branch', [FrontUserManagementController::class, 'showTopBranchRequestsChart'])->name('user-management.top-branch');
 Route::get('/user-management/monthly-target', [FrontUserManagementController::class, 'showMonthlyDataTargetActualChart'])->name('user-management.monthly-target');
+Route::get('/brisol/service-ci', [FrontBrisolController::class, 'showServiceCIChart'])->name('brisol.service-ci');
+Route::get('/brisol/slm-status', [FrontBrisolController::class, 'showSLMStatusChart'])->name('brisol.slm-status');
+Route::get('/brisol/reported-source', [FrontBrisolController::class, 'showReportedSourceChart'])->name('brisol.reported-source');
 
 Route::middleware([
     'auth:sanctum',

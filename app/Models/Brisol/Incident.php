@@ -26,6 +26,7 @@ class Incident extends Model
         'ctg_tier1',
         'ctg_tier2',
         'ctg_tier3',
+        'reported_source',
         'resolution_category',
         'priority',
         'status',

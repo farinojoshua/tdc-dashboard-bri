@@ -61,7 +61,7 @@
             </div>
             <div class="relative flex gap-5">
                 <a href="{{ route('user-management.request-by-type') }}" class="text-xl font-bold navbar-link text-dark-blue">Usman</a>
-                <a href="" class="text-xl font-bold navbar-link text-dark-blue">Brisol</a>
+                <a href="{{ route('brisol.service-ci') }}" class="text-xl font-bold navbar-link text-dark-blue">Brisol</a>
                 <div class="relative inline-block text-left">
                     <a href="{{ route('deployments.calendar') }}" class="inline-flex justify-center w-full text-xl font-bold navbar-link text-dark-blue">
                         Deployment

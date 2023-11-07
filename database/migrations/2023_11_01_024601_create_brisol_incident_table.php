@@ -15,8 +15,9 @@ return new class extends Migration
             $table->string('inc_id')->primary();
             $table->date('reported_date')->nullable();
             $table->date('resolved_date')->nullable();
-            $table->string('region');
+            $table->string('region')->nullable();
             $table->string('service_ci');
+            $table->string('reported_source');
             $table->string('prd_tier1');
             $table->string('prd_tier2');
             $table->string('prd_tier3');
