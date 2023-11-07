@@ -82,31 +82,25 @@ class BrisolController extends Controller
     {
         $year = $request->input('year', date('Y'));
 
-        // Initialize an array with the names of all months
         $allMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
                     'August', 'September', 'October', 'November', 'December'];
 
-        // Query the database to get the counts for each slm_status for each month
         $data = DB::table('brisol_incident')
             ->select(DB::raw('MONTH(reported_date) as month, slm_status, COUNT(*) as count'))
             ->whereYear('reported_date', '=', $year)
             ->groupBy(DB::raw('MONTH(reported_date)'), 'slm_status')
             ->get();
 
-        // Initialize an array to hold the counts for each month
         $monthlyData = [];
 
-        // Initialize monthlyData with all months set to empty arrays
         foreach ($allMonths as $month) {
             $monthlyData[$month] = [];
         }
 
-        // Fill in the count for each month and slm_status from the data
         foreach ($data as $item) {
             $monthlyData[$allMonths[$item->month - 1]][$item->slm_status] = $item->count;
         }
 
-        // Return the response with all months and the data (including months with no data as empty arrays)
         return response()->json([
             'months' => $allMonths,
             'data' => $monthlyData,

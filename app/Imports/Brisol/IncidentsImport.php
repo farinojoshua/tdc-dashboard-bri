@@ -15,20 +15,16 @@ class IncidentsImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
-            $rowArray = $row->toArray(); // Convert the Collection to an array
+            $rowArray = $row->toArray();
 
-            // Attempt to retrieve an existing Incident based on incident_number
             $incident = Incident::where('inc_id', $rowArray['incident_number'])->first();
 
             if ($incident) {
-                // If Incident exists, check for updates
                 $updatedFields = $this->checkForUpdates($incident, $rowArray);
                 if (!empty($updatedFields)) {
-                    // Update if there are changes
                     $incident->update($updatedFields);
                 }
             } else {
-                // Create a new Incident if it does not exist
                 Incident::create($this->modelArray($rowArray));
             }
         }
@@ -72,7 +68,6 @@ class IncidentsImport implements ToCollection, WithHeadingRow
 
     private function convertExcelDate($excelDate)
     {
-        // Convert Excel Date to Unix Date then to MySQL Date
         $unixDate = ($excelDate - 25569) * 86400;
         return gmdate("Y-m-d", $unixDate);
     }

@@ -84,7 +84,7 @@
                             y: {
                                 beginAtZero: true
                             },
-                            x: {} // Add this to define options for the x-axis if needed
+                            x: {}
                         }
                     }
                 });

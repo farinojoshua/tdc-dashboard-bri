@@ -35,7 +35,6 @@
 
 @endsection
 
-<!-- Other HTML content remains unchanged -->
 
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -86,7 +85,6 @@
             });
     }
 
-    // Initial chart load
     document.addEventListener("DOMContentLoaded", function() {
         loadChartData();
 
