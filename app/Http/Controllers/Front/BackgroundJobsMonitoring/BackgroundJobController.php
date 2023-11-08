@@ -29,7 +29,7 @@ class BackgroundJobController extends Controller
         foreach ($data as $datum) {
             $formattedData[$datum->execution_date][$datum->process->name] = [
                 'status' => $datum->status,
-                'note' => $datum->note,
+                'notes' => $datum->notes,
             ];
         }
 

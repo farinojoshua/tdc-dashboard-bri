@@ -101,8 +101,8 @@
                     }
                 },
                 {
-                    data: 'note',
-                    name: 'note',
+                    data: 'notes',
+                    name: 'notes',
                 },
                 {
                     data: 'execution_date',
@@ -168,7 +168,7 @@
                     <th>Status</th>
                     <th>Duration To EIM</th>
                     <th>Duration To S4GL</th>
-                    <th>Note</th>
+                    <th>Notes</th>
                     <th>Monitoring Date</th>
                     <th>Action</th>
                 </tr>

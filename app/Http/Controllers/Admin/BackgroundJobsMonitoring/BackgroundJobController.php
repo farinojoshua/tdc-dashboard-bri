@@ -80,7 +80,7 @@ class BackgroundJobController extends Controller
             'status',
             'duration_to_EIM',
             'duration_to_S4GL',
-            'note',
+            'notes',
             'execution_date',
         ]));
 
@@ -111,7 +111,6 @@ class BackgroundJobController extends Controller
             'status' => 'required|in:Normal Run,Rerun Background Job,Manual Run Background Job,Pending',
             'duration_to_EIM' => 'required|integer',
             'duration_to_S4GL' => 'required|integer',
-            'note' => 'string',
             'execution_date' => 'required|date',
         ]);
 
@@ -125,7 +124,7 @@ class BackgroundJobController extends Controller
             'status',
             'duration_to_EIM',
             'duration_to_S4GL',
-            'note',
+            'notes',
             'execution_date',
         ]));
 

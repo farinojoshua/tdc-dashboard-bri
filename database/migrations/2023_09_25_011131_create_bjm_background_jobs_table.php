@@ -20,7 +20,7 @@ return new class extends Migration
             $table->enum('status', ['Normal Run', 'Rerun Background Job', 'Manual Run Background Job', 'Pending']);
             $table->integer('duration_to_EIM');
             $table->integer('duration_to_S4GL');
-            $table->string('note')->nullable();
+            $table->string('notes')->nullable();
             $table->date('execution_date');
             $table->timestamps();
         });

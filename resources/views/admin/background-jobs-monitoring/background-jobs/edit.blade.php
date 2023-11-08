@@ -127,16 +127,16 @@
                         </div>
                     </div>
 
-                    <!-- Note -->
+                    <!-- Notes -->
                     <div class="mb-4">
-                        <label for="note" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Note</label>
-                        <textarea id="note"
-                                name="note"
-                                placeholder="Note"
+                        <label for="notes" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Notes</label>
+                        <textarea id="notes"
+                                name="notes"
+                                placeholder="Notes"
                                 class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
-                                >{{ old('note', $job->note ?? '') }}</textarea>
+                                >{{ old('notes', $job->notes ?? '') }}</textarea>
                         <div class="mt-2 text-sm text-gray-500">
-                            The note of the background job. Optional.
+                            The notes of the background job. Optional.
                         </div>
                     </div>
 

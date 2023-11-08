@@ -113,11 +113,11 @@
 
     function initializeChart(containerId, data, dates, title) {
         let mappedData = Object.entries(data).flatMap(([date, processes]) =>
-            Object.entries(processes).map(([process, {status, note}]) => ({
+            Object.entries(processes).map(([process, {status, notes}]) => ({
                 date: date,
                 process: process,
                 status: status,
-                note: note
+                notes: notes
             }))
         );
 
@@ -140,9 +140,9 @@
                 let x = dates.indexOf(date);
                 if (foundData) {
                     let value = statusMap.hasOwnProperty(foundData.status) ? statusMap[foundData.status] : null;
-                    seriesData.push({ x, y, value, note: foundData.note }); // Include the note here
+                    seriesData.push({ x, y, value, notes: foundData.notes });
                 } else {
-                    seriesData.push({ x, y, value: null, note: null }); // Make sure to include a note even if it's null
+                    seriesData.push({ x, y, value: null, notes: null });
                 }
             });
         });
@@ -198,11 +198,11 @@
                         '3': 'Pending',
                     };
                     const status = statusMap[String(this.point.value)] || '-';
-                    const note = this.point.note ? this.point.note : '-';
+                    const notes = this.point.notes ? this.point.notes : '-';
                     return `<b>${this.series.xAxis.categories[this.point.x]}</b><br/>
                             <b>Process: ${this.series.yAxis.categories[this.point.y]}</b><br/>
                             <b>Status:</b> ${status}<br/>
-                            <b>Note:</b> ${note}`;
+                            <b>Notes:</b> ${notes}`;
                 },
             },
             series: [{
@@ -218,4 +218,3 @@
 
     </script>
 @endsection
-
