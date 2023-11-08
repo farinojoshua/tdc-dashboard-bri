@@ -27,7 +27,7 @@ class BrisolController extends Controller
                     ->select('service_ci', DB::raw('count(*) as total'))
                     ->get()
                     ->filter(function($value, $key) {
-                        return !empty($value->service_ci); // Filter untuk mengabaikan service_ci yang kosong
+                        return !empty($value->service_ci);
                     })
                     ->pluck('total', 'service_ci')
                     ->all();
@@ -64,7 +64,7 @@ class BrisolController extends Controller
                     ->select('service_ci', DB::raw('count(*) as total'));
 
                 $incidentCountsForDay = $query->get()->filter(function ($value, $key) {
-                    return !empty($value->service_ci); // Sama seperti sebelumnya, filter untuk mengabaikan service_ci yang kosong
+                    return !empty($value->service_ci);
                 })->keyBy('service_ci')->map(function ($row) {
                     return $row->total;
                 })->all();

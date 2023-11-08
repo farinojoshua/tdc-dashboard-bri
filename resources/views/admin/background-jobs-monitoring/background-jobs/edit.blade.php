@@ -169,7 +169,7 @@
     $(document).ready(function() {
         function loadProcesses(type, selectedId = null) {
             $.ajax({
-                url: '/api/get-processes-by-type',
+                url: '/api/bjm/get-processes-by-type',
                 type: 'GET',
                 data: {type: type},
                 success: function(data) {

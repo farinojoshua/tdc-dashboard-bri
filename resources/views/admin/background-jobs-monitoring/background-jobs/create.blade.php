@@ -149,7 +149,7 @@
           var type = $(this).val();
           if (type) {
               $.ajax({
-                  url: '/api/get-processes-by-type',
+                  url: '/api/bjm/get-processes-by-type',
                   type: 'GET',
                   data: {type: type},
                   success: function(data) {

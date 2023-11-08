@@ -30,8 +30,8 @@ Route::get('/deployments/events', [FrontDeploymentController::class, 'getEvents'
 Route::get('/deployments/chart-data', [FrontDeploymentController::class, 'getChartData']);
 
 // background jobs monitoring
-Route::get('/get-processes-by-type', [BackgroundJobController::class, 'getProcessesByType']);
-Route::get('/get-background-jobs-daily', [FrontBackgroundJobController::class, 'getBackgroundJobs']);
+Route::get('/bjm/get-processes-by-type', [BackgroundJobController::class, 'getProcessesByType']);
+Route::get('/bjm/get-background-jobs-daily', [FrontBackgroundJobController::class, 'getBackgroundJobs']);
 
 // user management
 Route::get('/usman/get-request-by-type-chart', [FrontUserManagementController::class, 'getRequestByType']);

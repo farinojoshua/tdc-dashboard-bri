@@ -102,7 +102,7 @@
     }
 
     function fetchData(month, year, dates) {
-        fetch(`/api/get-background-jobs-daily?month=${month}&year=${year}`)
+        fetch(`/api/bjm/get-background-jobs-daily?month=${month}&year=${year}`)
             .then(response => response.json())
             .then(data => {
                 initializeChart('heatmap-container-type1', data.type1.processes || {}, dates, 'Product');
