@@ -19,6 +19,7 @@ class BackgroundJob extends Model
         'status',
         'duration_to_EIM',
         'duration_to_S4GL',
+        'note',
         'execution_date',
     ];
 

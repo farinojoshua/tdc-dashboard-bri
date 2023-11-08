@@ -127,6 +127,21 @@
                         </div>
                     </div>
 
+                    <!-- Note -->
+                    <div class="mb-4">
+                        <label for="note" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Note</label>
+                        <textarea id="note"
+                                name="note"
+                                placeholder="Note"
+                                class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500"
+                                >{{ old('note', $job->note ?? '') }}</textarea>
+                        <div class="mt-2 text-sm text-gray-500">
+                            The note of the background job. Optional.
+                        </div>
+                    </div>
+
+
+
                     <!-- Execution Date -->
                     <div class="mb-4">
                         <label for="execution_date" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Monitoring Date*</label>

@@ -113,10 +113,11 @@
 
     function initializeChart(containerId, data, dates, title) {
         let mappedData = Object.entries(data).flatMap(([date, processes]) =>
-            Object.entries(processes).map(([process, status]) => ({
+            Object.entries(processes).map(([process, {status, note}]) => ({
                 date: date,
                 process: process,
-                status: status
+                status: status,
+                note: note
             }))
         );
 
@@ -134,19 +135,18 @@
 
         dates.forEach(date => {
             categories.forEach(process => {
-                const foundData = mappedData.find(d => d.date === date && d.process === process); // Cari data yang sesuai dengan tanggal dan proses
+                const foundData = mappedData.find(d => d.date === date && d.process === process);
+                let y = categories.indexOf(process);
+                let x = dates.indexOf(date);
                 if (foundData) {
-                    let y = categories.indexOf(process);
-                    let x = dates.indexOf(date);
-                    let value = statusMap.hasOwnProperty(foundData.status) ? statusMap[foundData.status] : null; // Jika status tidak ada di peta, maka value = null
-                    seriesData.push({ x, y, value });
+                    let value = statusMap.hasOwnProperty(foundData.status) ? statusMap[foundData.status] : null;
+                    seriesData.push({ x, y, value, note: foundData.note }); // Include the note here
                 } else {
-                    let y = categories.indexOf(process);
-                    let x = dates.indexOf(date);
-                    seriesData.push({ x, y, value: null });
+                    seriesData.push({ x, y, value: null, note: null }); // Make sure to include a note even if it's null
                 }
             });
         });
+
 
         Highcharts.chart(containerId, {
             chart: {
@@ -197,8 +197,12 @@
                         '2': 'Manual Run Background Job',
                         '3': 'Pending',
                     };
-                    const status = statusMap[String(this.point.value)];
-                    return `<b>${this.series.xAxis.categories[this.point.x]} - ${this.series.yAxis.categories[this.point.y]}</b><br/>Status: ${status}`;
+                    const status = statusMap[String(this.point.value)] || '-';
+                    const note = this.point.note ? this.point.note : '-';
+                    return `<b>${this.series.xAxis.categories[this.point.x]}</b><br/>
+                            <b>Process: ${this.series.yAxis.categories[this.point.y]}</b><br/>
+                            <b>Status:</b> ${status}<br/>
+                            <b>Note:</b> ${note}`;
                 },
             },
             series: [{
