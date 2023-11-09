@@ -152,20 +152,38 @@
             {
                 targets: [7], // index for Detailed Description
                 render: function(data, type, row) {
-                return type === 'display' && data.length > 30
-                    ? '<span title="' + data + '">' + data.substr(0, 30) + '...</span>'
-                    : data;
+                    if (type === 'display' && data.length > 30) {
+                        return `
+                            <div class="group">
+                                <span class="truncate" title="${data}">${data.substr(0, 30)}...</span>
+                                <span class="absolute z-10 hidden p-2 mt-1 text-sm leading-tight text-black bg-white border border-gray-300 rounded shadow-lg group-hover:block">
+                                    ${data}
+                                </span>
+                            </div>
+                        `;
+                    } else {
+                        return data;
+                    }
                 }
             },
             {
                 targets: [16], // index for Resolution
                 render: function(data, type, row) {
-                return type === 'display' && data.length > 30
-                    ? '<span title="' + data + '">' + data.substr(0, 30) + '...</span>'
-                    : data;
+                    if (type === 'display' && data.length > 30) {
+                        return `
+                            <div class="group">
+                                <span class="truncate" title="${data}">${data.substr(0, 30)}...</span>
+                                <span class="absolute z-10 hidden p-2 mt-1 text-sm leading-tight text-black bg-white border border-gray-300 rounded shadow-lg group-hover:block">
+                                    ${data}
+                                </span>
+                            </div>
+                        `;
+                    } else {
+                        return data;
+                    }
                 }
             }
-            ],
+        ]
     });
 
     </script>
@@ -182,7 +200,7 @@
                 </a>
                 <a href="{{ route('brisol.service-ci') }}" target="_blank"
                     class="px-4 py-2 font-bold text-white rounded shadow-lg bg-darker-blue font-poppins">
-                     👁 View Chart
+                     View Chart
                 </a>
             </div>
           <table id="dataTable">
