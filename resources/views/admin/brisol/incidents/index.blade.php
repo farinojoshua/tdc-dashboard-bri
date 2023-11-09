@@ -29,6 +29,7 @@
         processing: true,
         serverSide: true,
         stateSave: true,
+        scrollX: true,
         ajax: {
             url: '{{ route('admin.brisol.incidents.index') }}',
             type: 'GET',
@@ -47,20 +48,44 @@
                 name: 'reported_date',
             },
             {
-                data: 'resolved_date',
-                name: 'resolved_date',
+                data: 'name',
+                name: 'name',
             },
             {
                 data: 'region',
                 name: 'region',
             },
             {
+                data: 'site_group',
+                name: 'site_group',
+            },
+            {
+                data: 'site',
+                name: 'site',
+            },
+            {
+                data: 'description',
+                name: 'description',
+            },
+            {
+                data: 'detailed_description',
+                name: 'detailed_description',
+            },
+            {
                 data: 'service_ci',
                 name: 'service_ci',
             },
             {
-                data: 'reported_source',
-                name: 'reported_source',
+                data: 'prd_tier1',
+                name: 'prd_tier1',
+            },
+            {
+                data: 'prd_tier2',
+                name: 'prd_tier2',
+            },
+            {
+                data: 'prd_tier3',
+                name: 'prd_tier3',
             },
             {
                 data: 'ctg_tier1',
@@ -74,8 +99,74 @@
                 data: 'ctg_tier3',
                 name: 'ctg_tier3',
             },
+            {
+                data: 'resolution_category',
+                name: 'resolution_category',
+            },
+            {
+                data: 'resolution',
+                name: 'resolution',
+            },
+            {
+                data: 'responded_date',
+                name: 'responded_date',
+            },
+            {
+                data: 'reported_source',
+                name: 'reported_source',
+            },
+            {
+                data: 'assigned_group',
+                name: 'assigned_group',
+            },
+            {
+                data: 'assignee',
+                name: 'assignee',
+            },
+            {
+                data: 'priority',
+                name: 'priority',
+            },
+            {
+                data: 'urgency',
+                name: 'urgency',
+            },
+            {
+                data: 'impact',
+                name: 'impact',
+            },
+            {
+                data: 'status',
+                name: 'status',
+            },
+            {
+                data: 'slm_status',
+                name: 'slm_status',
+            },
+            {
+                data: 'resolved_date',
+                name: 'resolved_date',
+            },
         ],
-      });
+        columnDefs: [
+            {
+                targets: [7], // index for Detailed Description
+                render: function(data, type, row) {
+                return type === 'display' && data.length > 30
+                    ? '<span title="' + data + '">' + data.substr(0, 30) + '...</span>'
+                    : data;
+                }
+            },
+            {
+                targets: [16], // index for Resolution
+                render: function(data, type, row) {
+                return type === 'display' && data.length > 30
+                    ? '<span title="' + data + '">' + data.substr(0, 30) + '...</span>'
+                    : data;
+                }
+            }
+            ],
+    });
 
     </script>
   </x-slot>
@@ -97,15 +188,33 @@
           <table id="dataTable">
             <thead>
               <tr>
-                <th>Incident ID</th>
+                <th>INC ID</th>
                 <th>Reported Date</th>
-                <th>Resolved Date</th>
+                <th>Name</th>
                 <th>Region</th>
+                <th>Site Group</th>
+                <th>Site</th>
+                <th>Description</th>
+                <th>Detailed Description</th>
                 <th>Service CI</th>
+                <th>Product Categorization Tier 1</th>
+                <th>Product Categorization Tier 2</th>
+                <th>Product Categorization Tier 3</th>
+                <th>Categorization Tier 1</th>
+                <th>Categorization Tier 2</th>
+                <th>Categorization Tier 3</th>
+                <th>Resolution Category</th>
+                <th>Resolution</th>
+                <th>Responded Date</th>
                 <th>Reported Source</th>
-                <th>Cat Tier 1</th>
-                <th>Cat Tier 2</th>
-                <th>Cat Tier 3</th>
+                <th>Assigned Group</th>
+                <th>Assignee</th>
+                <th>Priority</th>
+                <th>Urgency</th>
+                <th>Impact</th>
+                <th>Status</th>
+                <th>SLM Status</th>
+                <th>Resolved Date</th>
               </tr>
             </thead>
             <tbody></tbody>
