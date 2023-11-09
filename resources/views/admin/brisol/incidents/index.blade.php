@@ -208,7 +208,7 @@
               <tr>
                 <th>INC ID</th>
                 <th>Reported Date</th>
-                <th>Name</th>
+                <th>Full Name</th>
                 <th>Region</th>
                 <th>Site Group</th>
                 <th>Site</th>
