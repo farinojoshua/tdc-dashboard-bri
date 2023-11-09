@@ -149,40 +149,40 @@
             },
         ],
         columnDefs: [
-            {
-                targets: [7], // index for Detailed Description
-                render: function(data, type, row) {
-                    if (type === 'display' && data.length > 30) {
-                        return `
-                            <div class="group">
-                                <span class="truncate" title="${data}">${data.substr(0, 30)}...</span>
-                                <span class="absolute z-10 hidden p-2 mt-1 text-sm leading-tight text-black bg-white border border-gray-300 rounded shadow-lg group-hover:block">
-                                    ${data}
-                                </span>
-                            </div>
-                        `;
-                    } else {
-                        return data;
-                    }
-                }
-            },
-            {
-                targets: [16], // index for Resolution
-                render: function(data, type, row) {
-                    if (type === 'display' && data.length > 30) {
-                        return `
-                            <div class="group">
-                                <span class="truncate" title="${data}">${data.substr(0, 30)}...</span>
-                                <span class="absolute z-10 hidden p-2 mt-1 text-sm leading-tight text-black bg-white border border-gray-300 rounded shadow-lg group-hover:block">
-                                    ${data}
-                                </span>
-                            </div>
-                        `;
-                    } else {
-                        return data;
-                    }
-                }
+        {
+            targets: [7], // index for Detailed Description
+            render: function(data, type, row) {
+            if (type === 'display' && data.length > 30) {
+                return `
+                <div class="group">
+                    <span class="truncate">${data.substr(0, 30)}...</span>
+                    <span class="absolute z-10 hidden p-2 mt-1 text-sm leading-tight text-black bg-white border border-gray-300 rounded shadow-lg group-hover:block">
+                    ${data}
+                    </span>
+                </div>
+                `;
+            } else {
+                return data;
             }
+            }
+        },
+        {
+            targets: [16], // index for Resolution
+            render: function(data, type, row) {
+            if (type === 'display' && data.length > 30) {
+                return `
+                <div class="group">
+                    <span class="truncate">${data.substr(0, 30)}...</span>
+                    <span class="absolute z-10 hidden p-2 mt-1 text-sm leading-tight text-black bg-white border border-gray-300 rounded shadow-lg group-hover:block">
+                    ${data}
+                    </span>
+                </div>
+                `;
+            } else {
+                return data;
+            }
+            }
+        }
         ]
     });
 
