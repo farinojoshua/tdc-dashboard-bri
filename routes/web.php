@@ -28,7 +28,7 @@ use App\Http\Controllers\Front\Brisol\BrisolController as FrontBrisolController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('front.user-management.user-management-request');
 });
 
 Route::get('/deployments/chart', [FrontDeploymentController::class, 'index'])->name('deployments.index');

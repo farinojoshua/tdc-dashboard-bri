@@ -68,6 +68,7 @@
                     </a>
                 </div>
                 <a href="{{ route('background-jobs-monitoring.daily') }}" class="text-xl font-bold navbar-link text-dark-blue">Background Jobs</a>
+                <a href="{{ route('login') }}" class="text-xl font-bold navbar-link text-dark-blue">Admin</a>
             </div>
         </nav>
     </div>

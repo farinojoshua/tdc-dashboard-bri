@@ -24,7 +24,9 @@
 
   <x-slot name="script">
     <script>
-      // AJAX DataTable
+
+        $(document).ready(function() {
+      // Initialize DataTable
       var datatable = $('#dataTable').DataTable({
         processing: true,
         serverSide: true,
@@ -38,7 +40,7 @@
           url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/id.json'
         },
 
-        columns: [
+         columns: [
             {
                 data: 'inc_id',
                 name: 'inc_id',
@@ -148,44 +150,50 @@
                 name: 'resolved_date',
             },
         ],
+        // Column definitions for handling the rendering of certain columns
         columnDefs: [
-        {
+          {
             targets: [7], // index for Detailed Description
             render: function(data, type, row) {
-            if (type === 'display' && data.length > 30) {
-                return `
-                <div class="group">
-                    <span class="truncate">${data.substr(0, 30)}...</span>
-                    <span class="absolute z-10 hidden p-2 mt-1 text-sm leading-tight text-black bg-white border border-gray-300 rounded shadow-lg group-hover:block">
-                    ${data}
-                    </span>
-                </div>
-                `;
-            } else {
+              if (type === 'display' && data.length > 30) {
+                return `<span class="cursor-pointer modal-trigger" data-content="${data}">${data.substr(0, 30)}...</span>`;
+              } else {
                 return data;
+              }
             }
-            }
-        },
-        {
+          },
+          {
             targets: [16], // index for Resolution
             render: function(data, type, row) {
-            if (type === 'display' && data.length > 30) {
-                return `
-                <div class="group">
-                    <span class="truncate">${data.substr(0, 30)}...</span>
-                    <span class="absolute z-10 hidden p-2 mt-1 text-sm leading-tight text-black bg-white border border-gray-300 rounded shadow-lg group-hover:block">
-                    ${data}
-                    </span>
-                </div>
-                `;
-            } else {
+              if (type === 'display' && data.length > 30) {
+                return `<span class="cursor-pointer modal-trigger" data-content="${data}">${data.substr(0, 30)}...</span>`;
+              } else {
                 return data;
+              }
             }
-            }
-        }
+          }
         ]
-    });
+      });
 
+        function formatTextWithLineBreaks(text) {
+            return text.replace(/(?:\r\n|\r|\n)/g, '<br>').replace(/  /g, '&nbsp;&nbsp;');
+        }
+
+        function showModal(content) {
+            var formattedContent = formatTextWithLineBreaks(content);
+            $('#modal-content').html(formattedContent);
+            $('#modal').removeClass('hidden');
+        }
+
+        $('#dataTable').on('click', '.modal-trigger', function() {
+            var content = $(this).attr('data-content');
+            showModal(content);
+        });
+
+        $('#modal-close').on('click', function() {
+            $('#modal').addClass('hidden');
+        });
+    });
     </script>
   </x-slot>
 
@@ -241,4 +249,14 @@
       </div>
     </div>
   </div>
+  <!-- Modal Structure -->
+    <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-gray-600 bg-opacity-50">
+        <div class="w-full max-w-lg p-4 bg-white rounded shadow-lg">
+            <div id="modal-content" class="text-sm"></div>
+            <button id="modal-close" class="px-4 py-2 mt-4 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+                Close
+            </button>
+        </div>
+    </div>
+
 </x-app-layout>
