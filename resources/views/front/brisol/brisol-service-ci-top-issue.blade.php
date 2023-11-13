@@ -41,7 +41,7 @@
             </div>
         </div>
     </div>
-    <div id="pieChartsContainer" class="grid grid-cols-1 gap-4 mt-6 md:grid-cols-2 lg:grid-cols-3">
+    <div id="pieChartsContainer" class="grid grid-cols-1 gap-4 mt-6 md:grid-cols-2">
     </div>
 </div>
 @endsection
