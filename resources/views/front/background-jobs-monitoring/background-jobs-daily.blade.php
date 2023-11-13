@@ -208,6 +208,7 @@
             series: [{
                 name: 'Job Status',
                 borderWidth: 1,
+                borderColor: '#000000',
                 data: seriesData,
                 dataLabels: {
                     enabled: false,
