@@ -95,6 +95,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const ctx = document.getElementById('singleChart').getContext('2d');
     let chart;
 
+    const chartDropdown = document.getElementById('chartDropdown');
+
     function renderChart(processName) {
         const data = chartsData[processName];
 
@@ -132,11 +134,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    document.getElementById('chartDropdown').addEventListener('change', function() {
+    chartDropdown.addEventListener('change', function() {
         renderChart(this.value);
+        localStorage.setItem('selectedChart', this.value); // Simpan pilihan chart
     });
 
-    renderChart(Object.keys(chartsData)[0]);
+    const savedChart = localStorage.getItem('selectedChart');
+    if (savedChart) {
+        chartDropdown.value = savedChart;
+        renderChart(savedChart);
+    } else {
+        renderChart(Object.keys(chartsData)[0]);
+    }
 });
+
 </script>
 @endsection

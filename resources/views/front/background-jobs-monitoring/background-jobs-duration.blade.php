@@ -77,7 +77,7 @@ function setMode(selectedMode, event){
 
     const form = document.createElement('form');
     form.method = 'GET';
-    form.action = "{{ route('background-jobs-monitoring.data-amount') }}";
+    form.action = "{{ route('background-jobs-monitoring.duration') }}";
 
     const hiddenField = document.createElement('input');
     hiddenField.type = 'hidden';
@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const chartsData = @json($allChartData);
     const ctx = document.getElementById('singleChart').getContext('2d');
     let chart;
+    const chartDropdown = document.getElementById('chartDropdown');
 
     function renderChart(processName) {
         const data = chartsData[processName];
@@ -131,11 +132,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    document.getElementById('chartDropdown').addEventListener('change', function() {
+    chartDropdown.addEventListener('change', function() {
+        localStorage.setItem('selectedChart', this.value);
         renderChart(this.value);
     });
 
-    renderChart(Object.keys(chartsData)[0]);
+    function loadSelectedChart() {
+        const savedChart = localStorage.getItem('selectedChart');
+        if (savedChart && chartsData[savedChart]) {
+            chartDropdown.value = savedChart;
+            renderChart(savedChart);
+        } else {
+            renderChart(Object.keys(chartsData)[0]);
+        }
+    }
+
+    loadSelectedChart();
 });
 </script>
 @endsection
