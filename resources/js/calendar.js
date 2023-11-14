@@ -46,20 +46,30 @@ document.addEventListener("DOMContentLoaded", function () {
                 `<strong>${truncatedTitle}</strong>` +
                 (arg.event.title.length > 20 ? "..." : "");
             title.style.fontSize = "1.2em";
+            title.style.whiteSpace = "nowrap";
+            title.style.overflow = "hidden";
+            title.style.textOverflow = "ellipsis";
 
             const module = document.createElement("div");
             module.innerHTML = `Module: ${arg.event.extendedProps.module}`;
             module.style.marginTop = "8px";
+            module.style.whiteSpace = "nowrap";
+            module.style.overflow = "hidden";
+            module.style.textOverflow = "ellipsis";
 
             const serverType = document.createElement("div");
             serverType.innerHTML = `Server: ${arg.event.extendedProps.server_type}`;
             serverType.style.marginTop = "2px";
+            serverType.style.whiteSpace = "nowrap";
+            serverType.style.overflow = "hidden";
+            serverType.style.textOverflow = "ellipsis";
 
             return { domNodes: [title, module, serverType] };
         },
         eventDidMount: function (info) {
             // set cursor to pointer on hover
             info.el.style.cursor = "pointer";
+            info.el.style.maxWidth = "100%";
             // Set the event color based on its module
             const { module } = info.event.extendedProps;
             const moduleColorsMap = {
