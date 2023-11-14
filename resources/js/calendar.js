@@ -1,18 +1,37 @@
 import { Calendar } from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
 
+// Array warna yang telah ditentukan sebelumnya
+const predefinedColors = [
+    "#FF5733",
+    "#33FF57",
+    "#3357FF",
+    "#FF33F6",
+    "#33FFF6",
+    "#F633FF",
+];
+
+// Fungsi untuk mendapatkan warna berdasarkan ID modul
+function getColorForModule(moduleId) {
+    const index = Math.abs(moduleId.hashCode()) % predefinedColors.length;
+    return predefinedColors[index];
+}
+
+// Fungsi bantuan untuk mengubah string menjadi hash code
+String.prototype.hashCode = function () {
+    let hash = 0,
+        i,
+        chr;
+    for (i = 0; i < this.length; i++) {
+        chr = this.charCodeAt(i);
+        hash = (hash << 5) - hash + chr;
+        hash |= 0; // Ubah menjadi integer 32bit
+    }
+    return hash;
+};
+
 // Store module colors for events
 let moduleColors = {};
-
-// Function to generate a random color
-function generateRandomColor() {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
 
 // Update the legend showing the colors associated with different modules
 function updateLegend() {
@@ -67,29 +86,15 @@ document.addEventListener("DOMContentLoaded", function () {
             return { domNodes: [title, module, serverType] };
         },
         eventDidMount: function (info) {
-            // set cursor to pointer on hover
             info.el.style.cursor = "pointer";
             info.el.style.maxWidth = "100%";
-            // Set the event color based on its module
-            const { module } = info.event.extendedProps;
-            const moduleColorsMap = {
-                FAM: "#0D1282",
-                EIM: "#713ABE",
-                BGP: "#3085C3",
-                Consol: "#088395",
-                "S/4GL": "#FF6969",
-                PaPM: "#4D3C77",
-                FPSL: "#9F0D7F",
-                Other: "#AED8CC",
-            };
-
-            moduleColors[module] =
-                moduleColorsMap[module] || generateRandomColor();
+            const module = info.event.extendedProps.module;
+            const color = getColorForModule(module);
+            moduleColors[module] = color;
             updateLegend();
-            info.el.style.backgroundColor = moduleColors[module];
+            info.el.style.backgroundColor = color;
         },
         eventClick: function (info) {
-            // Display a modal with event details on click
             const modalTitle = document.getElementById("modalTitle");
             const modalBody = document.getElementById("modalBody");
             const modal = document.getElementById("eventInfoModal");
@@ -111,7 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
             modal.classList.remove("hidden");
             modal.classList.add("flex");
 
-            // Close the modal functionality
             document
                 .getElementById("modalCloseButton")
                 .addEventListener("click", function () {
@@ -120,7 +124,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
         },
         dayCellDidMount: function (info) {
-            // Highlight weekends with a specific color
             const dayIndex = new Date(info.date).getDay();
             if (dayIndex === 0 || dayIndex === 6) {
                 info.el.style.backgroundColor = "rgba(255, 0, 0, 0.2)";
@@ -128,7 +131,6 @@ document.addEventListener("DOMContentLoaded", function () {
         },
     });
 
-    // Handle navigation based on the filter form input
     document
         .getElementById("calendarFilterForm")
         .addEventListener("submit", function (e) {

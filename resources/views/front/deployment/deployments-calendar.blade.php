@@ -74,14 +74,28 @@
 @endsection
 
 @section('script')
-  <script>
+@section('script')
+<script>
     document.addEventListener("DOMContentLoaded", function () {
+        // Handle dropdown menu toggle
         const dropdownBtn = document.querySelector('.dropdown-btn');
         const dropdownMenu = document.querySelector('.dropdown-menu');
 
         dropdownBtn.addEventListener('click', function () {
             dropdownMenu.classList.toggle('hidden');
         });
+
+        // Mendapatkan bulan dan tahun saat ini
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth(); // Bulan saat ini (0-11)
+        const currentYear = currentDate.getFullYear(); // Tahun saat ini
+
+        // Mengatur bulan dan tahun saat ini sebagai pilihan yang dipilih
+        const monthSelect = document.getElementById('month');
+        const yearSelect = document.getElementById('year');
+
+        monthSelect.value = currentMonth.toString();
+        yearSelect.value = currentYear.toString();
     });
-    </script>
+</script>
 @endsection
