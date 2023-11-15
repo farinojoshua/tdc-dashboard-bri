@@ -56,8 +56,10 @@
             window.location.href = selectedURL;
         }
     });
+
     let chart;
-    let currentMode = '{{ request('mode', 'month') }}';
+    // Gunakan 'month' sebagai default jika 'mode' tidak ditentukan
+    let currentMode = '{{ request('mode') }}' || 'month';
 
     function updateMode(selectedMode, event) {
         event.preventDefault();
@@ -74,20 +76,8 @@
             document.getElementById('monthButton').classList.add('bg-darker-blue', 'text-white');
         }
 
-        const form = document.createElement('form');
-        form.method = 'GET';
-        form.action = `{{ route('user-management.request-by-type') }}?mode=${selectedMode}`;
-
-        const hiddenField = document.createElement('input');
-        hiddenField.type = 'hidden';
-        hiddenField.name = 'mode';
-        hiddenField.value = selectedMode;
-
-        form.appendChild(hiddenField);
-        document.body.appendChild(form);
-        form.submit();
+        fetchData(); // Memanggil fetchData untuk mengambil data dengan mode yang dipilih
     }
-
 
     function fetchData(){
         const year = document.getElementById('yearSelect').value;
@@ -159,6 +149,19 @@
             });
     }
 
+    // Menetapkan mode default ketika halaman dimuat
+    updateMode(currentMode, new Event('click'));
+
+    // Event listeners untuk tombol 'Per Month' dan 'Per Date'
+    document.getElementById('monthButton').addEventListener('click', function(event) {
+        updateMode('month', event);
+    });
+
+    document.getElementById('dateButton').addEventListener('click', function(event) {
+        updateMode('date', event);
+    });
+
     fetchData();
 </script>
 @endsection
+

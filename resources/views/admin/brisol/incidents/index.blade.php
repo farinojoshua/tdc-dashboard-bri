@@ -181,7 +181,7 @@
 
         function showModal(content) {
             var formattedContent = formatTextWithLineBreaks(content);
-            $('#modal-content').html(formattedContent);
+            $('#modal-content').html(formattedContent).css('max-height', '60vh').css('overflow-y', 'auto');
             $('#modal').removeClass('hidden');
         }
 
@@ -249,14 +249,17 @@
       </div>
     </div>
   </div>
-  <!-- Modal Structure -->
-    <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-gray-600 bg-opacity-50">
-        <div class="w-full max-w-lg p-4 bg-white rounded shadow-lg">
-            <div id="modal-content" class="text-sm"></div>
-            <button id="modal-close" class="px-4 py-2 mt-4 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
-                Close
-            </button>
+<!-- Modal Structure -->
+<div id="modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-gray-600 bg-opacity-50">
+    <div class="w-full max-w-lg p-4 bg-white rounded-lg shadow-lg">
+        <div id="modal-content" class="text-sm overflow-y-auto max-h-[60vh]">
+            <!-- Dynamic content goes here -->
         </div>
+        <button id="modal-close" class="px-4 py-2 mt-4 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+            Close
+        </button>
     </div>
+</div>
+
 
 </x-app-layout>

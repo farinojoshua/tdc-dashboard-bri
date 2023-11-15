@@ -57,32 +57,39 @@
             window.location.href = selectedURL;
         }
     });
+
     let chart;
-    let currentMode = '{{ request('mode', 'month') }}';
+    let currentMode = '{{ request('mode', 'month') }}'; // Default mode to 'month'
 
     function updateMode(selectedMode, event) {
         event.preventDefault();
         currentMode = selectedMode;
 
-        document.getElementById('monthButton').classList.remove('bg-darker-blue', 'text-white');
-        document.getElementById('dateButton').classList.remove('bg-darker-blue', 'text-white');
+        setButtonStyles();
+        toggleMonthSelectVisibility();
+        submitFormForModeChange();
+    }
 
-        if (currentMode === 'date') {
-            document.getElementById('monthDiv').style.display = 'inline-block';
-            document.getElementById('dateButton').classList.add('bg-darker-blue', 'text-white');
-        } else {
-            document.getElementById('monthDiv').style.display = 'none';
-            document.getElementById('monthButton').classList.add('bg-darker-blue', 'text-white');
-        }
+    function setButtonStyles() {
+        document.getElementById('monthButton').classList.toggle('bg-darker-blue', currentMode === 'month');
+        document.getElementById('monthButton').classList.toggle('text-white', currentMode === 'month');
+        document.getElementById('dateButton').classList.toggle('bg-darker-blue', currentMode === 'date');
+        document.getElementById('dateButton').classList.toggle('text-white', currentMode === 'date');
+    }
 
+    function toggleMonthSelectVisibility() {
+        document.getElementById('monthDiv').style.display = currentMode === 'date' ? 'inline-block' : 'none';
+    }
+
+    function submitFormForModeChange() {
         const form = document.createElement('form');
         form.method = 'GET';
-        form.action = `{{ route('brisol.service-ci') }}?mode=${selectedMode}`;
+        form.action = `{{ route('brisol.service-ci') }}?mode=${currentMode}`;
 
         const hiddenField = document.createElement('input');
         hiddenField.type = 'hidden';
         hiddenField.name = 'mode';
-        hiddenField.value = selectedMode;
+        hiddenField.value = currentMode;
 
         form.appendChild(hiddenField);
         document.body.appendChild(form);
@@ -159,6 +166,9 @@
             });
     }
 
+    // Inisialisasi UI berdasarkan mode saat ini
+    setButtonStyles();
+    toggleMonthSelectVisibility();
     fetchData();
 </script>
 @endsection
