@@ -106,9 +106,9 @@
 
 
 
-            <button type="submit" class="px-6 py-2 font-bold text-white rounded-full bg-darker-blue">
-                Update Deployment
-            </button>
+            <div class="text-right">
+                <button type="submit" class="px-4 py-2 font-bold text-white rounded shadow-lg bg-darker-blue">Update Deployment</button>
+            </div>
         </form>
     </div>
     </div>
