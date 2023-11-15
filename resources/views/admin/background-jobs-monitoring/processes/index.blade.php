@@ -17,7 +17,7 @@
                     Background Jobs
                 </a>
                 <a href="{{ route('admin.background-jobs-monitoring.processes.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-                    Processes
+                    Module
                 </a>
             </div>
         </div>
@@ -93,7 +93,7 @@
             <div class="mb-10">
               <a href="{{ route('admin.background-jobs-monitoring.processes.create') }}"
                  class="px-4 py-2 font-bold text-white rounded shadow-lg bg-darker-blue font-poppins">
-                + Add  Process
+                + Add Module
               </a>
             </div>
           <table id="dataTable">
@@ -101,7 +101,7 @@
               <tr>
                 <th style="max-width: 1%">ID</th>
                 <th>Type</th>
-                <th>Process</th>
+                <th>Module</th>
                 <th style="max-width: 1%">Action</th>
               </tr>
             </thead>

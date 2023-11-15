@@ -49,13 +49,13 @@
 
                     <!-- Process Dropdown -->
                     <div class="mb-4">
-                        <label for="process_id" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Process Name*</label>
+                        <label for="process_id" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Module Name*</label>
                         <select id="process_id" name="process_id" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
-                            <option value="" disabled selected>Select Process</option>
+                            <option value="" disabled selected>Select Module</option>
                             <!-- Options will be populated by JavaScript -->
                         </select>
                         <div class="mt-2 text-sm text-gray-500">
-                            Select the associated process. Mandatory.
+                            Select the associated module. Mandatory.
                         </div>
                     </div>
 

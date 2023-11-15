@@ -17,7 +17,7 @@
                         Background Jobs
                     </a>
                     <a href="{{ route('admin.background-jobs-monitoring.processes.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-                        Processes
+                        Module
                     </a>
                 </div>
             </div>
@@ -162,7 +162,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Type</th>
-                    <th>Process</th>
+                    <th>Module</th>
                     <th>Data Amount to EIM</th>
                     <th>Data Amount to S4GL</th>
                     <th>Status</th>

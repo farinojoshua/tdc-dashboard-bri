@@ -11,7 +11,7 @@
   <div class="py-12 font-poppins">
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
       <div class="p-6 bg-white rounded-lg">
-        <h1 class="mb-10 text-2xl font-medium">Edit Process</h1>
+        <h1 class="mb-10 text-2xl font-medium">Edit Module</h1>
         @if ($errors->any())
           <div class="mb-5" role="alert">
             <div class="px-4 py-2 font-bold text-white bg-red-500 rounded-t">
@@ -33,7 +33,7 @@
         <div class="flex flex-wrap px-3 mt-4 mb-6 -mx-3">
             <div class="w-full">
                 <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="process_type">
-                    Process Type*
+                    Module Type*
                 </label>
                 <select name="type"
                         class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white"
@@ -43,20 +43,20 @@
                     <option value="Non-Product" {{ old('type', $process->type) === 'Non-Product' ? 'selected' : ''}}>Non-Product</option>
                 </select>
                 <div class="mt-2 text-sm text-gray-500">
-                    Select the type of process. Mandatory.
+                    Select the type of module. Mandatory.
                 </div>
             </div>
         </div>
           <div class="flex flex-wrap px-3 mt-4 mb-6 -mx-3">
             <div class="w-full">
               <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="process_name">
-                Process Name*
+                Module Name*
               </label>
               <input value="{{ old('name', $process->name) }}" name="name"
                      class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white"
                      id="process_name" type="text" placeholder="Nama Proses" required>
               <div class="mt-2 text-sm text-gray-500">
-                Nama Proses Background. Contoh: Process 1, Process 2, dsb. Wajib diisi. Maksimal 255 karakter.
+                Nama Module Background. Contoh: Module 1, Module 2, dsb. Wajib diisi. Maksimal 255 karakter.
               </div>
             </div>
           </div>
@@ -65,7 +65,7 @@
             <div class="w-full px-3 text-right">
               <button type="submit"
                       class="px-4 py-2 font-bold text-white rounded shadow-lg bg-darker-blue">
-                Update Process
+                Update Module
               </button>
             </div>
           </div>
