@@ -42,6 +42,7 @@
       var datatable = $('#dataTable').DataTable({
         processing: true,
         serverSide: true,
+        scrollX: true,
         stateSave: true,
         ajax: {
             url: '{{ route('admin.user-management.incidents.index') }}',

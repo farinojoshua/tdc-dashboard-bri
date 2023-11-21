@@ -19,9 +19,6 @@
                 <a href="{{ route('admin.deployments.modules.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
                     Modules
                 </a>
-                <a href="{{ route('admin.deployments.server-types.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-                    Server Types
-                </a>
             </div>
         </div>
     </div>

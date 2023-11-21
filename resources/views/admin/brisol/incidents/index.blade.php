@@ -152,27 +152,28 @@
         ],
         // Column definitions for handling the rendering of certain columns
         columnDefs: [
-          {
+        {
             targets: [7], // index for Detailed Description
             render: function(data, type, row) {
-              if (type === 'display' && data.length > 30) {
-                return `<span class="cursor-pointer modal-trigger" data-content="${data}">${data.substr(0, 30)}...</span>`;
-              } else {
+            if (type === 'display') {
+                return `<div class="cursor-pointer modal-trigger" data-content="${data}">${data.length > 30 ? data.substr(0, 30) + '...' : data}</div>`;
+            } else {
                 return data;
-              }
             }
-          },
-          {
+            }
+        },
+        {
             targets: [16], // index for Resolution
             render: function(data, type, row) {
-              if (type === 'display' && data.length > 30) {
-                return `<span class="cursor-pointer modal-trigger" data-content="${data}">${data.substr(0, 30)}...</span>`;
-              } else {
+            if (type === 'display') {
+                return `<div class="cursor-pointer modal-trigger" data-content="${data}">${data.length > 30 ? data.substr(0, 30) + '...' : data}</div>`;
+            } else {
                 return data;
-              }
             }
-          }
+            }
+        }
         ]
+
       });
 
         function formatTextWithLineBreaks(text) {

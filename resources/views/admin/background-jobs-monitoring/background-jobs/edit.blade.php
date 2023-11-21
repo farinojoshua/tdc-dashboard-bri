@@ -36,30 +36,30 @@
                 <div>
                     <!-- Type Dropdown -->
                     <div class="mb-4">
-                        <label for="type" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Type*</label>
+                        <label for="type" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Module*</label>
                         <select name="type"
                             class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white"
                             id="type" required>
-                        <option value="" disabled>Select Type</option>
+                        <option value="" disabled>Select Module</option>
                         <option value="Product" {{ $job->type == 'Product' ? 'selected' : '' }}>Product</option>
                         <option value="Non-Product" {{ $job->type == 'Non-Product' ? 'selected' : '' }}>Non-Product</option>
                         </select>
                         <div class="mt-2 text-sm text-gray-500">
-                            Select the type of background job. Mandatory.
+                            Select the module of background job. Mandatory.
                         </div>
                     </div>
 
                     <!-- Process Dropdown -->
                     <div class="mb-4">
-                        <label for="process_id" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Module Name*</label>
+                        <label for="process_id" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Job Name*</label>
                        <select name="process_id"
                             class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white"
                             id="process_id" required>
-                        <option value="" disabled selected>Select Module</option>
+                        <option value="" disabled selected>Select job</option>
                         <!-- Options will be populated by JavaScript -->
                         </select>
                         <div class="mt-2 text-sm text-gray-500">
-                            Select the associated module. Mandatory.
+                            Select the associated job. Mandatory.
                         </div>
                     </div>
 

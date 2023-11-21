@@ -14,9 +14,6 @@
 
         <div x-show="open" @click.away="open = false" class="absolute left-0 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
-                <a href="{{ route('admin.deployments.deployment.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-                    Deployments
-                </a>
                 <a href="{{ route('admin.deployments.modules.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
                     Modules
                 </a>
@@ -39,9 +36,6 @@
         ajax: {
             url: '{{ route('admin.deployments.deployment.index') }}',
             type: 'GET',
-        },
-        language: {
-          url: '//cdn.datatables.net/plug-ins/1.12.1/i18n/id.json'
         },
         columns: [
         { data: 'id', name: 'id' },

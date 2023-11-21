@@ -3,12 +3,17 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 
 // Array warna yang telah ditentukan sebelumnya
 const predefinedColors = [
-    "#FF5733",
-    "#33FF57",
-    "#3357FF",
-    "#FF33F6",
-    "#33FFF6",
-    "#F633FF",
+    "#435585",
+    "#CC9500",
+    "#3F0071",
+    "#005561",
+    "#571622",
+    "#007D57",
+    "#000000",
+    "#747687",
+    "#6D3500",
+    "#404040",
+    "#A26953",
 ];
 
 // Fungsi untuk mendapatkan warna berdasarkan ID modul
