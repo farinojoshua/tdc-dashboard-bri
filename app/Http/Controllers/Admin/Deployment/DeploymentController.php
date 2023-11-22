@@ -75,14 +75,16 @@ class DeploymentController extends Controller
             'cm_description' => 'required|string',
         ]);
 
-        // check if deployment already exists
-        if (Deployment::where('title', $request->title)->first()) {
-            return redirect()->back()->with('error', 'Deployment already exists.');
+        if (Deployment::where('title', $request->title)->exists()) {
+            return redirect()->back()
+                            ->withInput()
+                            ->with('error', 'Deployment already exists. Please choose another title.');
         }
 
         Deployment::create($request->all());
 
-        return redirect()->route('admin.deployments.deployment.index')->with('success', 'Success Create Deployment');
+        return redirect()->route('admin.deployments.deployment.index')
+                        ->with('success', 'Success Create Deployment');
     }
 
     /**

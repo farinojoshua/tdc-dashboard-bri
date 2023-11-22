@@ -91,29 +91,20 @@
                                 label: `Top Issues for ${serviceCiData.service_ci}`,
                                 data: counts,
                                 backgroundColor: [
-                                    'rgba(255, 99, 132, 0.2)',
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(255, 206, 86, 0.2)',
-                                    'rgba(75, 192, 192, 0.2)',
-                                    'rgba(153, 102, 255, 0.2)',
-                                    'rgba(255, 159, 64, 0.2)',
-                                    'rgba(199, 199, 199, 0.2)',
-                                    'rgba(83, 102, 255, 0.2)',
-                                    'rgba(40, 167, 69, 0.2)',
-                                    'rgba(255, 99, 71, 0.2)',
-
+                                    '#FFC107',
+                                    '#FB4141',
+                                    '#2ECC71',
+                                    '#FF8333',
+                                    '#6C97DF',
+                                    '#D3D3D3',
                                 ],
                                 borderColor: [
-                                    'rgba(255, 99, 132, 0.2)',
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(255, 206, 86, 0.2)',
-                                    'rgba(75, 192, 192, 0.2)',
-                                    'rgba(153, 102, 255, 0.2)',
-                                    'rgba(255, 159, 64, 0.2)',
-                                    'rgba(199, 199, 199, 0.2)',
-                                    'rgba(83, 102, 255, 0.2)',
-                                    'rgba(40, 167, 69, 0.2)',
-                                    'rgba(255, 99, 71, 0.2)',
+                                    '#FFC107',
+                                    '#FB4141',
+                                    '#2ECC71',
+                                    '#FF8333',
+                                    '#6C97DF',
+                                    '#D3D3D3',
                                 ],
                                 borderWidth: 1
                             }]
@@ -129,6 +120,23 @@
                                         boxWidth: 20,
                                         padding: 20,
                                     }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            let label = context.label || '';
+                                            if (label) {
+                                                label += ': ';
+                                            }
+                                            const count = context.parsed;
+                                            if (count !== null) {
+                                                const total = context.chart._metasets[0].total;
+                                                const percentage = (count / total * 100).toFixed(2) + '%';
+                                                label += `${count} (${percentage})`;
+                                            }
+                                            return label;
+                                        }
+                                    }
                                 }
                             },
                             title: {
@@ -140,6 +148,7 @@
                                 animateRotate: true
                             }
                         }
+
                     });
                 });
             })
