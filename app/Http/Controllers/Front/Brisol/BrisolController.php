@@ -216,34 +216,42 @@ class BrisolController extends Controller
     {
         $year = $request->input('year', date('Y'));
 
-        $serviceCisWithTopIssues = DB::table('brisol_incident')
+        // Get issues and group by service_ci
+        $serviceCisWithIssues = DB::table('brisol_incident')
                                     ->select('service_ci', 'ctg_tier2')
                                     ->whereYear('reported_date', '=', $year)
                                     ->groupBy('service_ci', 'ctg_tier2')
                                     ->orderByRaw('COUNT(*) DESC')
                                     ->get()
-                                    ->groupBy('service_ci')
-                                    ->map(function ($items) {
-                                        return count($items) >= 5 ? $items->take(5) : null;
-                                    })
-                                    ->filter();
+                                    ->groupBy('service_ci');
 
         $serviceCiData = [];
 
-        foreach ($serviceCisWithTopIssues as $serviceCi => $issues) {
+        foreach ($serviceCisWithIssues as $serviceCi => $issues) {
             $issuesData = [];
+            $issueCounter = 0;
 
             foreach ($issues as $issue) {
-                $issueCount = DB::table('brisol_incident')
-                                ->whereYear('reported_date', '=', $year)
-                                ->where('service_ci', '=', $serviceCi)
-                                ->where('ctg_tier2', '=', $issue->ctg_tier2)
-                                ->count();
+                if ($issueCounter < 5) {
+                    // Replace null or empty 'ctg_tier2' with 'Other'
+                    $issueCategory = $issue->ctg_tier2 ?: 'Other';
 
-                $issuesData[] = [
-                    'issue' => $issue->ctg_tier2,
-                    'count' => $issueCount
-                ];
+                    // Count the issues
+                    $issueCount = DB::table('brisol_incident')
+                                    ->whereYear('reported_date', '=', $year)
+                                    ->where('service_ci', '=', $serviceCi)
+                                    ->where('ctg_tier2', '=', $issueCategory)
+                                    ->count();
+
+                    $issuesData[] = [
+                        'issue' => $issueCategory,
+                        'count' => $issueCount
+                    ];
+
+                    $issueCounter++;
+                } else {
+                    break; // Only take top 5 issues
+                }
             }
 
             if (!empty($issuesData)) {

@@ -43,10 +43,19 @@ class IncidentsImport implements ToModel, WithHeadingRow
 
     private function getBranchId($branchCode, $branchName)
     {
+        // Pastikan branchCode diolah sebagai string
+        $branchCode = (string) $branchCode;
+
+        // Jika kode branch adalah 229 atau 0229, atur nama branch ke 'Kantor Pusat'
+        if ($branchCode === '229' || $branchCode === '0229') {
+            $branchName = 'Kantor Pusat';
+        }
+
         $branch = Branch::firstOrCreate(['code' => $branchCode], ['name' => $branchName]);
 
         return $branch->id;
     }
+
 
     // Convert Excel Date to Unix Date then to MySQL Date
     private function parseIndonesianDate($dateInput) {

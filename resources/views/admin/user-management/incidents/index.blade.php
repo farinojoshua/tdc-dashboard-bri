@@ -41,7 +41,7 @@
       // AJAX DataTable
       var datatable = $('#dataTable').DataTable({
         processing: true,
-        serverSide: true,
+        serverSide: false,
         scrollX: true,
         stateSave: true,
         ajax: {
@@ -66,11 +66,13 @@
             },
             {
                 data: 'type_name',
-                name: 'type_name'
+                name: 'type_name',
+                searchable: true,
             },
             {
                 data: 'branch_name',
-                name: 'branch_name'
+                name: 'branch_name',
+                searchable: true,
             },
             {
                 data: 'req_status',

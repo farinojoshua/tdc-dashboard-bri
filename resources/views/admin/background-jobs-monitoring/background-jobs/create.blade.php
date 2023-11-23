@@ -154,7 +154,7 @@
                   data: {type: type},
                   success: function(data) {
                       $('#process_id').empty();
-                      $('#process_id').append('<option value="" disabled selected>Select Process</option>');
+                      $('#process_id').append('<option value="" disabled selected>Select Job</option>');
                       $.each(data, function(key, value) {
                           $('#process_id').append('<option value="'+ value.id +'">'+ value.name +'</option>');
                       });
