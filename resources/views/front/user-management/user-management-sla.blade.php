@@ -88,12 +88,12 @@
                         datasets: [{
                             label: 'Meet SLA',
                             data: meetSLAData,
-                            borderColor: 'rgb(75, 192, 192)',
+                            borderColor: '#FFC107',
                             fill: false
                         }, {
                             label: 'Over SLA',
                             data: overSLAData,
-                            borderColor: 'rgb(255, 99, 132)',
+                            borderColor: '#2ECC71',
                             fill: false
                         }]
                     },

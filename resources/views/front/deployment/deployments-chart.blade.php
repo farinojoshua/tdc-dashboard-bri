@@ -40,18 +40,33 @@
 @endsection
 
 @section('script')
-    <script>
+<script>
     document.addEventListener("DOMContentLoaded", function () {
+        // Dropdown toggle
         const dropdownBtn = document.querySelector('.dropdown-btn');
         const dropdownMenu = document.querySelector('.dropdown-menu');
-
         dropdownBtn.addEventListener('click', function () {
             dropdownMenu.classList.toggle('hidden');
         });
     });
-    </script>
-    <script>
+</script>
+<script>
     var myChart;
+
+    // Predefined colors array
+    const predefinedColors = [
+        '#FFC107', '#2ECC71', '#152C5B', '#FF8333', '#2B4CDE',
+        '#EE1515', '#BFBFBF', '#17A2B8', '#6C97DF', '#262628',
+        '#CCDAFCCC', '#FF6A88CC'
+    ];
+
+    function getColor(index) {
+        if (index < predefinedColors.length) {
+            return predefinedColors[index];
+        } else {
+            return randomColor();
+        }
+    }
 
     function fetchData() {
         var selectedModule = document.getElementById('moduleSelect').value;
@@ -66,7 +81,6 @@
                 renderChart(ctx, data);
             });
     }
-
 
     function renderChart(ctx, data) {
         var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -84,7 +98,7 @@
         var stackCounter = 0;
 
         for (var serverType in datasets) {
-            var color = randomColor();
+            var color = getColor(stackCounter);
             chartDatasets.push({
                 label: serverType,
                 data: datasets[serverType],
@@ -127,7 +141,6 @@
         });
     }
 
-
     function randomColor() {
         var letters = '0123456789ABCDEF';
         var color = '#';
@@ -145,7 +158,8 @@
         yearSelect.addEventListener('change', fetchData);
     });
 
-    </script>
+</script>
 @endsection
+
 
 

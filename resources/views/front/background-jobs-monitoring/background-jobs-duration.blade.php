@@ -112,13 +112,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     label: 'Duration to EIM (in seconds)',
                     data: data.durationsEIM,
                     borderColor: '#2B4CDE',
-                    backgroundColor: '#2B4CDE',
                     fill: false
                 }, {
                     label: 'Duration to S4GL (in seconds)',
                     data: data.durationsS4GL,
                     borderColor: '#FFC107',
-                    backgroundColor: '#FFC107',
                     fill: false
                 }]
             },

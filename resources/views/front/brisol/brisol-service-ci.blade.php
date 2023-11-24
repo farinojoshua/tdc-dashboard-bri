@@ -51,6 +51,7 @@
 
 @section('script')
 <script>
+    // Dropdown selector change event
     document.getElementById("chartDropdownSelector").addEventListener("change", function() {
         const selectedURL = this.value;
         if (selectedURL) {
@@ -58,9 +59,48 @@
         }
     });
 
+    // Chart initialization
     let chart;
-    let currentMode = '{{ request('mode', 'month') }}'; // Default mode to 'month'
 
+    // Default mode setup
+    let currentMode = '{{ request('mode', 'month') }}';
+
+    // Predefined colors array
+    const predefinedColors = [
+        { background: '#FFC107' },
+        { background: '#2ECC71' },
+        { background: '#152C5B' },
+        { background: '#FF8333' },
+        { background: '#2B4CDE' },
+        { background: '#EE1515'},
+        { background: '#BFBFBF'},
+        { background: '#17A2B8'},
+        { background: '#6C97DF'},
+        { background: '#262628'},
+        { background: '#CCDAFCCC'},
+        { background: '#FF6A88CC'}
+    ];
+
+    // Function to get color, either predefined or random
+    function getColor(index) {
+        if (index < predefinedColors.length) {
+            return predefinedColors[index];
+        } else {
+            return generateRandomColor();
+        }
+    }
+
+    // Function to generate random colors
+    function generateRandomColor() {
+        const r = Math.floor(Math.random() * 255);
+        const g = Math.floor(Math.random() * 255);
+        const b = Math.floor(Math.random() * 255);
+        return {
+            background: `rgba(${r}, ${g}, ${b}, 0.2)`
+        };
+    }
+
+    // Function to update the mode (month/date) and refresh the chart
     function updateMode(selectedMode, event) {
         event.preventDefault();
         currentMode = selectedMode;
@@ -70,6 +110,7 @@
         submitFormForModeChange();
     }
 
+    // Function to set the styles of the mode buttons
     function setButtonStyles() {
         document.getElementById('monthButton').classList.toggle('bg-darker-blue', currentMode === 'month');
         document.getElementById('monthButton').classList.toggle('text-white', currentMode === 'month');
@@ -77,10 +118,12 @@
         document.getElementById('dateButton').classList.toggle('text-white', currentMode === 'date');
     }
 
+    // Function to toggle the visibility of the month selector
     function toggleMonthSelectVisibility() {
         document.getElementById('monthDiv').style.display = currentMode === 'date' ? 'inline-block' : 'none';
     }
 
+    // Function to submit the form for mode change
     function submitFormForModeChange() {
         const form = document.createElement('form');
         form.method = 'GET';
@@ -96,7 +139,7 @@
         form.submit();
     }
 
-
+    // Function to fetch data and update the chart
     function fetchData(){
         const year = document.getElementById('yearSelect').value;
         const month = document.getElementById('monthSelect').value;
@@ -118,25 +161,14 @@
 
                 const datasets = [];
 
-                function generateRandomColor() {
-                    const r = Math.floor(Math.random() * 255);
-                    const g = Math.floor(Math.random() * 255);
-                    const b = Math.floor(Math.random() * 255);
-                    return {
-                        background: `rgba(${r}, ${g}, ${b}, 0.2)`,
-                        border: `rgb(${r}, ${g}, ${b})`
-                    };
-                }
-
-                typeKeys.forEach(type => {
-                    const color = generateRandomColor();
+                typeKeys.forEach((type, index) => {
+                    const color = getColor(index);
                     const countsForType = labels.map(label => data.incidentCounts[label][type] || 0);
 
                     datasets.push({
                         label: `${type}`,
                         data: countsForType,
                         backgroundColor: color.background,
-                        borderColor: color.border,
                         borderWidth: 1
                     });
                 });
@@ -166,7 +198,7 @@
             });
     }
 
-    // Inisialisasi UI berdasarkan mode saat ini
+    // Set initial UI based on the current mode and fetch data
     setButtonStyles();
     toggleMonthSelectVisibility();
     fetchData();

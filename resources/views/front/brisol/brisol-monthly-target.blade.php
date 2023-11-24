@@ -58,14 +58,14 @@
                 datasets: [{
                     label: 'Target',
                     data: data.targets,
-                    borderColor: 'red',
+                    borderColor: '#EE1515',
                     borderDash: [5, 5],
                     fill: false
                 },
                 {
                     label: 'Actual',
                     data: data.actuals,
-                    borderColor: 'blue',
+                    borderColor: '#2B4CDE',
                     fill: false
                 }]
             },

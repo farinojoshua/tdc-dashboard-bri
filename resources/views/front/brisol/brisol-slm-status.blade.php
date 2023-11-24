@@ -65,13 +65,25 @@
 
                 const uniqueStatuses = [...new Set(data.months.flatMap(month => Object.keys(data.data[month])))];
 
-                const datasets = uniqueStatuses.map(status => ({
-                    label: status,
-                    data: data.months.map(month => data.data[month][status] || 0),
-                    borderColor: '#' + Math.floor(Math.random() * 16777215).toString(16),
-                    tension: 0.1,
-                    fill: false,
-                }));
+                const predefinedColors = ['#FFC107', '#2ECC71']; // Predefined colors
+                let colorIndex = 0;
+
+                const datasets = uniqueStatuses.map(status => {
+                    let color;
+                    if (colorIndex < predefinedColors.length) {
+                        color = predefinedColors[colorIndex++];
+                    } else {
+                        color = randomColor(); // Generate random color
+                    }
+
+                    return {
+                        label: status,
+                        data: data.months.map(month => data.data[month][status] || 0),
+                        borderColor: color,
+                        tension: 0.1,
+                        fill: false,
+                    };
+                });
 
                 currentChart = new Chart(ctx, {
                     type: 'line',
@@ -92,6 +104,10 @@
             .catch(error => {
                 console.error('Error loading chart data:', error);
             });
+    }
+
+    function randomColor() {
+        return '#' + Math.floor(Math.random() * 16777215).toString(16);
     }
 
     document.addEventListener("DOMContentLoaded", function() {

@@ -114,13 +114,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     label: 'Data to EIM',
                     data: data.eimAmounts,
                     borderColor: '#2B4CDE',
-                    backgroundColor: '#2B4CDE',
                     fill: false
                 }, {
                     label: 'Data to S4GL',
                     data: data.s4glAmounts,
                     borderColor: '#FFC107',
-                    backgroundColor: '#FFC107',
                     fill: false
                 }]
             },

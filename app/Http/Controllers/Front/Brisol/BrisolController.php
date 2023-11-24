@@ -228,6 +228,11 @@ class BrisolController extends Controller
         $serviceCiData = [];
 
         foreach ($serviceCisWithIssues as $serviceCi => $issues) {
+            // Skip if service_ci is empty
+            if (empty($serviceCi)) {
+                continue;
+            }
+
             $issuesData = [];
             $issueCounter = 0;
 
@@ -264,6 +269,36 @@ class BrisolController extends Controller
 
         return response()->json($serviceCiData);
     }
+
+    public function getOverallTopIssueChart(Request $request)
+    {
+        $year = $request->input('year', date('Y'));
+
+        // Get the top 5 issues by count
+        $issuesWithCounts = DB::table('brisol_incident')
+                                ->select('ctg_tier2', DB::raw('COUNT(*) as count'))
+                                ->whereYear('reported_date', '=', $year)
+                                ->groupBy('ctg_tier2')
+                                ->orderByRaw('COUNT(*) DESC')
+                                ->limit(5) // Limit the results to top 5
+                                ->get();
+
+        $issueData = [];
+
+        foreach ($issuesWithCounts as $issue) {
+            // Replace null or empty 'ctg_tier2' with 'Other'
+            $issueCategory = $issue->ctg_tier2 ?: 'Other';
+            $issueData[] = [
+                'issue' => $issueCategory,
+                'count' => $issue->count
+            ];
+        }
+
+        return response()->json($issueData);
+    }
+
+
+
 
 
     public function showServiceCITopIssueChart()

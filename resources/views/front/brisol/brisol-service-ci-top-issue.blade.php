@@ -41,6 +41,13 @@
             </div>
         </div>
     </div>
+    <!-- Adjusted container size and added shadow for the Overall Top Issues Chart -->
+    <div class="w-full p-8 mx-auto mt-8 shadow-lg lg:w-2/3">
+        <h2 class="mb-4 text-2xl font-semibold text-center text-gray-800 sm:text-3xl">Overall Top Issues</h2>
+        <div class="rounded-lg chart-container" style="position: relative; height:50vh; width:90vw">
+            <canvas id="overallTopIssuesChart"></canvas>
+        </div>
+    </div>
     <div id="pieChartsContainer" class="grid grid-cols-1 gap-4 mt-6 md:grid-cols-2">
     </div>
 </div>
@@ -51,6 +58,76 @@
     document.getElementById("chartDropdownSelector").addEventListener("change", function() {
         window.location.href = this.value;
     });
+
+    let currentOverallChart;
+
+    function loadOverallTopIssuesChart(year = document.getElementById('yearFilter').value) {
+        fetch(`/api/brisol/get-overall-top-issue?year=${year}`)
+            .then(response => response.json())
+            .then(data => {
+                const ctx = document.getElementById('overallTopIssuesChart').getContext('2d');
+                if (currentOverallChart) {
+                    currentOverallChart.destroy();
+                }
+
+                const labels = data.map(issue => issue.issue);
+                const counts = data.map(issue => issue.count);
+
+                currentOverallChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Overall Top Issues',
+                            data: counts,
+                            backgroundColor: ['#FFC107', '#FB4141', '#2ECC71', '#FF8333', '#6C97DF', '#D3D3D3'],
+                            borderColor: 'rgba(255, 255, 255, 0.6)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true, // Maintain aspect ratio
+                        aspectRatio: 3, // Adjust this value to control the chart size
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: {
+                                    boxWidth: 20,
+                                    padding: 20
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        const count = context.parsed;
+                                        if (count !== null) {
+                                            const total = context.chart._metasets[0].total;
+                                            const percentage = (count / total * 100).toFixed(2) + '%';
+                                            label += `${count} (${percentage})`;
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Overall Top Issues'
+                        }
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error loading overall top issue chart data:', error);
+            });
+    }
+
+
 
     function loadPieCharts(year = document.getElementById('yearFilter').value) {
         fetch(`/api/brisol/get-service-ci-top-issue?year=${year}`)
@@ -158,9 +235,11 @@
     }
 
     document.addEventListener("DOMContentLoaded", function() {
+        loadOverallTopIssuesChart();
         loadPieCharts();
 
         document.getElementById('yearFilter').addEventListener('change', function() {
+            loadOverallTopIssuesChart(this.value);
             loadPieCharts(this.value);
         });
     });

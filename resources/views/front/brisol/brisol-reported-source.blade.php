@@ -46,6 +46,22 @@
 
     let currentChart;
 
+    // Predefined colors array
+    const predefinedColors = [
+        '#FFC107', '#2ECC71', '#152C5B', '#FF8333', '#2B4CDE',
+        '#EE1515', '#BFBFBF', '#17A2B8', '#6C97DF', '#262628',
+        '#CCDAFCCC', '#FF6A88CC'
+    ];
+
+    function getColor(index) {
+        if (index < predefinedColors.length) {
+            return predefinedColors[index];
+        } else {
+            // Generate random color with transparency
+            return '#' + Math.floor(Math.random() * 16777215).toString(16);
+        }
+    }
+
     function loadChartData(year = document.getElementById('yearFilter').value) {
         fetch(`/api/brisol/get-reported-source-chart?year=${year}`)
             .then(response => response.json())
@@ -56,10 +72,10 @@
                 }
                 const uniqueSources = [...new Set(data.months.flatMap(month => Object.keys(data.data[month])))];
 
-                const datasets = uniqueSources.map(source => ({
+                const datasets = uniqueSources.map((source, index) => ({
                     label: source,
                     data: data.months.map(month => data.data[month][source] || 0),
-                    backgroundColor: '#' + Math.floor(Math.random() * 16777215).toString(16) + '50',
+                    backgroundColor: getColor(index),
                 }));
 
                 currentChart = new Chart(ctx, {

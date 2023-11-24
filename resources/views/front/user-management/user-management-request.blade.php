@@ -58,8 +58,41 @@
     });
 
     let chart;
-    // Gunakan 'month' sebagai default jika 'mode' tidak ditentukan
+    // Use 'month' as the default if 'mode' is not specified
     let currentMode = '{{ request('mode') }}' || 'month';
+
+    // Predefined colors
+    const predefinedColors = [
+        { background: '#FFC107' },
+        { background: '#2ECC71' },
+        { background: '#152C5B' },
+        { background: '#FF8333' },
+        { background: '#2B4CDE' },
+        { background: '#EE1515'},
+        { background: '#BFBFBF'},
+        { background: '#17A2B8'},
+        { background: '#6C97DF'},
+        { background: '#262628'},
+        { background: '#CCDAFCCC'},
+        { background: '#FF6A88CC'},
+    ];
+
+    function getColor(index) {
+        if (index < predefinedColors.length) {
+            return predefinedColors[index];
+        } else {
+            return generateRandomColor();
+        }
+    }
+
+    function generateRandomColor() {
+        const r = Math.floor(Math.random() * 255);
+        const g = Math.floor(Math.random() * 255);
+        const b = Math.floor(Math.random() * 255);
+        return {
+            background: `rgba(${r}, ${g}, ${b})`,
+        };
+    }
 
     function updateMode(selectedMode, event) {
         event.preventDefault();
@@ -76,7 +109,7 @@
             document.getElementById('monthButton').classList.add('bg-darker-blue', 'text-white');
         }
 
-        fetchData(); // Memanggil fetchData untuk mengambil data dengan mode yang dipilih
+        fetchData(); // Call fetchData to retrieve data with the selected mode
     }
 
     function fetchData(){
@@ -90,7 +123,6 @@
                 const labels = mode === 'month' ? data.months : data.days;
                 const ctx = document.getElementById('incidentChart').getContext('2d');
 
-                // Mengganti backticks (\`) dengan tanda kutip ganda
                 document.getElementById('totalRequests').innerHTML = 'Total Requests: ' + data.totalRequests;
 
                 const typeKeys = Object.keys(data.incidentCounts)
@@ -101,25 +133,14 @@
 
                 const datasets = [];
 
-                function generateRandomColor() {
-                    const r = Math.floor(Math.random() * 255);
-                    const g = Math.floor(Math.random() * 255);
-                    const b = Math.floor(Math.random() * 255);
-                    return {
-                        background: `rgba(${r}, ${g}, ${b}, 0.2)`,
-                        border: `rgb(${r}, ${g}, ${b})`
-                    };
-                }
-
-                typeKeys.forEach(type => {
-                    const color = generateRandomColor();
+                typeKeys.forEach((type, index) => {
+                    const color = getColor(index);
                     const countsForType = labels.map(label => data.incidentCounts[label][type] || 0);
 
                     datasets.push({
                         label: `${type}`,
                         data: countsForType,
                         backgroundColor: color.background,
-                        borderColor: color.border,
                         borderWidth: 1
                     });
                 });
@@ -149,10 +170,10 @@
             });
     }
 
-    // Menetapkan mode default ketika halaman dimuat
+    // Set the default mode when the page loads
     updateMode(currentMode, new Event('click'));
 
-    // Event listeners untuk tombol 'Per Month' dan 'Per Date'
+    // Event listeners for the 'Per Month' and 'Per Date' buttons
     document.getElementById('monthButton').addEventListener('click', function(event) {
         updateMode('month', event);
     });
@@ -164,4 +185,5 @@
     fetchData();
 </script>
 @endsection
+
 
