@@ -10,24 +10,48 @@
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                    <x-nav-link href="{{ route('admin.deployments.deployment.index') }}" :active="request()->routeIs('admin.deployments.*')">
-                        {{ __('Deployments') }}
-                    </x-nav-link>
-                    <x-nav-link href="{{ route('admin.background-jobs-monitoring.jobs.index') }}" :active="request()->routeIs('admin.background-jobs-monitoring.*')">
-                        {{ __('Background Jobs') }}
-                    </x-nav-link>
-                    <x-nav-link href="{{ route('admin.user-management.incidents.index') }}" :active="request()->routeIs('admin.user-management.*')">
-                        {{ __('User Management') }}
-                    </x-nav-link>
-                    <x-nav-link href="{{ route('admin.brisol.incidents.index') }}" :active="request()->routeIs('admin.brisol.*')">
-                        {{ __('Brisol') }}
-                    </x-nav-link>
-                </div>
+                        <!-- Dashboard Link - Visible to all authenticated users -->
+                        <x-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+
+                        <!-- Deployments Link - Visible to Admin Deployments and user deployments -->
+                        @role('Super Admin|Admin Deployments|User Deployments')
+                        <x-nav-link href="{{ route('admin.deployments.deployment.index') }}" :active="request()->routeIs('admin.deployments.*')">
+                            {{ __('Deployments') }}
+                        </x-nav-link>
+                        @endrole
+
+                        <!-- Background Jobs Link - Visible to admin background jobs and user background jobs -->
+                        @role('Super Admin|Admin Background Jobs|User Background Jobs')
+                        <x-nav-link href="{{ route('admin.background-jobs-monitoring.jobs.index') }}" :active="request()->routeIs('admin.background-jobs-monitoring.*')">
+                            {{ __('Background Jobs') }}
+                        </x-nav-link>
+                        @endrole
+
+                        <!-- User Management Link - Visible to admin user management and user user management -->
+                        @role('Super Admin|Admin Usman|User Usman')
+                        <x-nav-link href="{{ route('admin.user-management.incidents.index') }}" :active="request()->routeIs('admin.user-management.*')">
+                            {{ __('User Management') }}
+                        </x-nav-link>
+                        @endrole
+
+                        <!-- Brisol Link - Visible to admin brisol and user brisol -->
+                        @role('Super Admin|Admin Brisol|User Brisol')
+                        <x-nav-link href="{{ route('admin.brisol.incidents.index') }}" :active="request()->routeIs('admin.brisol.*')">
+                            {{ __('Brisol') }}
+                        </x-nav-link>
+                        @endrole
+
+                        <!-- Users Link - Visible to Super Admin -->
+                        @role('Super Admin')
+                        <x-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.*')">
+                            {{ __('Users') }}
+                        </x-nav-link>
+                        @endrole
+                    </div>
+
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">

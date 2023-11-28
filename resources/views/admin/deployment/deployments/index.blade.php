@@ -90,14 +90,14 @@
             <table id="dataTable">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th style="max-width: 1%">ID</th>
                         <th>Title</th>
                         <th>Module</th>
                         <th>Server Type</th>
                         <th>Deploy Date</th>
                         <th>Document Status</th>
                         <th>CM Status</th>
-                        <th>Action</th>
+                        <th style="max-width: 1%">Action</th>
                     </tr>
                     </thead>
                 <tbody></tbody>

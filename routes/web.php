@@ -1,20 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\UserManagement\IncidentsController as UsmanIncidentsController;
-use App\Http\Controllers\Admin\UserManagement\MonthlyTargetController as UsmanMonthlyTargetController;
-use App\Http\Controllers\Admin\Brisol\IncidentsController as BrisolIncidentsController;
-use App\Http\Controllers\Admin\Brisol\MonthlyTargetController as BrisolMonthlyTargetController;
 use App\Http\Controllers\Admin\Deployment\DeploymentController;
 use App\Http\Controllers\Admin\Deployment\DeploymentModuleController;
 use App\Http\Controllers\Admin\Deployment\DeploymentServerTypeController;
 use App\Http\Controllers\Admin\BackgroundJobsMonitoring\ProcessController;
 use App\Http\Controllers\Admin\BackgroundJobsMonitoring\BackgroundJobController;
+use App\Http\Controllers\Front\Brisol\BrisolController as FrontBrisolController;
+use App\Http\Controllers\Admin\Brisol\IncidentsController as BrisolIncidentsController;
 use App\Http\Controllers\Front\Deployment\DeploymentController as FrontDeploymentController;
+use App\Http\Controllers\Admin\UserManagement\IncidentsController as UsmanIncidentsController;
+use App\Http\Controllers\Admin\Brisol\MonthlyTargetController as BrisolMonthlyTargetController;
+use App\Http\Controllers\Admin\UserManagement\MonthlyTargetController as UsmanMonthlyTargetController;
 use App\Http\Controllers\Front\UserManagement\UserManagementController as FrontUserManagementController;
 use App\Http\Controllers\Front\BackgroundJobsMonitoring\BackgroundJobController as FrontBackgroundJobController;
-use App\Http\Controllers\Front\Brisol\BrisolController as FrontBrisolController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,21 +55,39 @@ Route::middleware([
         Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::prefix('deployments')->name('deployments.')->group(function () {
-            Route::resource('server-types', DeploymentServerTypeController::class);
-            Route::resource('modules', DeploymentModuleController::class);
-            Route::resource('deployment', DeploymentController::class);
+            Route::resource('deployment', DeploymentController::class)->middleware('permission:manage deployments');
+            Route::resource('modules', DeploymentModuleController::class)->middleware('permission:manage module deployments');
+            Route::resource('server-types', DeploymentServerTypeController::class)->middleware('permission:manage server type deployments');
+
+            // only view module deployments and server type deployments
+            Route::get('/modules', [DeploymentModuleController::class, 'index'])->name('modules.index')->middleware('permission:view module deployments');
+            Route::get('/server-types', [DeploymentServerTypeController::class, 'index'])->name('server-types.index')->middleware('permission:view server type deployments');
         });
+
         Route::prefix('background-jobs-monitoring')->name('background-jobs-monitoring.')->group(function () {
-            Route::resource('processes', ProcessController::class);
-            Route::resource('jobs', BackgroundJobController::class);
+            Route::resource('processes', ProcessController::class)->middleware('permission:manage process background jobs');
+            Route::resource('jobs', BackgroundJobController::class)->middleware('permission:manage background jobs');
+
+            // only view process background jobs
+            Route::get('/processes', [ProcessController::class, 'index'])->name('processes.index')->middleware('permission:view process background jobs');
         });
+
         Route::prefix('user-management')->name('user-management.')->group(function () {
-            Route::resource('incidents', UsmanIncidentsController::class);
-            Route::resource('monthly-target', UsmanMonthlyTargetController::class);
+            Route::resource('incidents', UsmanIncidentsController::class)->middleware('permission:manage incidents user management');
+            Route::resource('monthly-target', UsmanMonthlyTargetController::class)->middleware('permission:manage monthly target user management');
+
+            // only view incidents user management and monthly target user management
+            Route::get('/monthly-target', [UsmanMonthlyTargetController::class, 'index'])->name('monthly-target.index')->middleware('permission:view monthly target user management');
         });
+
         Route::prefix('brisol')->name('brisol.')->group(function () {
-            Route::resource('incidents', BrisolIncidentsController::class);
-            Route::resource('monthly-target', BrisolMonthlyTargetController::class);
+            Route::resource('incidents', BrisolIncidentsController::class)->middleware('permission:manage incidents brisol');
+            Route::resource('monthly-target', BrisolMonthlyTargetController::class)->middleware('permission:manage monthly target brisol');
+
+            // only view incidents brisol and monthly target brisol
+            Route::get('/monthly-target', [BrisolMonthlyTargetController::class, 'index'])->name('monthly-target.index')->middleware('permission:view monthly target brisol');
         });
+
+        Route::resource('users', UserController::class)->middleware('permission:manage users');
     });
 });

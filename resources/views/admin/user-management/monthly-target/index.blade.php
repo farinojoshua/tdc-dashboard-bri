@@ -25,6 +25,8 @@
 
   <x-slot name="script">
     <script>
+        // check if role is super admin or admin usman
+        var isAuthorized = @json(auth()->user()->hasAnyRole(['Super Admin', 'Admin Usman']));
       // AJAX DataTable
       var datatable = $('#dataTable').DataTable({
         processing: true,
@@ -46,12 +48,36 @@
         ],
       });
 
-        // sweet alert delete
+    $('body').on('click', '.btn-edit, .btn-delete', function (e) {
+      if (!isAuthorized) {
+        e.preventDefault();
+        Swal.fire({
+          title: 'Unauthorized',
+          text: "You don't have permission to perform this action.",
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+        return;
+      }
+    });
+
+    // Event handler untuk tombol delete
     $('body').on('click', '.btn-delete', function (e) {
         e.preventDefault();
 
-        var form = $(this).parents('form');
+        // Cek apakah pengguna memiliki autorisasi
+        if (!isAuthorized) {
+            Swal.fire({
+                title: 'Unauthorized',
+                text: "You don't have permission to perform this action.",
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
 
+        // Jika pengguna berwenang, lanjutkan dengan konfirmasi penghapusan
+        var form = $(this).parents('form');
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -75,19 +101,21 @@
       <div class="overflow-hidden shadow sm:rounded-md">
         <div class="px-4 py-5 bg-white sm:p-6">
             <div class="mb-10">
+                @hasanyrole('Super Admin|Admin Usman')
                 <a href="{{ route('admin.user-management.monthly-target.create') }}"
                 class="px-4 py-2 font-bold text-white rounded shadow-lg font-poppins bg-darker-blue">
                 + Add Monthly Target
                 </a>
+                @endhasanyrole
             </div>
             <table id="dataTable">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th style="max-width: 1%">ID</th>
                         <th>Month</th>
                         <th>Year</th>
                         <th>Target</th>
-                        <th>Action</th>
+                        <th style="max-width: 1%;">Action</th>
                     </tr>
                     </thead>
                 <tbody></tbody>

@@ -23,6 +23,8 @@
 
   <x-slot name="script">
     <script>
+        // check if role is super admin or admin background jobs
+        var isAuthorized = @json(auth()->user()->hasAnyRole(['Super Admin', 'Admin Background Jobs']));
       // AJAX DataTable
       var datatable = $('#dataTable').DataTable({
         processing: true,
@@ -59,12 +61,36 @@
         ],
       });
 
-    // sweet alert delete
+    $('body').on('click', '.btn-edit, .btn-delete', function (e) {
+      if (!isAuthorized) {
+        e.preventDefault();
+        Swal.fire({
+          title: 'Unauthorized',
+          text: "You don't have permission to perform this action.",
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+        return;
+      }
+    });
+
+    // Event handler untuk tombol delete
     $('body').on('click', '.btn-delete', function (e) {
         e.preventDefault();
 
-        var form = $(this).parents('form');
+        // Cek apakah pengguna memiliki autorisasi
+        if (!isAuthorized) {
+            Swal.fire({
+                title: 'Unauthorized',
+                text: "You don't have permission to perform this action.",
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
 
+        // Jika pengguna berwenang, lanjutkan dengan konfirmasi penghapusan
+        var form = $(this).parents('form');
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -79,7 +105,6 @@
             }
         });
     });
-
     </script>
   </x-slot>
 
@@ -88,10 +113,12 @@
         <div class="overflow-hidden shadow sm:rounded-md">
         <div class="px-4 py-5 bg-white sm:p-6">
             <div class="mb-10">
-              <a href="{{ route('admin.background-jobs-monitoring.processes.create') }}"
-                 class="px-4 py-2 font-bold text-white rounded shadow-lg bg-darker-blue font-poppins">
-                + Add Module
-              </a>
+                @hasanyrole('Super Admin|Admin Background Jobs')
+                <a href="{{ route('admin.background-jobs-monitoring.processes.create') }}"
+                    class="px-4 py-2 font-bold text-white rounded shadow-lg bg-darker-blue font-poppins">
+                    + Add Module
+                </a>
+                @endhasanyrole
             </div>
           <table id="dataTable">
             <thead>

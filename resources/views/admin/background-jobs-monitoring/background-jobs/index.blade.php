@@ -158,7 +158,7 @@
             <table id="dataTable">
                 <thead>
                 <tr>
-                    <th>ID</th>
+                    <th style="max-width: 1%">ID</th>
                     <th>Module</th>
                     <th>Job</th>
                     <th>Data Amount to EIM</th>
@@ -168,7 +168,7 @@
                     <th>Duration To S4GL</th>
                     <th>Notes</th>
                     <th>Monitoring Date</th>
-                    <th>Action</th>
+                    <th style="max-width: 1%">Action</th>
                 </tr>
                 </thead>
                 <tbody></tbody>
