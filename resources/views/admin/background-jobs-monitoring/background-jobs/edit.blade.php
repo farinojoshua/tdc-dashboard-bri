@@ -52,16 +52,18 @@
                     <!-- Process Dropdown -->
                     <div class="mb-4">
                         <label for="process_id" class="block mb-2 text-sm font-bold text-gray-600 uppercase">Job Name*</label>
-                       <select name="process_id"
-                            class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white"
-                            id="process_id" required>
-                        <option value="" disabled selected>Select job</option>
-                        <!-- Options will be populated by JavaScript -->
+                        <select name="process_id" id="process_id" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
+                            @foreach($processes as $process)
+                                <option value="{{ $process->id }}" {{ ($job->process_id == $process->id) ? 'selected' : '' }}>
+                                    {{ $process->name }} {{ !$process->is_active ? '(Currently Non-Active)' : '' }}
+                                </option>
+                            @endforeach
                         </select>
                         <div class="mt-2 text-sm text-gray-500">
                             Select the associated job. Mandatory.
                         </div>
                     </div>
+
 
                     <!-- Data Amount to EIM -->
                     <div class="mb-4">
@@ -165,34 +167,45 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-    $(document).ready(function() {
-        function loadProcesses(type, selectedId = null) {
-            $.ajax({
-                url: '/api/bjm/get-processes-by-type',
-                type: 'GET',
-                data: {type: type},
-                success: function(data) {
-                    $('#process_id').empty();
-                    $('#process_id').append('<option value="" disabled>Select Process</option>');
-                    $.each(data, function(key, value) {
-                        var isSelected = selectedId == value.id ? 'selected' : '';
-                        $('#process_id').append('<option value="'+ value.id +'" ' + isSelected + '>'+ value.name +'</option>');
-                    });
-                }
-            });
-        }
+<script>
+$(document).ready(function() {
+    var initialType = $('#type').val();
+    var selectedProcessId = '{{ $job->process_id }}'; // Get the current process ID from the job object
 
-        var initialType = $('#type').val();
-        var selectedProcessId = {{ $job->process_id }};
-        if(initialType) loadProcesses(initialType, selectedProcessId);
+    if(initialType) {
+        loadProcesses(initialType, selectedProcessId);
+    }
 
-        $('#type').on('change', function() {
-            var type = $(this).val();
-            if(type) loadProcesses(type);
-            else $('#process_id').empty();
-        });
+    $('#type').on('change', function() {
+        loadProcesses(this.value);
     });
-    </script>
+});
+
+function loadProcesses(type, selectedId = null) {
+    if (!type) {
+        $('#process_id').html('<option value="" disabled selected>Select Job</option>');
+        return;
+    }
+
+    $.ajax({
+        url: '/api/bjm/get-processes-by-type',
+        type: 'GET',
+        data: { type: type, currentProcessId: selectedId },
+        success: function(data) {
+            var options = '<option value="" disabled>Select Job</option>';
+            data.forEach(function(process) {
+                var isSelected = selectedId == process.id ? 'selected' : '';
+                var nonActiveNote = !process.is_active && process.id == selectedId ? ' (Currently Non-Active)' : '';
+                options += `<option value="${process.id}" ${isSelected}>${process.name}${nonActiveNote}</option>`;
+            });
+            $('#process_id').html(options);
+        }
+    });
+}
+
+
+</script>
+
+
 
 </x-app-layout>

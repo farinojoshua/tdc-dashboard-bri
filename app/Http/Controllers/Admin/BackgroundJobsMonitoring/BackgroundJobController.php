@@ -148,8 +148,18 @@ class BackgroundJobController extends Controller
     public function getProcessesByType(Request $request)
     {
         $type = $request->input('type');
-        $processes = Process::where('type', $type)->get();
+        $currentProcessId = $request->input('currentProcessId');
+
+        $processes = Process::where(function($query) use ($type, $currentProcessId) {
+                            $query->where('type', $type)
+                                ->where('is_active', true);
+                            if ($currentProcessId) {
+                                $query->orWhere('id', $currentProcessId);
+                            }
+                        })
+                        ->get();
 
         return response()->json($processes);
     }
+
 }

@@ -12,6 +12,7 @@ class DeploymentServerType extends Model
     protected $fillable = [
         'name',
         'module_id',
+        'is_active',
     ];
 
     // Relationships

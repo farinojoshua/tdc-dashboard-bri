@@ -64,6 +64,7 @@ class ProcessController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|in:Product,Non-Product',
+            'is_active' => 'required|boolean'
         ]);
 
         // check if process already exists
@@ -71,7 +72,12 @@ class ProcessController extends Controller
             return redirect()->back()->with('error', 'Process already exists in the same type.');
         }
 
-        Process::create($request->only(['name', 'type']));
+        Process::create([
+            'name' => $request->name,
+            'type' => $request->type,
+            'is_active' => $request->boolean('is_active'), // Handle is_active input
+        ]);
+
 
         return redirect()->route('admin.background-jobs-monitoring.processes.index')->with('success', 'Process created successfully.');
     }
@@ -94,20 +100,29 @@ class ProcessController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|in:Product,Non-Product',
+            'is_active' => 'required|boolean', // Add validation for is_active
         ]);
 
         $process = Process::findOrFail($id);
 
-        // check if process already exists
-        if (Process::where('name', $request->name)->where('type', $request->type)->where('id', '!=', $process->id)->first()) {
+        // Check if another process with the same name and type exists
+        if (Process::where('name', $request->name)
+                ->where('type', $request->type)
+                ->where('id', '!=', $process->id)
+                ->first()) {
             return redirect()->back()->with('error', 'Process already exists in the same type.');
         }
 
-        $process->update($request->only(['name', 'type']));
+        // Update the process, including the is_active status
+        $process->update([
+            'name' => $request->name,
+            'type' => $request->type,
+            'is_active' => $request->boolean('is_active'), // Handle is_active input
+        ]);
 
-        return redirect()->route('admin.background-jobs-monitoring.processes.index')->with('success', 'Process updated successfully.');
+        return redirect()->route('admin.background-jobs-monitoring.processes.index')
+                        ->with('success', 'Process updated successfully.');
     }
-
     /**
      * Delete a process.
      */

@@ -53,8 +53,8 @@ class DeploymentController extends Controller
      */
     public function create()
     {
-        $modules = DeploymentModule::all();
-        $serverTypes = DeploymentServerType::all();
+        $modules = DeploymentModule::where('is_active', 1)->get();
+        $serverTypes = DeploymentServerType::where('is_active', 1)->get();
 
         return view('admin.deployment.deployments.create', compact('modules', 'serverTypes'));
     }
@@ -93,8 +93,16 @@ class DeploymentController extends Controller
 
     public function edit(Deployment $deployment)
     {
-        $modules = DeploymentModule::all();
-        $serverTypes = DeploymentServerType::all();
+        $modules = DeploymentModule::where('is_active', 1)->get();
+        $serverTypes = DeploymentServerType::where('is_active', 1)->get();
+
+        if ($deployment->module->is_active == 0) {
+            $modules->push($deployment->module);
+        }
+
+        if ($deployment->serverType->is_active == 0) {
+            $serverTypes->push($deployment->serverType);
+        }
 
         return view('admin.deployment.deployments.edit', compact('deployment', 'modules', 'serverTypes'));
     }
@@ -138,9 +146,22 @@ class DeploymentController extends Controller
     /**
      * Get server types by module id.
      */
-    public function getServerTypesByModule($module_id)
+    public function getServerTypesByModule($module_id, $selectedServerTypeId = null)
     {
-        $serverTypes = DeploymentServerType::where('module_id', $module_id)->get();
+        $serverTypes = DeploymentServerType::where('module_id', $module_id)
+                                            ->where('is_active', 1)
+                                            ->get();
+
+        // Tambahkan server type yang saat ini dipilih jika tidak aktif
+        if ($selectedServerTypeId) {
+            $selectedServerType = DeploymentServerType::where('id', $selectedServerTypeId)
+                                                    ->where('is_active', 0)
+                                                    ->first();
+
+            if ($selectedServerType) {
+                $serverTypes->push($selectedServerType);
+            }
+        }
 
         return response()->json($serverTypes);
     }

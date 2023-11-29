@@ -61,6 +61,25 @@
               </div>
             </div>
           </div>
+            <div class="flex flex-wrap px-3 mt-4 mb-6 -mx-3">
+                <div class="w-full">
+                    <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="is_active">
+                        Status*
+                    </label>
+                    <select name="is_active" id="is_active"
+                            class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white"
+                            required>
+                        <option value="1">Active</option> <!-- Note the value change to 1 -->
+                        <option value="0">Non-Active</option> <!-- Note the value change to 0 -->
+                    </select>
+                    <div class="mt-2 text-sm text-gray-500">
+                        Select the status of the module. Mandatory.
+                    </div>
+                </div>
+            </div>
+
+
+
 
           <div class="flex flex-wrap mb-6 -mx-3">
             <div class="w-full px-3 text-right">

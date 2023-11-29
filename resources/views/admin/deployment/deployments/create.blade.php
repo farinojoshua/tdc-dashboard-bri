@@ -23,24 +23,26 @@
                         <input type="text" id="title" name="title" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" value="{{ old('title') }}" required>
                     </div>
 
-                    <!-- Module ID -->
+                    <!-- Module ID Dropdown -->
                     <div class="mb-4">
                         <label for="module_id" class="block mb-2 text-sm font-bold text-gray-600">Module:</label>
                         <select id="module_id" name="module_id" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
-                        <option value="" disabled selected>-- Pilih Module --</option>
-                        @foreach($modules as $module)
-                            <option value="{{ $module->id }}">{{ $module->name }}</option>
-                        @endforeach
+                            <option value="" disabled selected>-- Pilih Module --</option>
+                            @foreach($modules as $module)
+                                <option value="{{ $module->id }}">{{ $module->name }}</option>
+                            @endforeach
                         </select>
                     </div>
 
-                    <!-- Server Type ID -->
+                    <!-- Server Type ID Dropdown -->
                     <div class="mb-4">
                         <label for="server_type_id" class="block mb-2 text-sm font-bold text-gray-600">Server Type:</label>
                         <select id="server_type_id" name="server_type_id" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
-                        <option value="" disabled selected>-- Pilih Server Type (Pilih Module Terlebih Dahulu)--</option>
+                            <option value="" disabled selected>-- Pilih Server Type (Pilih Module Terlebih Dahulu)--</option>
+                            <!-- Options will be populated based on the selected module -->
                         </select>
                     </div>
+
 
                     <!-- Deploy Date -->
                     <div class="mb-4">
