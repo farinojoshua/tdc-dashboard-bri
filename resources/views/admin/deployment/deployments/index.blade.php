@@ -45,6 +45,7 @@
         { data: 'deploy_date', name: 'deploy_date' },
         { data: 'document_status', name: 'document_status' },
         { data: 'cm_status', name: 'cm_status' },
+        { data: 'updated_at', name: 'updated_at'},
         { data: 'action', name: 'action', orderable: false, searchable: false, width: '15%'}
         ],
       });
@@ -97,6 +98,7 @@
                         <th>Deploy Date</th>
                         <th>Document Status</th>
                         <th>CM Status</th>
+                        <th>Updated At</th>
                         <th style="max-width: 1%">Action</th>
                     </tr>
                     </thead>

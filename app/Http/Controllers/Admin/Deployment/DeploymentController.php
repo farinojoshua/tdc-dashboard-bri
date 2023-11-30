@@ -26,6 +26,9 @@ class DeploymentController extends Controller
                 ->addColumn('server_type', function ($deployment) {
                     return $deployment->serverType->name;
                 })
+                ->addColumn('updated_at', function ($deployment) {
+                    return $deployment->updated_at->format('d F Y H:i:s'); // Format the date as needed
+                })
                 ->addColumn('action', function ($deployment) {
                     return '
                         <div class="flex gap-2">

@@ -107,6 +107,10 @@
                     name: 'execution_date',
                 },
                 {
+                    data: 'updated_at',
+                    name: 'updated_at',
+                },
+                {
                     data: 'action',
                     name: 'action',
                     orderable: false,
@@ -168,6 +172,7 @@
                     <th>Duration To S4GL</th>
                     <th>Notes</th>
                     <th>Monitoring Date</th>
+                    <th>Last Updated</th>
                     <th style="max-width: 1%">Action</th>
                 </tr>
                 </thead>

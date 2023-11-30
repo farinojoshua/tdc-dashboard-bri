@@ -16,9 +16,12 @@ class BackgroundJobController extends Controller
     public function index()
     {
         if (request()-> ajax()) {
-            $query = BackgroundJob::with('process')->get();
+            $query = BackgroundJob::with('process')->select('bjm_background_jobs.*');
 
             return DataTables::of($query)
+                ->addColumn('updated_at', function ($job) {
+                    return $job->updated_at->format('d F Y H:i:s'); // Format the date as needed
+                })
                 ->addColumn('action', function ($jobs) {
                     return '
                         <div class="flex gap-2">
