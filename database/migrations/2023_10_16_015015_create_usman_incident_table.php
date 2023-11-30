@@ -16,8 +16,8 @@ return new class extends Migration
             $table->date('reported_date');
             $table->unsignedBigInteger('type_id');
             $table->foreign('type_id')->references('id')->on('usman_req_type');
-            $table->unsignedBigInteger('branch_id');
-            $table->foreign('branch_id')->references('id')->on('usman_branch');
+            $table->string('branch_code');
+            $table->foreign('branch_code')->references('branch_code')->on('usman_branch');
             $table->string('req_status')->nullable();
             $table->string('exec_status')->default('Pending');
             $table->date('execution_date')->nullable();

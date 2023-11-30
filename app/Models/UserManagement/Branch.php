@@ -11,5 +11,6 @@ class Branch extends Model
 
     protected $table = 'usman_branch';
 
-    protected $fillable = ['code','name'];
+    protected $fillable = ['branch_code', 'branch_name', 'kanwil_code', 'kanwil_name'];
 }
+

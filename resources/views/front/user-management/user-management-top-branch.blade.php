@@ -12,7 +12,7 @@
             </div>
             <div class="w-1/2 mx-auto text-center">
                 <select id="chartDropdownSelector" class="w-full px-4 py-4 text-xl text-white border rounded cursor-pointer bg-dark-blue focus:outline-none focus:border-blue-900 focus:shadow-outline-blue">
-                    <option value="{{ route('user-management.top-branch') }}">Top 5 Ukker Request</option>
+                    <option value="{{ route('user-management.top-branch') }}">Top 5 Kanwil Request</option>
                     <option value="{{ route('user-management.request-by-type') }}">User Management Request</option>
                     <option value="{{ route('user-management.monthly-target') }}">Target Realization</option>
                     <option value="{{ route('user-management.sla-category') }}">SLA Monitoring</option>
@@ -54,47 +54,48 @@
         });
         let branchPieChart;
 
-        async function fecthData() {
-            const month = document.getElementById('monthSelect').value;
-            const year = document.getElementById('yearSelect').value;
+    async function fecthData() {
+        const month = document.getElementById('monthSelect').value;
+        const year = document.getElementById('yearSelect').value;
 
-            let url = `/api/usman/get-top-branch-request-chart?month=${month}&year=${year}`;
+        // Ubah URL untuk mengambil data kanwil
+        let url = `/api/usman/get-top-kanwil-request-chart?month=${month}&year=${year}`;
 
-            try {
-                const response = await fetch(url);
-                const branches = await response.json();
+        try {
+            const response = await fetch(url);
+            const kanwils = await response.json();
 
-                const branchNames = branches.map(branch => branch.name);
-                const requestCounts = branches.map(branch => branch.total_requests);
+            const kanwilNames = kanwils.map(kanwil => kanwil.kanwil_name);
+            const requestCounts = kanwils.map(kanwil => kanwil.total_requests);
 
-                // Update Pie Chart
-                const ctx = document.getElementById('branchPieChart').getContext('2d');
-                if (branchPieChart) {
-                    branchPieChart.destroy(); // Destroy existing chart before updating
-                }
-                branchPieChart = new Chart(ctx, {
-                    type: 'pie',
-                    data: {
-                        labels: branchNames,
-                        datasets: [{
-                            label: 'Total Requests',
-                            data: requestCounts,
-                            backgroundColor: [
-                                '#FFC107',
-                                '#2ECC71',
-                                '#6C97DF',
-                                '#EE1515',
-                                '#FF8333'
-                            ],
-                            borderWidth: 1
-                        }]
-                    }
-                });
-
-            } catch (error) {
-                console.error("There was an error fetching the data", error);
+            // Perbarui Pie Chart
+            const ctx = document.getElementById('branchPieChart').getContext('2d');
+            if (branchPieChart) {
+                branchPieChart.destroy(); // Hancurkan grafik yang ada sebelum memperbarui
             }
+            branchPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: kanwilNames,
+                    datasets: [{
+                        label: 'Total Requests',
+                        data: requestCounts,
+                        backgroundColor: [
+                            '#FFC107',
+                            '#2ECC71',
+                            '#6C97DF',
+                            '#EE1515',
+                            '#FF8333'
+                        ],
+                        borderWidth: 1
+                    }]
+                }
+            });
+
+        } catch (error) {
+            console.error("There was an error fetching the data", error);
         }
+    }
 
         // Call this function when the page loads
         window.onload = fecthData;
