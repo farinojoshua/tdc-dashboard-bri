@@ -215,11 +215,13 @@ class BrisolController extends Controller
     public function getServiceCITopIssueChart(Request $request)
     {
         $year = $request->input('year', date('Y'));
+        $month = $request->input('month', date('m'));
 
         // Get issues and group by service_ci
         $serviceCisWithIssues = DB::table('brisol_incident')
                                     ->select('service_ci', 'ctg_tier2')
                                     ->whereYear('reported_date', '=', $year)
+                                    ->whereMonth('reported_date', '=', $month)
                                     ->groupBy('service_ci', 'ctg_tier2')
                                     ->orderByRaw('COUNT(*) DESC')
                                     ->get()
@@ -273,11 +275,13 @@ class BrisolController extends Controller
     public function getOverallTopIssueChart(Request $request)
     {
         $year = $request->input('year', date('Y'));
+        $month = $request->input('month', date('m'));
 
         // Get the top 5 issues by count
         $issuesWithCounts = DB::table('brisol_incident')
                                 ->select('ctg_tier2', DB::raw('COUNT(*) as count'))
                                 ->whereYear('reported_date', '=', $year)
+                                ->whereMonth('reported_date', '=', $month)
                                 ->groupBy('ctg_tier2')
                                 ->orderByRaw('COUNT(*) DESC')
                                 ->limit(5) // Limit the results to top 5

@@ -21,16 +21,17 @@
         </div>
         <div class="w-1/3">
             <div class="flex flex-col items-end justify-end gap-4">
-                <div class="flex">
-                    <div id="monthDiv" style="{{ request('mode') == 'date' ? 'display:inline-block;' : 'display:none;' }}">
-                        <select name="month" id="monthSelect" onchange="fetchData()">
-                            @foreach(range(1, 12) as $month)
-                            <option value="{{ $month }}" {{ $month == date('m') ? 'selected' : '' }}>{{ date('F', mktime(0, 0, 0, $month, 10)) }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                <div class="flex gap-2">
+                <div>
+                    <select id="monthFilter" class="px-8 py-2 text-lg border rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-300">
+                        @foreach(range(1, 12) as $month)
+                            <option value="{{ $month }}" {{ $month == date('m') ? 'selected' : '' }}>
+                                {{ date('F', mktime(0, 0, 0, $month, 10)) }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
                     <div>
-                        <label for="yearFilter" class="mr-2 text-lg text-gray-700">Select Year:</label>
                         <select id="yearFilter" class="px-8 py-2 text-lg border rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-300">
                             @foreach(range(date('Y') - 3, date('Y') + 1) as $year)
                                 <option value="{{ $year }}" {{ $year == date('Y') ? 'selected' : '' }}>{{ $year }}</option>
@@ -61,8 +62,8 @@
 
     let currentOverallChart;
 
-    function loadOverallTopIssuesChart(year = document.getElementById('yearFilter').value) {
-        fetch(`/api/brisol/get-overall-top-issue?year=${year}`)
+    function loadOverallTopIssuesChart(year = document.getElementById('yearFilter').value, month = document.getElementById('monthFilter').value) {
+        fetch(`/api/brisol/get-overall-top-issue?year=${year}&month=${month}`)
             .then(response => response.json())
             .then(data => {
                 const ctx = document.getElementById('overallTopIssuesChart').getContext('2d');
@@ -129,8 +130,8 @@
 
 
 
-    function loadPieCharts(year = document.getElementById('yearFilter').value) {
-        fetch(`/api/brisol/get-service-ci-top-issue?year=${year}`)
+    function loadPieCharts(year = document.getElementById('yearFilter').value, month = document.getElementById('monthFilter').value) {
+        fetch(`/api/brisol/get-service-ci-top-issue?year=${year}&month=${month}`)
             .then(response => response.json())
             .then(data => {
                 const container = document.getElementById('pieChartsContainer');
@@ -234,13 +235,21 @@
             });
     }
 
+
     document.addEventListener("DOMContentLoaded", function() {
-        loadOverallTopIssuesChart();
-        loadPieCharts();
+        const year = document.getElementById('yearFilter').value;
+        const month = document.getElementById('monthFilter').value;
+        loadOverallTopIssuesChart(year, month);
+        loadPieCharts(year, month);
 
         document.getElementById('yearFilter').addEventListener('change', function() {
-            loadOverallTopIssuesChart(this.value);
-            loadPieCharts(this.value);
+            loadOverallTopIssuesChart(this.value, document.getElementById('monthFilter').value);
+            loadPieCharts(this.value, document.getElementById('monthFilter').value);
+        });
+
+        document.getElementById('monthFilter').addEventListener('change', function() {
+            loadOverallTopIssuesChart(document.getElementById('yearFilter').value, this.value);
+            loadPieCharts(document.getElementById('yearFilter').value, this.value);
         });
     });
 </script>
