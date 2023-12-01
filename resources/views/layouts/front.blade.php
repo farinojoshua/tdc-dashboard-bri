@@ -3,6 +3,7 @@
 <head>
     @yield('title')
 
+    <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
     <!-- Libraries -->
@@ -19,36 +20,27 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<style>
-    #navbar {
-        transform: translateY(-100%);
-        transition: transform 0.8s ease-in-out;
-        border-bottom: 8px solid #DDE5E9;
-    }
+    <style>
+        #navbar {
+            position: absolute; /* Keeps the navbar at the top */
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 8px solid #DDE5E9;
+            background-color: white; /* Optional: to ensure navbar background is not transparent */
+        }
 
-    #navbar:hover,
-    #navbar.show {
-        transform: translateY(0);
-    }
+        .navbar-link {
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
 
-    .navbar-link {
-        margin: 0 15px;
-        text-decoration: none;
-        transition: color 0.3s;
-    }
+        .navbar-link:hover {
+            color: #2B4CDE;
+        }
 
-    .navbar-link:hover {
-        color: #2B4CDE;
-;
-    }
-
-    #navbar.sticky {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 1000;
-    }
-</style>
+    </style>
 
 </head>
 <body>
@@ -73,24 +65,9 @@
         </nav>
     </div>
 
-
-    <div class="px-10 mx-auto font-poppins">
+    <div class="px-10 mx-auto font-poppins" style="margin-top: 130px">
          @yield('content')
     </div>
-
-<script>
-    window.addEventListener('mousemove', function(event) {
-        let navbar = document.getElementById('navbar');
-
-        // Jika kursor bergerak ke atas
-        if (event.clientY <= 50) {
-            navbar.classList.add('show');
-        } else {
-            navbar.classList.remove('show');
-        }
-
-    });
-</script>
 
     @yield('script')
 
