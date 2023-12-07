@@ -12,9 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('usman_branch', function (Blueprint $table) {
-            $table->id();
-            $table->string('code');
-            $table->string('name');
+            $table->string('branch_code')->primary();
+            $table->string('branch_name');
+            $table->string('kanwil_code');
+            $table->string('kanwil_name');
             $table->timestamps();
         });
     }

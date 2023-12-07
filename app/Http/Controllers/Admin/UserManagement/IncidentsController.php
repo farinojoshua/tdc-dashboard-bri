@@ -22,7 +22,10 @@ class IncidentsController extends Controller
 
             return DataTables::of($query)
                 ->addColumn('branch_name', function ($incident) {
-                    return $incident->branch->name;
+                    return $incident->branch->branch_name;
+                })
+                ->addColumn('kanwil_name', function ($incident) {
+                    return $incident->branch->kanwil_name;
                 })
                 ->addColumn('type_name', function ($incident) {
                     return $incident->reqType->name;

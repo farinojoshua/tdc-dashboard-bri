@@ -142,15 +142,15 @@ class UserManagementController extends Controller
         return view('front.user-management.user-management-sla');
     }
 
-    public function getTopBranchRequests(Request $request)
+    public function getTopKanwilRequests(Request $request)
     {
         $month = $request->input('month', date('m'));
         $year = $request->input('year', date('Y'));
 
         $query = DB::table('usman_incident')
-                ->join('usman_branch', 'usman_incident.branch_id', '=', 'usman_branch.id')
-                ->select('usman_branch.name', DB::raw('count(usman_incident.id) as total_requests'))
-                ->groupBy('usman_branch.name')
+                ->join('usman_branch', 'usman_incident.branch_code', '=', 'usman_branch.branch_code')
+                ->select('usman_branch.kanwil_name', DB::raw('count(usman_incident.id) as total_requests'))
+                ->groupBy('usman_branch.kanwil_name')
                 ->orderByDesc('total_requests')
                 ->limit(5);
 
@@ -162,10 +162,11 @@ class UserManagementController extends Controller
             $query->whereYear('usman_incident.reported_date', $year);
         }
 
-        $branches = $query->get();
+        $kanwils = $query->get();
 
-        return response()->json($branches);
+        return response()->json($kanwils);
     }
+
 
     public function showTopBranchRequestsChart()
     {

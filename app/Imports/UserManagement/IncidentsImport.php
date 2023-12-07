@@ -16,15 +16,21 @@ class IncidentsImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         return DB::transaction(function () use ($row) {
-            $branchId = $this->getBranchId($row['branch_code'], $row['unit_kerja']);
             $typeId = $this->getTypeId($row['jenis_pengajuan']);
+            $branchCode = str_pad($row['branch_code'], 4, '0', STR_PAD_LEFT);
+
+            // Verifikasi apakah branch_code ada di database
+            if (!Branch::where('branch_code', $branchCode)->exists()) {
+                // Jika tidak ada, mengabaikan baris ini
+                return null;
+            }
 
             $execStatus = $row['tanggal_dikerjakan'] ? 'Done' : 'Pending';
 
             return new Incident([
                 'reported_date' => $this->parseIndonesianDate($row['tanggal_disetujui']),
                 'type_id' => $typeId,
-                'branch_id' => $branchId,
+                'branch_code' => $branchCode,
                 'req_status' => $row['status_pengajuan'],
                 'exec_status' => $execStatus,
                 'execution_date' => $row['tanggal_dikerjakan'] ? $this->parseIndonesianDate($row['tanggal_dikerjakan']) : null,
@@ -32,7 +38,6 @@ class IncidentsImport implements ToModel, WithHeadingRow
             ]);
 
         });
-
     }
 
     private function getTypeId($typeName)
@@ -41,23 +46,6 @@ class IncidentsImport implements ToModel, WithHeadingRow
         return $type->id;
     }
 
-    private function getBranchId($branchCode, $branchName)
-    {
-        // Pastikan branchCode diolah sebagai string
-        $branchCode = (string) $branchCode;
-
-        // Jika kode branch adalah 229 atau 0229, atur nama branch ke 'Kantor Pusat'
-        if ($branchCode === '229' || $branchCode === '0229') {
-            $branchName = 'Kantor Pusat';
-        }
-
-        $branch = Branch::firstOrCreate(['code' => $branchCode], ['name' => $branchName]);
-
-        return $branch->id;
-    }
-
-
-    // Convert Excel Date to Unix Date then to MySQL Date
     private function parseIndonesianDate($dateInput) {
         if (is_numeric($dateInput)) {
             return Date::excelToDateTimeObject($dateInput)->format('Y-m-d');

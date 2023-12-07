@@ -36,7 +36,7 @@ Route::get('/bjm/get-background-jobs-daily', [FrontBackgroundJobController::clas
 // user management
 Route::get('/usman/get-request-by-type-chart', [FrontUserManagementController::class, 'getRequestByType']);
 Route::get('/usman/get-sla-category-chart', [FrontUserManagementController::class, 'getSLADataForYear']);
-Route::get('/usman/get-top-branch-request-chart', [FrontUserManagementController::class, 'getTopBranchRequests']);
+Route::get('/usman/get-top-kanwil-request-chart', [FrontUserManagementController::class, 'getTopKanwilRequests']);
 Route::get('/usman/get-monthly-target-actual', [FrontUserManagementController::class, 'getMonthlyDataTargetActual']);
 
 // brisol

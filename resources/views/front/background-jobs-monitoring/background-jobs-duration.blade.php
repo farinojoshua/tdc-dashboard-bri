@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="p-10 mx-auto my-10 rounded-lg shadow-lg">
-    <h1 class="mb-4 text-3xl font-semibold">Background Jobs - Duration</h1>
+    <h1 class="mb-4 text-2xl font-semibold sm:text-3xl">Background Jobs - Duration</h1>
 
     <div class="flex items-center justify-between mt-12">
         <div class="w-1/3">
@@ -32,17 +32,18 @@
                     <button type="button" onclick="setMode('date', event)" class="px-4 py-2 {{ $mode == 'date' ? 'bg-darker-blue text-white' : 'text-gray-600' }}">Day</button>
                 </div>
 
-
                 @if($mode == 'date')
                 <div class="mr-4">
-                    <form method="GET" action="{{ route('background-jobs-monitoring.duration') }}">
+                    <form action="{{ route('background-jobs-monitoring.duration') }}" method="GET">
+                        <input type="hidden" name="mode" value="date">
                         <select name="month" onchange="this.form.submit()" class="form-select">
-                            @foreach(range(1, 12) as $m)
+                            @foreach (range(1, 12) as $m)
                                 <option value="{{ $m }}" {{ $chosenMonth == $m ? 'selected' : '' }}>{{ DateTime::createFromFormat('!m', $m)->format('F') }}</option>
                             @endforeach
                         </select>
                     </form>
                 </div>
+
                 @endif
 
                 @if($mode == 'month')
@@ -58,19 +59,19 @@
         </div>
     </div>
 
-    <h3 class="mt-4 text-xl font-semibold text-center" id="chartTitle">Loading...</h3>
+    <h3 class="mt-4 text-xl font-semibold text-center sm:text-2xl" id="chartTitle">Loading...</h3>
     <canvas id="singleChart" class="mt-4"></canvas>
 </div>
-@endsection
 
+@endsection
 
 @section('script')
 <script>
-    document.getElementById('navigationDropdown').addEventListener('change', function() {
-        if (this.value) {
+document.getElementById('navigationDropdown').addEventListener('change', function() {
+    if (this.value) {
             window.location.href = this.value;
-        }
-    });
+    }
+});
 
 function setMode(selectedMode, event){
     event.preventDefault();
@@ -93,6 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const chartsData = @json($allChartData);
     const ctx = document.getElementById('singleChart').getContext('2d');
     let chart;
+
     const chartDropdown = document.getElementById('chartDropdown');
 
     function renderChart(processName) {
@@ -102,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
             chart.destroy();
         }
 
-        document.getElementById('chartTitle').innerText = `Durasi Load Data ${processName}`;
+        document.getElementById('chartTitle').innerText = Durasi Load Data ${processName};
 
         chart = new Chart(ctx, {
             type: 'line',
@@ -125,30 +127,24 @@ document.addEventListener('DOMContentLoaded', function() {
                     y: {
                         beginAtZero: true
                     }
-                }
+                },
             }
         });
     }
 
     chartDropdown.addEventListener('change', function() {
-        localStorage.setItem('selectedChart', this.value);
         renderChart(this.value);
+        localStorage.setItem('selectedChart', this.value); // Simpan pilihan chart
     });
 
-    function loadSelectedChart() {
-        const savedChart = localStorage.getItem('selectedChart');
-        if (savedChart && chartsData[savedChart]) {
-            chartDropdown.value = savedChart;
-            renderChart(savedChart);
-        } else {
-            renderChart(Object.keys(chartsData)[0]);
-        }
+    const savedChart = localStorage.getItem('selectedChart');
+    if (savedChart) {
+        chartDropdown.value = savedChart;
+        renderChart(savedChart);
+    } else {
+        renderChart(Object.keys(chartsData)[0]);
     }
-
-    loadSelectedChart();
 });
+
 </script>
 @endsection
-
-
-

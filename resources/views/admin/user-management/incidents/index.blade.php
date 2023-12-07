@@ -75,6 +75,11 @@
                 searchable: true,
             },
             {
+                data: 'kanwil_name',
+                name: 'kanwil_name',
+                searchable: true,
+            },
+            {
                 data: 'req_status',
                 name: 'req_status'
             },
@@ -124,6 +129,7 @@
                 <th>Reported Date</th>
                 <th>Type</th>
                 <th>Unit Kerja</th>
+                <th>Kantor Wilayah</th>
                 <th>Request Status</th>
                 <th>Execution Status</th>
                 <th>Execution Date</th>
