@@ -61,6 +61,12 @@ Run Migrations
 
 ```bash
   php artisan migrate
+
+
+Run Seeder
+
+```bash
+  php artisan db:seed
 ```
 
 Compile Assets (Tailwind CSS)
