@@ -61,7 +61,7 @@ Run Migrations
 
 ```bash
   php artisan migrate
-
+```
 
 Run Seeder
 
