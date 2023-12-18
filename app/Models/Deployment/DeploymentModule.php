@@ -11,6 +11,7 @@ class DeploymentModule extends Model
 
     protected $fillable = [
         'name',
+        'is_active',
     ];
 
     // Relationships

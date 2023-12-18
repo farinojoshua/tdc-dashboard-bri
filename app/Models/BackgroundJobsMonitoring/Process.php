@@ -11,7 +11,7 @@ class Process extends Model
 
     protected $table = 'bjm_processes';
 
-    protected $fillable = ['name', 'type'];
+    protected $fillable = ['name', 'type', 'is_active'];
 
     public function backgroundJobs()
     {

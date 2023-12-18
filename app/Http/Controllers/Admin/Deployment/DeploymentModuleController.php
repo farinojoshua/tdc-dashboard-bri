@@ -54,7 +54,8 @@ class DeploymentModuleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:15'
+            'name' => 'required|max:15',
+            'is_active' => 'required|boolean'
         ]);
 
         // check if module already exists
@@ -62,7 +63,7 @@ class DeploymentModuleController extends Controller
             return redirect()->back()->with('error', 'Module already exists.');
         }
 
-        DeploymentModule::create($request->only('name'));
+        DeploymentModule::create($request->only('name', 'is_active'));
 
         return redirect()->route('admin.deployments.modules.index')->with('success', 'Module created successfully.');
     }
@@ -83,7 +84,8 @@ class DeploymentModuleController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|max:15'
+            'name' => 'required|max:15',
+            'is_active' => 'required|boolean'
         ]);
 
         $module = DeploymentModule::findOrfail($id);
@@ -95,7 +97,7 @@ class DeploymentModuleController extends Controller
             }
         }
 
-        $module->update($request->only('name'));
+        $module->update($request->only('name', 'is_active'));
 
         return redirect()->route('admin.deployments.modules.index')->with('success', 'Module updated successfully.');
     }

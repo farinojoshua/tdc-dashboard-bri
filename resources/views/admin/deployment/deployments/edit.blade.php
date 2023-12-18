@@ -26,22 +26,28 @@
 
                   <!-- Module ID -->
                   <div class="mb-4">
-                      <label for="module_id" class="block mb-2 text-sm font-bold text-gray-600">Module:</label>
-                      <select id="module_id" name="module_id" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
-                          @foreach($modules as $module)
-                          <option value="{{ $module->id }}" {{ (old('module_id', $deployment->module_id) == $module->id ? 'selected' : '') }}>
-                              {{ $module->name }}
-                          </option>
-                          @endforeach
-                      </select>
+                    <label for="module" class="block mb-2 text-sm font-bold text-gray-600">Module</label>
+                    <select name="module_id" id="module_id" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
+                        @foreach($modules as $module)
+                            <option value="{{ $module->id }}" {{ $deployment->module_id == $module->id ? 'selected' : '' }}>
+                                {{ $module->name }}{{ $module->is_active == 0 ? ' (Currently Non-Active)' : '' }}
+                            </option>
+                        @endforeach
+                    </select>
                   </div>
 
-                  <!-- Server Type ID -->
-                  <div class="mb-4">
-                      <label for="server_type_id" class="block mb-2 text-sm font-bold text-gray-600">Server Type:</label>
-                      <select id="server_type_id" name="server_type_id" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
-                      </select>
-                  </div>
+                <!-- Server Type ID -->
+                <div class="mb-4">
+                    <label for="server_type_id" class="block mb-2 text-sm font-bold text-gray-600">Server Type:</label>
+                    <select name="server_type_id" id="server_type_id" class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" required>
+                        @foreach($serverTypes as $serverType)
+                            <option value="{{ $serverType->id }}" {{ $deployment->server_type_id == $serverType->id ? 'selected' : '' }}>
+                                {{ $serverType->name }}{{ $serverType->is_active == 0 ? ' (Currently Non-Active)' : '' }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
 
                   <!-- Deploy Date -->
                   <div class="mb-4">
@@ -116,38 +122,46 @@
 
     <x-slot name="script">
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-            var previouslySelectedModuleId = "{{ old('module_id', $deployment->module_id) }}";
-            var previouslySelectedServerTypeId = "{{ old('server_type_id', $deployment->server_type_id) }}";
+        document.addEventListener('DOMContentLoaded', function() {
+            var previouslySelectedServerTypeId = "{{ $deployment->server_type_id }}";
 
             var moduleSelect = document.getElementById('module_id');
+            var serverTypeSelect = document.getElementById('server_type_id');
 
-            if(previouslySelectedModuleId) {
-                moduleSelect.value = previouslySelectedModuleId; // Set value select box modul
-                fetchServerTypes(previouslySelectedModuleId, previouslySelectedServerTypeId); // fetch data server type
+            if (moduleSelect.value) {
+                fetchServerTypes(moduleSelect.value, previouslySelectedServerTypeId);
             }
 
             moduleSelect.addEventListener('change', function() {
-                fetchServerTypes(this.value); // fetch data server type
+                fetchServerTypes(this.value);
             });
+
+            function fetchServerTypes(selectedModule, selectedServerType = null) {
+                var url = `/api/modules/${selectedModule}/server-types`;
+                if (selectedServerType) {
+                    url += `/${selectedServerType}`;
+                }
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        serverTypeSelect.innerHTML = '';
+                        data.forEach(function(serverType) {
+                            var optionText = serverType.name;
+                            if (serverType.is_active === 0) {
+                                optionText += ' (Currently Non-Active)';
+                            }
+
+                            var option = new Option(optionText, serverType.id);
+                            option.selected = selectedServerType && serverType.id.toString() === selectedServerType;
+                            serverTypeSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
         });
 
-        function fetchServerTypes(selectedModule, selectedServerType = null) {
-            fetch(`/api/modules/${selectedModule}/server-types`)
-            .then(response => response.json())
-            .then(data => {
-                var serverTypeSelect = document.getElementById('server_type_id');
-                serverTypeSelect.innerHTML = '';
-                data.forEach(function(serverType) {
-                    var option = new Option(serverType.name, serverType.id);
-                    if (selectedServerType && serverType.id.toString() === selectedServerType.toString()) {
-                        option.selected = true;
-                    }
-                    serverTypeSelect.appendChild(option);
-                });
-            })
-            .catch(error => console.error('Error:', error));
-        }
+
         </script>
     </x-slot>
 </x-app-layout>

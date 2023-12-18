@@ -51,6 +51,13 @@
             name: 'name'
           },
           {
+                data: 'is_active',
+                name: 'is_active',
+                render: function (data, type, row) {
+                    return data ? 'Active' : 'Non-Active';
+                }
+          },
+          {
             data: 'action',
             name: 'action',
             orderable: false,
@@ -125,6 +132,7 @@
               <tr>
                 <th style="max-width: 1%">ID</th>
                 <th>Name</th>
+                <th>Status</th>
                 <th style="max-width: 1%">Action</th>
               </tr>
             </thead>

@@ -16,9 +16,12 @@ class BackgroundJobController extends Controller
     public function index()
     {
         if (request()-> ajax()) {
-            $query = BackgroundJob::with('process')->get();
+            $query = BackgroundJob::with('process')->select('bjm_background_jobs.*');
 
             return DataTables::of($query)
+                ->addColumn('updated_at', function ($job) {
+                    return $job->updated_at->format('d F Y H:i:s'); // Format the date as needed
+                })
                 ->addColumn('action', function ($jobs) {
                     return '
                         <div class="flex gap-2">
@@ -148,8 +151,18 @@ class BackgroundJobController extends Controller
     public function getProcessesByType(Request $request)
     {
         $type = $request->input('type');
-        $processes = Process::where('type', $type)->get();
+        $currentProcessId = $request->input('currentProcessId');
+
+        $processes = Process::where(function($query) use ($type, $currentProcessId) {
+                            $query->where('type', $type)
+                                ->where('is_active', true);
+                            if ($currentProcessId) {
+                                $query->orWhere('id', $currentProcessId);
+                            }
+                        })
+                        ->get();
 
         return response()->json($processes);
     }
+
 }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 10);
             $table->unsignedBigInteger('module_id');
+            $table->boolean('is_active')->default(true);
 
             $table->foreign('module_id')->references('id')->on('deployment_modules')->onDelete('cascade');
             $table->timestamps();
