@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('usman_incident', function (Blueprint $table) {
             $table->id();
             $table->date('reported_date');
-            $table->unsignedBigInteger('type_id');
-            $table->foreign('type_id')->references('id')->on('usman_req_type');
+            $table->string('req_type');
             $table->string('branch_code');
             $table->foreign('branch_code')->references('branch_code')->on('usman_branch');
             $table->string('req_status')->nullable();

@@ -16,7 +16,7 @@
                     <option value="{{ route('user-management.request-by-type') }}">User Management Request</option>
                     <option value="{{ route('user-management.monthly-target') }}">Target Realization</option>
                     <option value="{{ route('user-management.sla-category') }}">SLA Monitoring</option>
-                    <option value="{{ route('user-management.top-branch') }}">Top 5 Ukker Request</option>
+                    <option value="{{ route('user-management.top-branch') }}">Top 5 Kanwil Request</option>
                 </select>
         </div>
         <div class="w-1/3">

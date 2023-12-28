@@ -18,7 +18,7 @@ class IncidentsController extends Controller
     {
         // if request is ajax, return datatable
         if (request()->ajax()) {
-            $query = Incident::with(['reqType', 'branch']);
+            $query = Incident::with(['branch']);
 
             return DataTables::of($query)
                 ->addColumn('branch_name', function ($incident) {
@@ -28,7 +28,7 @@ class IncidentsController extends Controller
                     return $incident->branch->kanwil_name;
                 })
                 ->addColumn('type_name', function ($incident) {
-                    return $incident->reqType->name;
+                    return $incident->req_type;
                 })
                 ->rawColumns(['branch_name', 'type_name'])
                 ->make();

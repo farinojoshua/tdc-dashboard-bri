@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
             chart.destroy();
         }
 
-        document.getElementById('chartTitle').innerText = Durasi Load Data ${processName};
+        document.getElementById('chartTitle').innerHTML = processName;
 
         chart = new Chart(ctx, {
             type: 'line',

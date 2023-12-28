@@ -22,12 +22,11 @@ class UserManagementController extends Controller
             $incidentCounts = [];
 
             foreach ($months as $month) {
-                $incidentCountsForMonth = Incident::join('usman_req_type', 'usman_incident.type_id', '=', 'usman_req_type.id')
-                    ->whereYear('reported_date', '=', $year)
+                $incidentCountsForMonth = Incident::whereYear('reported_date', '=', $year)
                     ->whereMonth('reported_date', '=', date('m', strtotime($month)))
-                    ->groupBy('usman_req_type.name')
-                    ->select('usman_req_type.name', DB::raw('count(*) as total'))
-                    ->pluck('total', 'usman_req_type.name')
+                    ->groupBy('req_type')
+                    ->select('req_type', DB::raw('count(*) as total'))
+                    ->pluck('total', 'req_type')
                     ->all();
 
                 $incidentCounts[$month] = $incidentCountsForMonth;
@@ -52,16 +51,13 @@ class UserManagementController extends Controller
                 ->count();
 
             for ($day = 1; $day <= $daysInMonth; $day++) {
-                $query = Incident::join('usman_req_type', 'usman_incident.type_id', '=', 'usman_req_type.id')
-                    ->whereYear('reported_date', '=', $year)
+                $incidentCountsForDay = Incident::whereYear('reported_date', '=', $year)
                     ->whereMonth('reported_date', '=', $month)
                     ->whereDay('reported_date', '=', $day)
-                    ->groupBy('usman_req_type.name')
-                    ->select('usman_req_type.name', DB::raw('count(*) as total'));
-
-                $incidentCountsForDay = $query->get()->keyBy('name')->map(function ($row) {
-                    return $row->total;
-                })->all();
+                    ->groupBy('req_type')
+                    ->select('req_type', DB::raw('count(*) as total'))
+                    ->pluck('total', 'req_type')
+                    ->all();
 
                 $incidentCounts[$day] = $incidentCountsForDay;
             }
@@ -72,10 +68,6 @@ class UserManagementController extends Controller
                 'totalRequests' => $totalRequests
             ]);
         }
-
-
-
-
     }
 
 

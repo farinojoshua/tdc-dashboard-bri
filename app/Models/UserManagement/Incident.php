@@ -13,7 +13,7 @@ class Incident extends Model
 
     protected $fillable = [
         'reported_date',
-        'type_id',
+        'req_type',
         'branch_code',
         'req_status',
         'exec_status',

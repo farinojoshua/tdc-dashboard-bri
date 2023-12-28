@@ -16,10 +16,16 @@ class IncidentsImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         return DB::transaction(function () use ($row) {
-            $typeId = $this->getTypeId($row['jenis_pengajuan']);
-            $branchCode = str_pad($row['branch_code'], 4, '0', STR_PAD_LEFT);
+            $branchCode = ltrim($row['branch_code'], '0'); // Menghapus nol di awal
 
-            // Verifikasi apakah branch_code ada di database
+            // Pastikan panjang branch_code tidak melebihi 4 digit
+            if (strlen($branchCode) > 4) {
+                // Anda bisa menentukan tindakan yang sesuai di sini
+                return null; // Misalnya, abaikan atau tangani kasus yang spesifik
+            }
+
+            $branchCode = str_pad($branchCode, 4, '0', STR_PAD_LEFT);
+
             if (!Branch::where('branch_code', $branchCode)->exists()) {
                 // Jika tidak ada, mengabaikan baris ini
                 return null;
@@ -29,21 +35,14 @@ class IncidentsImport implements ToModel, WithHeadingRow
 
             return new Incident([
                 'reported_date' => $this->parseIndonesianDate($row['tanggal_disetujui']),
-                'type_id' => $typeId,
+                'req_type' => $row['jenis_pengajuan'],
                 'branch_code' => $branchCode,
                 'req_status' => $row['status_pengajuan'],
                 'exec_status' => $execStatus,
                 'execution_date' => $row['tanggal_dikerjakan'] ? $this->parseIndonesianDate($row['tanggal_dikerjakan']) : null,
                 'sla_category' => $execStatus === 'Done' ? ($this->parseIndonesianDate($row['tanggal_dikerjakan']) === $this->parseIndonesianDate($row['tanggal_disetujui']) ? 'Meet SLA' : 'Over SLA') : null,
             ]);
-
         });
-    }
-
-    private function getTypeId($typeName)
-    {
-        $type = ReqType::firstOrCreate(['name' => $typeName]);
-        return $type->id;
     }
 
     private function parseIndonesianDate($dateInput) {

@@ -72,7 +72,7 @@ Run Seeder
 Compile Assets (Tailwind CSS)
 
 ```bash
-  npm run dev
+  npm run build
 ```
 Start the Application
 
